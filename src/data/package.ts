@@ -11,7 +11,7 @@ const packages: any = [
   ],
   title: "Nathula Sharing Tour – 1 Day",
   image: "https://media.istockphoto.com/id/2154423340/photo/india-gangtok-india-china-border-december-2023-tourist-at-view-of-nathula-pass-entrance-gate.jpg?s=2048x2048&w=is&k=20&c=99ygf0K20JLqZ_cyyRDaMz_KduibMxgTmL8ml6K55fM=",
-    shortDescription: "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok.",
+    shortDescription: "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes",
     summary: [
        "India-China Border",
        "Snowy Mountain Views",
