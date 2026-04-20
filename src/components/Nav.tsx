@@ -52,6 +52,37 @@ const Navigation = () => {
             >
               Destinations
             </Link>
+<Link 
+              to="/cabs" 
+              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
+                location.pathname === "/cabs"
+                  ? "text-blue-600 bg-gray-50 after:w-4/5"
+                  : ""
+              }`}
+            >
+              Cab Booking
+            </Link>
+            <Link 
+              to="/accommodations" 
+              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
+                location.pathname === "/accommodations"
+                  ? "text-blue-600 bg-gray-50 after:w-4/5"
+                  : ""
+              }`}
+            >
+              Hotels
+            </Link>
+
+            <Link 
+              to="/bikes" 
+              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
+                location.pathname === "/bikes"
+                  ? "text-blue-600 bg-gray-50 after:w-4/5"
+                  : ""
+              }`}
+            >
+              Bikes
+            </Link>
 
             <Link 
               to="/activities" 
@@ -74,33 +105,11 @@ const Navigation = () => {
             >
               Cultures
             </Link>
-
-            <Link 
-              to="/accommodations" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/accommodations"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Hotels
-            </Link>
-
-            <Link 
-              to="/contact" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/contact"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Contact Us
-            </Link>
           </ul>
 
           {/* Actions - Desktop */}
           <div className="hidden md:flex gap-2">
-            <Link to={'/destinations'}>
+            <Link to={'/contact'}>
              <button 
               className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-200 focus-visible:outline-offset-2"
               style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
@@ -173,6 +182,45 @@ const Navigation = () => {
               </li>
               <li>
                 <Link
+                  to="/cabs"
+                  onClick={closeMobileMenu}
+                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
+                    location.pathname === "/cabs"
+                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
+                      : ""
+                  }`}
+                >
+                  Cab Booking
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/accommodations"
+                  onClick={closeMobileMenu}
+                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
+                    location.pathname === "/accommodations"
+                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
+                      : ""
+                  }`}
+                >
+                  Hotels
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/bikes"
+                  onClick={closeMobileMenu}
+                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
+                    location.pathname === "/bikes"
+                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
+                      : ""
+                  }`}
+                >
+                  Bikes
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/activities"
                   onClick={closeMobileMenu}
                   className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
@@ -197,36 +245,10 @@ const Navigation = () => {
                   Cultures
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/accommodations"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/accommodations"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Hotels
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/contact"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Contact Us
-                </Link>
-              </li>
             </ul>
 
             {/* Mobile Book Now Button */}
-            <Link to={'/destinations'} onClick={closeMobileMenu}>
+            <Link to={'/contact'} onClick={closeMobileMenu}>
              <button 
               className="w-full mt-4 px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-white shadow-lg transition-all duration-200 active:scale-95"
               style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
