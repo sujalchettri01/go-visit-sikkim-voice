@@ -1,81 +1,72 @@
 const bikesData = [
   {
     id: '1',
-    bike_name: 'Cruiser Classic',
-    company: 'Ride Freedom',
-    capacity: 1,
-    pricePerDay: 25,
-    image: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400&h=300&fit=crop',
+    bike_name: 'RE Himalayan',
+    company: 'Royal Enfield',
+    capacity: 2,
+    pricePerDay: 1800,
+    image: 'https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776184389/himalayan-452-right-side-view-9_cjfras.webp',
     rating: 4.6,
     features: ['Comfortable Seat', 'Classic Design', 'Easy Handling']
   },
   {
     id: '2',
-    bike_name: 'Sport Bike 600cc',
-    company: 'Speed Demons',
+    bike_name: 'Hero Xpulse',
+    company: 'Hero',
     capacity: 2,
-    pricePerDay: 45,
-    image: 'https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=400&h=300&fit=crop',
+    pricePerDay: 1500,
+    image: 'https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776184390/pulse200_4V_1_sarjqq.png',
     rating: 4.8,
     features: ['High Speed', 'Sport Mode', 'ABS Brakes']
   },
   {
     id: '3',
-    bike_name: 'Adventure Tourer',
-    company: 'Explorer Bikes',
+    bike_name: 'RE Scram',
+    company: 'Royal Enfield',
     capacity: 2,
-    pricePerDay: 60,
-    image: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=400&h=300&fit=crop',
+    pricePerDay: 1800,
+    image: 'https://res.cloudinary.com/djsguxriw/image/upload/v1776184389/scram-411-right-side-view-13_qjml2q.webp',
     rating: 4.9,
     features: ['Off-Road Ready', 'Large Fuel Tank', 'Panniers']
   },
   {
     id: '4',
-    bike_name: 'Street Fighter',
-    company: 'Urban Riders',
-    capacity: 2,
-    pricePerDay: 40,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
+    bike_name: 'RE Classic 350',
+    company: 'Royal Enfield',
+    pricePerDay: 1500,
+    image: 'https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776184390/royal-enfield-classic-350-1000x1000_kzpjlm.png',
     rating: 4.7,
     features: ['Naked Style', 'Aggressive Look', 'LED Lights']
   },
   {
     id: '5',
-    bike_name: 'Retro Classic',
-    company: 'Vintage Motors',
-    capacity: 1,
-    pricePerDay: 35,
-    image: 'https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=400&h=300&fit=crop',
+    bike_name: 'TVS Ntorq',
+    company: 'TVS',
+    capacity: 2,
+    pricePerDay: 1000,
+    image: 'https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776526725/TVS_ntorq_orflph.png',
     rating: 4.5,
     features: ['Vintage Style', 'Chrome Finish', 'Leather Seat']
   },
+ 
   {
     id: '6',
-    bike_name: 'Scooter Easy Ride',
-    company: 'Urban Scooters',
-    capacity: 2,
-    pricePerDay: 20,
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop',
-    rating: 4.3,
-    features: ['Fuel Efficient', 'Under Seat Storage', 'Easy Parking']
-  },
-  {
-    id: '7',
-    bike_name: 'Superbike 1000cc',
+    bike_name: 'Himalayan 411',
     company: 'Speed Demons',
     capacity: 2,
     pricePerDay: 80,
-    image: 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?w=400&h=300&fit=crop',
+    image: ' https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776528119/Himalayan_411_qy8g7a.png',
     rating: 4.9,
     features: ['Race Mode', 'Quick Shifter', 'Traction Control']
   },
+  /*
   {
     id: '8',
-    bike_name: 'Commuter 150cc',
+    bike_name: 'Himalayan 411',
     company: 'Daily Rides',
     capacity: 2,
     pricePerDay: 18,
-    image: 'https://images.unsplash.com/photo-1558980664-769d59546b3d?w=400&h=300&fit=crop',
+    image:'',
     rating: 4.2,
     features: ['Fuel Efficient', 'Comfortable', 'Reliable']
   },
@@ -98,7 +89,7 @@ const bikesData = [
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop',
     rating: 4.4,
     features: ['Zero Emissions', 'Silent', 'Low Cost']
-  }
+  }  */
 ];
 
 export default bikesData;
