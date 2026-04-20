@@ -1,121 +1,324 @@
 const activities = [
   {
-    id: 1,
-    name: "Trekking & Hiking",
-    description: "Explore pristine trails through rhododendron forests and alpine meadows with breathtaking mountain views.",
-    longDescription: "Embark on an unforgettable trekking adventure through the pristine landscapes of Sikkim. Our expert guides will lead you through ancient rhododendron forests, across alpine meadows, and up to stunning viewpoints offering panoramic views of the mighty Kanchenjunga and surrounding peaks. This multi-day trek is perfect for nature enthusiasts and adventure seekers looking to immerse themselves in the natural beauty of the Eastern Himalayas.",
-    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
-    difficulty: "Moderate",
-    duration: "3-7 Days",
-    bestSeason: "March-May, Sept-Nov",
-    category: "Adventure",
-    actionLabel: "Plan Trek",
-    features: ["Expert Guides", "Safety Equipment", "Mountain Permits", "Camping Gear", "Meals Included", "First Aid Support"],
-    whatToBring: ["Trekking boots", "Warm layers", "Rain jacket", "Sunscreen", "Water bottle", "Personal medications", "Headlamp", "Trekking poles"],
-    highlights: [
-      "Witness stunning sunrise views over Kanchenjunga",
-      "Walk through blooming rhododendron forests",
-      "Experience local village culture",
-      "Camp under star-filled mountain skies"
-    ],
-    safetyInfo: "All treks are led by certified mountain guides with extensive knowledge of the terrain and weather patterns. We maintain small group sizes for personalized attention and safety.",
-    preparation: "Participants should have moderate fitness levels and acclimatize properly before high-altitude sections.",
-    experienceLevel: "Suitable for beginners to intermediate trekkers",
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  id: 1,
+  name: "Goechala Trek (7-Day Fast Trek)",
+  description: "A high-altitude Himalayan trek offering breathtaking sunrise views of Kanchenjunga, alpine lakes, and pristine forest trails.",
+  
+  longDescription: "Experience one of the most iconic treks in Sikkim with this 7-day fast-paced Goechala trek. Starting from Yuksom, the journey takes you through dense rhododendron forests, alpine meadows, and high-altitude camps like Dzongri and Thansing. Witness the magical sunrise over Mount Kanchenjunga from Goechala Viewpoint (~4600m) and explore stunning locations like Samiti Lake. This trek is ideal for adventure seekers looking for a compact yet intense Himalayan experience.",
+  
+  image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776424398/657852386_1404912934984388_4859059018332100521_n_kgauwv.jpg",
+  
+  //difficulty: "Moderate to Challenging",
+  duration: "7 Days",
+  bestSeason: "March-May, Sept-Nov",
+  category: "Adventure",
+  actionLabel: "Plan Trek",
+  
+  features: [
+    "Certified Mountain Guides",
+    "Camping Accommodation",
+    "Meals Included",
+    "Permits Assistance",
+    "First Aid Support",
+    "High-altitude Trek Experience"
   ],
-  },
-  {
-    id: 2,
-    name: "River Rafting",
-    description: "Experience the thrill of white water rafting on the mighty Teesta and Rangit rivers.",
-    longDescription: "Get your adrenaline pumping with an exhilarating white water rafting experience on the crystal-clear waters of Teesta and Rangit rivers. Navigate through Grade II to IV rapids under the guidance of certified instructors, surrounded by lush green hills and spectacular mountain scenery. Perfect for thrill-seekers and water sports enthusiasts.",
-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
-    difficulty: "Challenging",
-    duration: "2-4 Hours",
-    bestSeason: "October-April",
-    category: "Adventure",
-    actionLabel: "Book Now",
-    features: ["Grade II-IV Rapids", "Safety Gear", "Professional Instructors", "Safety Kayakers", "Riverside Refreshments", "Photo Package Available"],
-    whatToBring: ["Swimming costume", "Spare clothes", "Waterproof bag", "Sunscreen", "Secure footwear", "Towel"],
-    highlights: [
-      "Navigate thrilling Grade III-IV rapids",
-      "Enjoy scenic views of the Himalayan foothills",
-      "Learn professional rafting techniques",
-      "Experience the power of mountain rivers"
-    ],
-    safetyInfo: "All participants must wear life jackets and helmets. Our safety kayakers patrol the river during all sessions. Comprehensive safety briefing provided before departure.",
-    preparation: "Basic swimming knowledge recommended. Not suitable for pregnant women or people with heart conditions.",
-    experienceLevel: "Suitable for adventure seekers with good physical fitness",
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
-  },
-  {
-    id: 3,
-    name: "Monastery Tours",
-    description: "Visit ancient Buddhist monasteries and immerse yourself in spiritual traditions and culture.",
-    longDescription: "Journey through Sikkim's rich spiritual heritage with guided tours of ancient Buddhist monasteries. Experience the peaceful atmosphere of these sacred sites, witness prayer ceremonies, observe intricate murals and sculptures, and learn about Tibetan Buddhism from knowledgeable local guides. A perfect cultural immersion for those seeking spiritual enrichment and cultural understanding.",
-    image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80",
-    difficulty: "Easy",
-    duration: "Half Day",
-    bestSeason: "Year Round",
-    category: "Cultural",
-    actionLabel: "Explore",
-    features: ["Cultural Insights", "Prayer Ceremonies", "Local Guides", "Photography Allowed", "Traditional Tea", "Souvenir Shop Access"],
-    whatToBring: ["Modest clothing", "Comfortable walking shoes", "Camera", "Small donation (optional)", "Notebook for insights", "Water bottle"],
-    highlights: [
-      "Visit centuries-old monasteries",
-      "Witness monks in prayer ceremonies",
-      "Learn about Buddhist philosophy and practices",
-      "View ancient murals and sacred artifacts",
-      "Experience traditional butter lamp lighting"
-    ],
-    safetyInfo: "Respectful behavior and modest dress required. Photography may be restricted in certain areas. Please follow guide instructions.",
-    preparation: "Dress modestly covering shoulders and knees. Remove shoes before entering prayer halls. Maintain silence in sacred areas.",
-    experienceLevel: "Suitable for all ages and fitness levels",
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
-  },
-  {
-    id: 4,
-    name: "Paragliding",
-    description: "Soar above the mountains and valleys with tandem paragliding experiences.",
-    longDescription: "Experience the ultimate bird's eye view of Sikkim's stunning landscape with our tandem paragliding adventures. Fly with experienced, certified pilots and soar over verdant valleys, traditional villages, and witness the majestic Himalayan peaks from a unique perspective. Feel the rush of wind and freedom as you glide through the mountain air in complete safety.",
-    image: "https://images.unsplash.com/photo-1527236438218-d82077ae1f85?w=800&q=80",
-    difficulty: "Moderate",
-    duration: "30-45 Minutes",
-    bestSeason: "October-December",
-    category: "Adventure",
-    actionLabel: "Book Flight",
-    features: ["Tandem Flights", "Certified Pilots", "Photo Package", "Video Recording", "Safety Equipment", "Pre-flight Briefing"],
-    whatToBring: ["Comfortable sports shoes", "Sunglasses with strap", "Light jacket", "Camera with strap", "Valid ID proof", "Minimal belongings"],
-    highlights: [
-      "Soar at heights up to 2,000 feet",
-      "Panoramic views of the Himalayas",
-      "Professional photo and video documentation",
-      "Experience weightless flight",
-      "Safe landing on designated sites"
-    ],
-    safetyInfo: "All pilots are certified by international paragliding associations. Equipment is regularly inspected and maintained to highest standards. Weather conditions carefully monitored.",
-    preparation: "Weight restrictions apply (40-100 kg). Not suitable for pregnant women or people with severe medical conditions. Weather-dependent activity.",
-    experienceLevel: "No prior experience needed - suitable for first-time flyers"
-  }
-];
 
+  itinerary: [
+    {
+      day: 1,
+      title: "NJP / Bagdogra → Yuksom",
+      details: "Drive (~150 km, 6–7 hrs) to Yuksom, the base village. Evening rest and briefing."
+    },
+    {
+      day: 2,
+      title: "Yuksom → Tshoka",
+      details: "Trek via Sachen and Bakhim (~15 km, 6–7 hrs). Camp at Tshoka."
+    },
+    {
+      day: 3,
+      title: "Tshoka → Dzongri",
+      details: "Steady climb (~9 km, 5–6 hrs). Camp at Dzongri with altitude acclimatization."
+    },
+    {
+      day: 4,
+      title: "Dzongri → Thansing",
+      details: "Sunrise hike to Dzongri Top, then trek (~10 km) to Thansing."
+    },
+    {
+      day: 5,
+      title: "Thansing → Lamuney",
+      details: "Short trek (~4–5 km) via Samiti Lake. Prepare for summit push."
+    },
+    {
+      day: 6,
+      title: "Lamuney → Goechala → Kokchurong",
+      details: "Early start (2–3 AM), reach Goechala Viewpoint (~4600m) for sunrise, descend to Kokchurong."
+    },
+    {
+      day: 7,
+      title: "Kokchurong → Yuksom → NJP/Bagdogra",
+      details: "Descend to Yuksom and drive back."
+    }
+  ],
+
+  whatToBring: [
+    "Trekking backpack (50–60L)",
+    "Warm/down jacket",
+    "Thermal wear",
+    "Waterproof jacket",
+    "Trekking shoes",
+    "Gloves & woolen cap",
+    "Sunglasses & sunscreen",
+    "Headlamp/torch",
+    "Water bottle",
+    "Personal medication"
+  ],
+
+  documentsRequired: [
+    "Aadhaar Card / Passport / Voter ID / Driving License (for Indians)",
+    "Passport & Visa (for foreigners)",
+    "Restricted Area Permit (for foreigners)",
+    "Passport-size photos",
+    "Medical fitness certificate"
+  ],
+
+  highlights: [
+    "Sunrise view over Mount Kanchenjunga",
+    "Dzongri Top panoramic viewpoint",
+    "Beautiful Samiti Lake",
+    "Dense rhododendron forests",
+    "Camping in high-altitude Himalayan terrain"
+  ],
+
+  safetyInfo: "Trek reaches high altitude (~4600m), so proper acclimatization is essential. Guided trekking is highly recommended. Medical fitness is required to avoid altitude sickness risks.",
+  
+  preparation: "Good physical fitness required. Prior trekking experience is helpful. Start cardio and endurance training at least 3–4 weeks before the trek.",
+  
+  experienceLevel: "Intermediate (Beginners with strong fitness can attempt)"
+},
+  {
+  id: 2,
+  name: "Dzongri Trek (5-Day Trek)",
+  description: "A short yet stunning Himalayan trek offering panoramic views of Kanchenjunga, alpine forests, and high-altitude landscapes.",
+
+  longDescription: "The Dzongri Trek is a perfect short Himalayan adventure in Sikkim, ideal for trekkers who want high-altitude mountain views in a limited time. Starting from Yuksom, the trail passes through dense forests, suspension bridges, and scenic campsites like Tshoka. The highlight of the trek is Dzongri Top, offering breathtaking panoramic views of Mount Kanchenjunga, Pandim, and Kabru peaks.",
+
+  image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg",
+
+ // difficulty: "Moderate",
+  duration: "4–5 Days",
+  bestSeason: "April-May, Oct-Nov",
+  category: "Adventure",
+  actionLabel: "Plan Trek",
+
+  features: [
+    "Guided Trekking Experience",
+    "Camping Accommodation",
+    "Mountain Views",
+    "Forest Trails",
+    "Permits Assistance",
+    "First Aid Support"
+  ],
+
+  itinerary: [
+    {
+      day: 1,
+      title: "NJP / Bagdogra → Yuksom",
+      details: "Drive (~150 km, 6–7 hrs) to Yuksom. Overnight stay at base village."
+    },
+    {
+      day: 2,
+      title: "Yuksom → Tshoka",
+      details: "Trek via Sachen and Bakhim (~15 km, 6–7 hrs). Cross suspension bridges over Prek Chu River. Camp at Tshoka."
+    },
+    {
+      day: 3,
+      title: "Tshoka → Dzongri",
+      details: "Trek through rhododendron forests (~9 km, 5–6 hrs). Reach Dzongri (~4020m). Camp overnight."
+    },
+    {
+      day: 4,
+      title: "Dzongri Top → Tshoka",
+      details: "Early morning hike to Dzongri Top for sunrise views of Kanchenjunga, Pandim, and Kabru peaks. Descend back to Tshoka."
+    },
+    {
+      day: 5,
+      title: "Tshoka → Yuksom → NJP/Bagdogra",
+      details: "Descend to Yuksom and drive back to NJP/Bagdogra."
+    }
+  ],
+
+  whatToBring: [
+    "Trekking backpack",
+    "Warm jacket",
+    "Thermal wear",
+    "Waterproof jacket",
+    "Trekking shoes",
+    "Gloves & woolen cap",
+    "Sunglasses & sunscreen",
+    "Water bottle",
+    "Headlamp",
+    "Personal medication"
+  ],
+
+  documentsRequired: [
+    "Aadhaar Card / Passport / Voter ID / Driving License",
+    "Passport & Visa (for foreigners)",
+    "Passport-size photos",
+    "Forest entry permits"
+  ],
+
+  highlights: [
+    "Panoramic sunrise view from Dzongri Top",
+    "Views of Kanchenjunga, Pandim & Kabru",
+    "Rhododendron forest trails",
+    "Suspension bridges over Prek Chu River",
+    "Peaceful mountain campsites"
+  ],
+
+  safetyInfo: "Altitude reaches ~4020m, so acclimatization is important. Trek with certified guides and follow safety instructions carefully.",
+
+  preparation: "Moderate fitness required. Basic trekking experience recommended. Start light cardio training before the trek.",
+
+  experienceLevel: "Beginner to Intermediate"
+},
+   {
+  id: 3,
+  name: "Uttarey to Yuksom Trek (12-Day Expedition)",
+  description: "A complete Himalayan expedition combining Singalila Ridge, Dzongri, and Goechala with breathtaking views of Kanchenjunga.",
+
+  longDescription: "The Uttarey to Yuksom trek is one of the most comprehensive and adventurous trekking routes in Sikkim. Starting from Uttarey, the trail follows the scenic Singalila Ridge before merging with the Dzongri and Goechala routes. Trekkers experience dense forests, alpine meadows, high-altitude lakes like Samiti Lake, and breathtaking sunrise views over Mount Kanchenjunga. This 12-day journey is ideal for serious trekkers looking for a complete Himalayan expedition.",
+
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg",
+
+  //difficulty: "Moderate to Difficult",
+  duration: "12 Days",
+  bestSeason: "April-May, Oct-Nov",
+  category: "Adventure",
+  actionLabel: "Plan Trek",
+
+  price: "₹30,000 per person",
+
+  features: [
+    "Certified Trekking Guides",
+    "Camping & Kitchen Support",
+    "Meals Included (Breakfast, Lunch, Dinner)",
+    "Porter Services",
+    "Permits & Park Entry Fees",
+    "Transport Included"
+  ],
+
+  itinerary: [
+    {
+      day: 1,
+      title: "NJP / Bagdogra → Uttarey",
+      details: "Drive (~7–8 hrs) to Uttarey, the starting point. Overnight stay."
+    },
+    {
+      day: 2,
+      title: "Uttarey → Chiwa Bhanjyang",
+      details: "Trek (~10 km, 5–6 hrs) through forest trails along Singalila Ridge. Camp at Chiwa Bhanjyang."
+    },
+    {
+      day: 3,
+      title: "Chiwa Bhanjyang → Dhor",
+      details: "Trek (~9 km, 5 hrs) with stunning ridge views of Kanchenjunga. Camp at Dhor."
+    },
+    {
+      day: 4,
+      title: "Dhor → Thulo Dhap",
+      details: "Trek (~7 km, 4–5 hrs) through alpine meadows and grazing fields. Camp at Thulo Dhap."
+    },
+    {
+      day: 5,
+      title: "Thulo Dhap → Dzongri",
+      details: "Trek (~10 km, 6 hrs) and join the main Dzongri trail. Camp at Dzongri."
+    },
+    {
+      day: 6,
+      title: "Dzongri Acclimatization",
+      details: "Hike to Dzongri Top for panoramic views of Kanchenjunga and Pandim. Rest day."
+    },
+    {
+      day: 7,
+      title: "Dzongri → Thansing",
+      details: "Descend towards Prek Chu River valley. Camp at Thansing."
+    },
+    {
+      day: 8,
+      title: "Thansing → Lamuney",
+      details: "Short trek via Samiti Lake. Camp at Lamuney."
+    },
+    {
+      day: 9,
+      title: "Lamuney → Goecha La → Thansing",
+      details: "Early morning trek to Goecha La Viewpoint (~4600m) for sunrise. Return to Thansing."
+    },
+    {
+      day: 10,
+      title: "Thansing → Tshoka",
+      details: "Descend via Kokchurong to Tshoka."
+    },
+    {
+      day: 11,
+      title: "Tshoka → Yuksom",
+      details: "Final descent to Yuksom and celebrate trek completion."
+    },
+    {
+      day: 12,
+      title: "Yuksom → NJP / Bagdogra",
+      details: "Drive back to NJP or Bagdogra."
+    }
+  ],
+
+  whatToBring: [
+    "Trekking backpack (50–60L)",
+    "Warm/down jacket",
+    "Thermal wear",
+    "Waterproof jacket",
+    "Trekking shoes",
+    "Gloves & woolen cap",
+    "Sunglasses & sunscreen",
+    "Headlamp/torch",
+    "Water bottle",
+    "Personal medication"
+  ],
+
+  documentsRequired: [
+    "Government ID (Aadhaar / Passport / Voter ID / Driving License)",
+    "Passport & Visa (for foreigners)",
+    "Passport-size photos",
+    "Forest permits"
+  ],
+
+  highlights: [
+    "Singalila Ridge trekking experience",
+    "Dzongri Top panoramic sunrise views",
+    "Samiti Lake turquoise beauty",
+    "Goecha La viewpoint (~4600m)",
+    "Complete Himalayan expedition experience"
+  ],
+
+  included: [
+    "Transport (NJP/Bagdogra ↔ Uttarey ↔ Yuksom)",
+    "Guide & porter services",
+    "Camping & kitchen staff",
+    "Meals during trek",
+    "Permits & park fees"
+  ],
+
+  notIncluded: [
+    "Personal trekking gear",
+    "Travel insurance",
+    "Train/flight tickets to NJP or Bagdogra"
+  ],
+
+  safetyInfo: "This trek reaches high altitude (~4600m). Proper acclimatization is essential. Always trek with experienced guides and follow safety protocols.",
+
+  preparation: "Strong physical fitness required. Prior trekking experience recommended. Prepare with cardio, endurance, and strength training.",
+
+  experienceLevel: "Advanced (Best for experienced trekkers)"
+},  
+
+];
 export default activities;
