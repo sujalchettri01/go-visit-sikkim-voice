@@ -8,7 +8,7 @@ const activities = [
   
   image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776424398/657852386_1404912934984388_4859059018332100521_n_kgauwv.jpg",
   
-  //difficulty: "Moderate to Challenging",
+  difficulty: "Moderate to Challenging",
   duration: "7 Days",
   bestSeason: "March-May, Sept-Nov",
   category: "Adventure",
@@ -105,7 +105,7 @@ const activities = [
 
   image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg",
 
- // difficulty: "Moderate",
+  difficulty: "Moderate",
   duration: "4–5 Days",
   bestSeason: "April-May, Oct-Nov",
   category: "Adventure",
@@ -191,7 +191,7 @@ const activities = [
 
     image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg",
 
-  //difficulty: "Moderate to Difficult",
+  difficulty: "Moderate to Difficult",
   duration: "12 Days",
   bestSeason: "April-May, Oct-Nov",
   category: "Adventure",

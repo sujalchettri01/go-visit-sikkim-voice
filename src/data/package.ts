@@ -637,7 +637,7 @@ reviews: []
   reviewCount: 0,
 
   minAge: 2,
- // difficulty: "Moderate",
+  difficulty: "Moderate",
   languages: ["English", "Hindi", "Nepali"],
   bestTime: "April to June & October to December",
 
