@@ -12,6 +12,7 @@ interface CabBookingModalProps {
 type TripType = "ONE_WAY" | "TWO_WAY" | "ROUND_TRIP";
 
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+console.log(siteKey);
 
 type BookingPayload = {
   cab_name: string;
@@ -115,7 +116,8 @@ export default function CabBookingModal({
     setIsSubmitting(true);
 
     const token = await recaptchaRef.current?.getValue();
-
+    console.log(token);
+    
     const bookingPayload: BookingPayload = {
       cab_name: cabName,
       tripType: formData.tripType,

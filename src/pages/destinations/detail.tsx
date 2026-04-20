@@ -535,6 +535,25 @@ const TourDetailPage: React.FC = () => {
   const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+const openLightbox = (i: number) => setLightboxIndex(i);
+const closeLightbox = () => setLightboxIndex(null);
+const showNext = () => setLightboxIndex(prev => ((prev! + 1) % tour.galleryImages.length));
+const showPrev = () => setLightboxIndex(prev => ((prev! - 1 + tour.galleryImages.length) % tour.galleryImages.length));
+
+// keyboard nav
+useEffect(() => {
+  const handler = (e: KeyboardEvent) => {
+    if (lightboxIndex === null) return;
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'Escape') closeLightbox();
+  };
+  window.addEventListener('keydown', handler);
+  return () => window.removeEventListener('keydown', handler);
+}, [lightboxIndex]);
+
   useEffect(() => {
     if (!tourId) return;
     const found = (packages as any[]).find(
@@ -740,10 +759,10 @@ const TourDetailPage: React.FC = () => {
                       </div>
                       <ul className="space-y-3 ml-20">
                         {item.activities.map(
-                          (activity: string, idx: number) => (
+                          (tour: string, idx: number) => (
                             <li key={idx} className="flex items-start">
                               <span className="text-blue-600 mr-3 mt-1">●</span>
-                              <span className="text-slate-700">{activity}</span>
+                              <span className="text-slate-700">{tour}</span>
                             </li>
                           )
                         )}
@@ -888,6 +907,85 @@ const TourDetailPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Gallery Section */}
+      {tour.galleryImages?.length > 0 && (
+        <section className="py-16 max-w-7xl mx-auto px-4">
+          <p className="text-sm font-medium text-slate-400 uppercase tracking-widest mb-1">
+            Gallery
+          </p>
+          <h2 className="text-3xl font-bold text-slate-800 mb-8">
+            {tour.name} in Sikkim
+          </h2>
+
+          <div className="grid grid-cols-3 gap-3">
+            {tour.galleryImages.map(
+              (img: { src: string; alt: string }, i: number) => (
+                <div
+                  key={i}
+                  className={
+                    i === 0
+                      ? "col-span-2 row-span-2" // hero: 2 cols, 2 rows tall
+                      : i === 1
+                        ? "col-span-1" // top right
+                        : "col-span-1" // bottom row
+                  }
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    onClick={() => openLightbox(i)}
+                    className={`w-full object-cover rounded-xl cursor-pointer hover:opacity-90 hover:scale-[1.02] transition-all duration-200 ${i === 0 ? "h-[370px]" : "h-[178px]"}`}
+                  />
+                </div>
+              ),
+            )}
+          </div>
+
+          <p className="text-sm text-slate-400 mt-3">
+            {tour.galleryImages.length} photos
+          </p>
+        </section>
+      )}
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 bg-black/85 z-50 flex items-center justify-center"
+          onClick={closeLightbox}
+        >
+          <button
+            onClick={closeLightbox}
+            className="absolute top-5 right-7 text-white text-4xl leading-none bg-transparent border-none cursor-pointer z-10"
+          >
+            ✕
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              showPrev();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl bg-white/15 hover:bg-white/25 px-4 py-3 rounded-lg z-10"
+          >
+            ←
+          </button>
+          <img
+            src={tour.galleryImages[lightboxIndex].src}
+            alt={tour.galleryImages[lightboxIndex].alt}
+            className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              showNext();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl bg-white/15 hover:bg-white/25 px-4 py-3 rounded-lg z-10"
+          >
+            →
+          </button>
+        </div>
+      )}
 
       {/* FAQ */}
       {tour.faqs && tour.faqs.length > 0 && (

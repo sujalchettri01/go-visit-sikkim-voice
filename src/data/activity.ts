@@ -20,7 +20,16 @@ const activities = [
     ],
     safetyInfo: "All treks are led by certified mountain guides with extensive knowledge of the terrain and weather patterns. We maintain small group sizes for personalized attention and safety.",
     preparation: "Participants should have moderate fitness levels and acclimatize properly before high-altitude sections.",
-    experienceLevel: "Suitable for beginners to intermediate trekkers"
+    experienceLevel: "Suitable for beginners to intermediate trekkers",
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 2,
@@ -43,7 +52,14 @@ const activities = [
     ],
     safetyInfo: "All participants must wear life jackets and helmets. Our safety kayakers patrol the river during all sessions. Comprehensive safety briefing provided before departure.",
     preparation: "Basic swimming knowledge recommended. Not suitable for pregnant women or people with heart conditions.",
-    experienceLevel: "Suitable for adventure seekers with good physical fitness"
+    experienceLevel: "Suitable for adventure seekers with good physical fitness",
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 3,
@@ -67,7 +83,14 @@ const activities = [
     ],
     safetyInfo: "Respectful behavior and modest dress required. Photography may be restricted in certain areas. Please follow guide instructions.",
     preparation: "Dress modestly covering shoulders and knees. Remove shoes before entering prayer halls. Maintain silence in sacred areas.",
-    experienceLevel: "Suitable for all ages and fitness levels"
+    experienceLevel: "Suitable for all ages and fitness levels",
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 4,

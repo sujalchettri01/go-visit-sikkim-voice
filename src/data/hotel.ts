@@ -15,7 +15,14 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Valid ID proof required", "Advance payment required", "Cancellation free up to 48 hours before check-in"],
     nearbyAttractions: ["MG Road - 2 km", "Rumtek Monastery - 24 km", "Tsomgo Lake - 40 km"],
-    roomTypes: ["Deluxe Room", "Premium Suite", "Royal Suite", "Presidential Suite"]
+    roomTypes: ["Deluxe Room", "Premium Suite", "Royal Suite", "Presidential Suite"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 2,
@@ -33,7 +40,14 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["ID proof mandatory", "No smoking in rooms", "Pets not allowed"],
     nearbyAttractions: ["Yumthang Valley - 25 km", "Zero Point - 35 km", "Lachung Monastery - 1 km"],
-    roomTypes: ["Standard Room", "Deluxe Valley View", "Family Suite"]
+    roomTypes: ["Standard Room", "Deluxe Valley View", "Family Suite"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 3,
@@ -51,7 +65,14 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Photo ID required", "Children above 5 years charged as adults", "Flexible cancellation policy"],
     nearbyAttractions: ["Pemayangtse Monastery - 3 km", "Khecheopalri Lake - 25 km", "Rabdentse Ruins - 5 km"],
-    roomTypes: ["Heritage Room", "Premium View Room", "Executive Suite", "Family Room"]
+    roomTypes: ["Heritage Room", "Premium View Room", "Executive Suite", "Family Room"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 4,
@@ -69,7 +90,14 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Valid ID proof required", "Smart casual dress code for dining", "Advance booking recommended"],
     nearbyAttractions: ["Rabdentse Ruins - 4 km", "Pemayangtse Monastery - 2 km", "Khecheopalri Lake - 26 km"],
-    roomTypes: ["Heritage Deluxe", "Colonial Suite", "Premium Heritage Room"]
+    roomTypes: ["Heritage Deluxe", "Colonial Suite", "Premium Heritage Room"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 5,
@@ -87,7 +115,14 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Respectful behavior expected", "Participate in family activities", "Simple and authentic accommodation"],
     nearbyAttractions: ["Norbugang Coronation Throne - 1 km", "Dubdi Monastery - 2 km", "Khecheopalri Lake - 35 km"],
-    roomTypes: ["Traditional Room", "Family Room with attached kitchen"]
+    roomTypes: ["Traditional Room", "Family Room with attached kitchen"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 6,
@@ -105,7 +140,14 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Corporate rates available", "Early check-in subject to availability", "Business center open 24/7"],
     nearbyAttractions: ["MG Road - 0.5 km", "Enchey Monastery - 3 km", "Ganesh Tok - 7 km"],
-    roomTypes: ["Standard Room", "Executive Room", "Business Suite"]
+    roomTypes: ["Standard Room", "Executive Room", "Business Suite"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 7,
@@ -123,7 +165,14 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Plastic-free property", "Minimal waste generation expected", "Respect for nature mandatory"],
     nearbyAttractions: ["Rinchenpong Monastery - 2 km", "Poison Lake - 5 km", "Varsey Rhododendron Sanctuary - 15 km"],
-    roomTypes: ["Bamboo Cottage", "Forest View Hut", "Eco-Suite"]
+    roomTypes: ["Bamboo Cottage", "Forest View Hut", "Eco-Suite"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 8,
@@ -141,7 +190,14 @@ const accommodations = [
     checkOut: "1:00 PM",
     policies: ["Luxury experience guarantee", "Late checkout available", "Personal butler service in suites"],
     nearbyAttractions: ["MG Road - 1.5 km", "Hanuman Tok - 10 km", "Tashi View Point - 8 km"],
-    roomTypes: ["Luxury Room", "Executive Suite", "Royal Suite", "Penthouse"]
+    roomTypes: ["Luxury Room", "Executive Suite", "Royal Suite", "Penthouse"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 9,
@@ -159,7 +215,14 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Advance booking recommended", "Flexible payment options", "Student discounts available"],
     nearbyAttractions: ["Char Dham - 5 km", "Samdruptse Statue - 7 km", "Rock Garden - 3 km"],
-    roomTypes: ["Standard Room", "Deluxe Room", "Triple Sharing"]
+    roomTypes: ["Standard Room", "Deluxe Room", "Triple Sharing"],
+    galleryImages: [
+    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
+    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
+    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
+    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
+    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+  ],
   },
   {
     id: 10,
