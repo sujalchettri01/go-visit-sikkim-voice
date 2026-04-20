@@ -157,7 +157,7 @@ const DestinationsPage = () => {
                     {destination.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    {destination.description}
+                    {destination.shortDescription}
                   </p>
 
                   {/* Meta Information */}

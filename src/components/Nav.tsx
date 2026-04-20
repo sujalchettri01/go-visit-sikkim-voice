@@ -237,7 +237,6 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
-      v1.0.0 changes
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
