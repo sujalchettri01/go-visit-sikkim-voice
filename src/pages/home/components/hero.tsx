@@ -18,7 +18,7 @@ const HomeHero = () => {
       />
 
       {/* Content */}
-      <div className="relative z-[2] text-center w-full max-w-[1200px] px-5 sm:px-8 py-16 sm:py-0 animate-[fadeInUp_1s_ease-out]">
+      <div className="relative z-[2] text-center w-full max-w-[1200px] px-5 sm:px-8  sm:py-0 animate-[fadeInUp_1s_ease-out]">
 
         {/* Badge */}
         <div className="inline-block px-4 sm:px-6 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs sm:text-sm font-semibold tracking-wider mb-6 sm:mb-8 border border-white/30 animate-pulse">

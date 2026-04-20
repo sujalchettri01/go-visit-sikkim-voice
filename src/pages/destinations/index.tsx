@@ -61,29 +61,21 @@ const DestinationsPage = () => {
           </p>
 
           {/* Feature Stats */}
-          <div className="flex gap-8 justify-center flex-wrap mb-8 max-md:flex-col max-md:gap-4">
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🗺️</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">15+</div>
-                <div className="text-sm text-white/80">Destinations</div>
-              </div>
+          <div className="flex flex-wrap gap-3 justify-center">
+          {[
+            { icon: '🗺️', label: '15+ Destinations' },
+            { icon: '⛰️', label: '12,000+ Feet Altitudes' },
+            { icon: '✨', label: '100% Memorable' },
+          ].map(({ icon, label }) => (
+            <div
+              key={label}
+              className="flex items-center gap-2 text-white font-medium px-4 sm:px-6 py-2.5 sm:py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/15 text-sm sm:text-base"
+            >
+              <span className="text-xl sm:text-2xl">{icon}</span>
+              <span>{label}</span>
             </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">⛰️</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">12,000+</div>
-                <div className="text-sm text-white/80">Feet Altitude</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">✨</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">100%</div>
-                <div className="text-sm text-white/80">Memorable</div>
-              </div>
-            </div>
-          </div>
+          ))}
+        </div>
         </div>
 
         {/* Scroll Indicator */}
