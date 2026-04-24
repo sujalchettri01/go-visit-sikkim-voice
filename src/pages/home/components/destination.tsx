@@ -64,7 +64,7 @@ const Destinations = () => {
                   </div>
                   <div className="flex items-center gap-1 text-gray-600 text-sm">
                     <span className="text-lg">👥</span>
-                    <span>{destination.maxGuests}</span>
+                    <span>{destination.minimum_guests} - {destination.maximum_guests}</span>
                   </div>
                 </div>
 

@@ -17,8 +17,8 @@ const DestinationsPage = () => {
           String(d.difficulty).trim().toLowerCase() === String(filter).trim().toLowerCase()
         )
   );
-    
-   
+  console.log("Selected Filter:", filter);
+  console.log(filteredDestinations)
 
   return (
     <div className="min-h-screen">
@@ -168,7 +168,7 @@ const DestinationsPage = () => {
                     </div>
                     <div className="flex items-center gap-2 text-gray-600 text-sm">
                       <span className="text-lg">👥</span>
-                      <span>{destination.suitableFor}</span>
+                      <span>{destination?.minimum_guests} - {destination?.maximum_guests}</span>
                     </div>
                   </div>
 

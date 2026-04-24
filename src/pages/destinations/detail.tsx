@@ -390,7 +390,8 @@ function PackageBookingModal({
                   name="number_of_people"
                   type="number"
                   required
-                  min="1"
+                  min={packageData?.minimum_guests || 1}
+                  max={packageData?.maximum_guests || 10}
                   value={formData.number_of_people}
                   onChange={handleInputChange}
                   className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-yellow-400 focus:ring-4 focus:ring-yellow-400/10"
@@ -463,7 +464,7 @@ function PackageBookingModal({
               <div className="flex justify-between items-center">
                 <span className="text-xs text-slate-600">Base Price:</span>
                 <span className="text-sm font-semibold text-slate-900">
-                  ₹{packageData?.price || 0}
+                  ₹{packageData?.price_for_1 || 0}
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -479,9 +480,7 @@ function PackageBookingModal({
                   Total Price:
                 </span>
                 <span className="text-xl font-bold text-blue-600">
-                  ₹
-                  {(packageData?.price || 0) *
-                    Number(formData.number_of_people)}
+                  ₹ {`${packageData?.[`price_for_${formData.number_of_people}`]}`}
                 </span>
               </div>
             </div>
