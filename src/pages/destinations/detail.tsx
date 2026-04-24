@@ -90,7 +90,7 @@ function PackageBookingModal({
   // });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -118,8 +118,6 @@ function PackageBookingModal({
       });
       return;
     }
-
-    
 
     try {
       // Execute reCAPTCHA
@@ -162,11 +160,11 @@ function PackageBookingModal({
       console.error("Error details:", error);
       console.error(
         "Error message:",
-        error instanceof Error ? error.message : "Unknown error"
+        error instanceof Error ? error.message : "Unknown error",
       );
       console.error(
         "Error stack:",
-        error instanceof Error ? error.stack : "No stack trace"
+        error instanceof Error ? error.stack : "No stack trace",
       );
 
       toast.error("An error occurred. Please try again.", {
@@ -537,27 +535,32 @@ const TourDetailPage: React.FC = () => {
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-const openLightbox = (i: number) => setLightboxIndex(i);
-const closeLightbox = () => setLightboxIndex(null);
-const showNext = () => setLightboxIndex(prev => ((prev! + 1) % tour.galleryImages.length));
-const showPrev = () => setLightboxIndex(prev => ((prev! - 1 + tour.galleryImages.length) % tour.galleryImages.length));
+  const openLightbox = (i: number) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const showNext = () =>
+    setLightboxIndex((prev) => (prev! + 1) % tour.galleryImages.length);
+  const showPrev = () =>
+    setLightboxIndex(
+      (prev) =>
+        (prev! - 1 + tour.galleryImages.length) % tour.galleryImages.length,
+    );
 
-// keyboard nav
-useEffect(() => {
-  const handler = (e: KeyboardEvent) => {
-    if (lightboxIndex === null) return;
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'ArrowLeft') showPrev();
-    if (e.key === 'Escape') closeLightbox();
-  };
-  window.addEventListener('keydown', handler);
-  return () => window.removeEventListener('keydown', handler);
-}, [lightboxIndex]);
+  // keyboard nav
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxIndex]);
 
   useEffect(() => {
     if (!tourId) return;
     const found = (packages as any[]).find(
-      (t) => Number(t.id) === Number(tourId)
+      (t) => Number(t.id) === Number(tourId),
     );
     setTour(found ?? null);
   }, [tourId]);
@@ -569,7 +572,7 @@ useEffect(() => {
   const handleWhatsAppContact = () => {
     const phoneNumber = "1234567890";
     const message = encodeURIComponent(
-      `Hi, I'm interested in the ${tour?.title ?? tour?.name ?? ""}`
+      `Hi, I'm interested in the ${tour?.title ?? tour?.name ?? ""}`,
     );
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
@@ -666,7 +669,7 @@ useEffect(() => {
       </div>
 
       {/* Main Content with Sidebar */}
-      <section className="py-16 max-w-7xl mx-auto px-4">
+      <section className="py-8 max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Left Column - Tour Details */}
           <div className="lg:col-span-2 space-y-8">
@@ -749,23 +752,23 @@ useEffect(() => {
                       key={item.day}
                       className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg"
                     >
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold">
-                          Day {item.day}
+                      <div className="flex items-start gap-4 mb-6">
+                        {" "}
+                        {/* ← items-start not items-center */}
+                        <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full shrink-0 w-16 h-16 flex items-center justify-center sm:text-xl text-xs font-bold">
+                          Day {item.day} {/* ← shrink-0 added */}
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-800">
+                        <h3 className="text-lg sm:text-2xl font-bold text-slate-800">
                           {item.title}
                         </h3>
                       </div>
                       <ul className="space-y-3 ml-20">
-                        {item.activities.map(
-                          (tour: string, idx: number) => (
-                            <li key={idx} className="flex items-start">
-                              <span className="text-blue-600 mr-3 mt-1">●</span>
-                              <span className="text-slate-700">{tour}</span>
-                            </li>
-                          )
-                        )}
+                        {item.activities.map((tour: string, idx: number) => (
+                          <li key={idx} className="flex items-start">
+                            <span className="text-blue-600 mr-3 mt-1">●</span>
+                            <span className="text-slate-700">{tour}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   ))}
