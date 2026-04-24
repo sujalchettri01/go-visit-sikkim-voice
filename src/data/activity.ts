@@ -1,6 +1,13 @@
 const activities = [
   {
   id: 1,
+  galleryImages: [
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970552/656047876_1455509972787698_8585251362274667838_n_jbysrg.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970545/656208338_1455510026121026_8238093014868288662_n_h8cfjv.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970463/502729675_4099808260231283_7029866914746028641_n_z8chlf.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970484/101982841_2662631877396548_4942226658577874944_n_kmc9xq.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970472/667376110_1498478098574305_6134632917954005120_n_hsm1ys.jpg" },
+],
   name: "Goechala Trek (7-Day Fast Trek)",
   description: "A high-altitude Himalayan trek offering breathtaking sunrise views of Kanchenjunga, alpine lakes, and pristine forest trails.",
   
@@ -98,6 +105,11 @@ const activities = [
 },
   {
   id: 2,
+  galleryImages: [
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776971569/669807942_122170804598942268_4766562590035494733_n_yhpppo.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776971562/668315358_122170804460942268_3318142164273089893_n_uyra4u.jpg" },
+],
   name: "Dzongri Trek (5-Day Trek)",
   description: "A short yet stunning Himalayan trek offering panoramic views of Kanchenjunga, alpine forests, and high-altitude landscapes.",
 
@@ -184,6 +196,11 @@ const activities = [
 },
    {
   id: 3,
+  galleryImages: [
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776971804/482021690_1188497452876796_3423921172685693157_n_auts2c.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776971821/482191801_1188497366210138_2503978612599206880_n_fj1bas.jpg" },
+  { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776971812/482022726_1188497456210129_3057185351346666499_n_qfccng.jpg" },
+],
   name: "Uttarey to Yuksom Trek (12-Day Expedition)",
   description: "A complete Himalayan expedition combining Singalila Ridge, Dzongri, and Goechala with breathtaking views of Kanchenjunga.",
 
