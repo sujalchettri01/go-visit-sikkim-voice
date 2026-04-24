@@ -16,7 +16,7 @@ const DestinationsPage = () => {
       : packages.filter((d: any) =>
           String(d.difficulty).trim().toLowerCase() === String(filter).trim().toLowerCase()
         )
-  ).slice(0, 6);
+  );
     
    
 
