@@ -3,7 +3,7 @@ const cultureItems = [
     id: 1,
     title: "Buddhist Monasteries",
     shortDescription: "Sthg",
-    description: "Ancient monasteries perched on mountain slopes, where monks practice centuries-old traditions and visitors find spiritual serenity.",
+    description: "Ancient monasteries perched  on mountain slopes, where monks practice centuries-old traditions and visitors find spiritual serenity.",
     image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80",
     icon: "🏛️",
     category: "Spiritual",

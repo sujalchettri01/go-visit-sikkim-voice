@@ -2,23 +2,27 @@ const HomeHero = () => {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
     >
-      {/* Background wave */}
-      <div className="absolute inset-0 animate-[float_20s_ease-in-out_infinite]">
-        <div
-          className="absolute inset-0 bg-[url('data:image/svg+xml,...')] bg-bottom bg-cover bg-no-repeat"
-        />
-      </div>
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://res.cloudinary.com/djsguxriw/image/upload/v1773216362/anshika-7vHDicrPYOI-unsplash_v0toqz.jpg')`,
+        }}
+      />
 
-      {/* Overlay */}
+      {/* Dark overlay for text readability */}
       <div
         className="absolute inset-0"
-        style={{ background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.3) 100%)' }}
+        style={{ background: 'linear-gradient(135deg, rgba(102,126,234,0.55) 0%, rgba(118,75,162,0.55) 100%)' }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%)' }}
       />
 
       {/* Content */}
-      <div className="relative z-[2] text-center w-full max-w-[1200px] px-5 sm:px-8  sm:py-0 animate-[fadeInUp_1s_ease-out]">
+      <div className="relative z-[2] text-center w-full max-w-[1200px] px-5 sm:px-8 sm:py-0 animate-[fadeInUp_1s_ease-out]">
 
         {/* Badge */}
         <div className="inline-block px-4 sm:px-6 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs sm:text-sm font-semibold tracking-wider mb-6 sm:mb-8 border border-white/30 animate-pulse">
@@ -78,10 +82,6 @@ const HomeHero = () => {
       </div>
 
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
