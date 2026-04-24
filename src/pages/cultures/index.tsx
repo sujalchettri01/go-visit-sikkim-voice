@@ -17,73 +17,75 @@ const CulturePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        {/* Animated Background */}
-        <div className="absolute inset-0 animate-[float_20s_ease-in-out_infinite]">
-          <div 
-            className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20320%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%20d%3D%22M0%2C96L48%2C112C96%2C128%2C192%2C160%2C288%2C160C384%2C160%2C480%2C128%2C576%2C122.7C672%2C117%2C768%2C139%2C864%2C144C960%2C149%2C1056%2C139%2C1152%2C128C1248%2C117%2C1344%2C107%2C1392%2C101.3L1440%2C96L1440%2C320L1392%2C320C1344%2C320%2C1248%2C320%2C1152%2C320C1056%2C320%2C960%2C320%2C864%2C320C768%2C320%2C672%2C320%2C576%2C320C480%2C320%2C384%2C320%2C288%2C320C192%2C320%2C96%2C320%2C48%2C320L0%2C320Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-bottom bg-cover bg-no-repeat"
-          />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  {/* Background image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={{
+      backgroundImage: `url('https://res.cloudinary.com/djsguxriw/image/upload/v1776790844/Lepcha_Village_Experience14-014db39f_ykashe.jpg')`,
+    }}
+  />
+
+  {/* Purple gradient overlay */}
+  <div
+    className="absolute inset-0"
+    style={{ background: 'linear-gradient(135deg, rgba(102,126,234,0.6) 0%, rgba(118,75,162,0.6) 100%)' }}
+  />
+
+  {/* Radial dark overlay */}
+  <div
+    className="absolute inset-0"
+    style={{ background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%)' }}
+  />
+
+  {/* Hero Content */}
+  <div className="relative z-[2] text-center max-w-[1200px] px-8 animate-[fadeInUp_1s_ease-out]">
+    {/* Badge */}
+    <div className="inline-block px-6 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold tracking-wider mb-8 border border-white/30 animate-pulse">
+      🎭 CULTURAL HERITAGE
+    </div>
+
+    {/* Title */}
+    <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold text-white mb-6 leading-[1.1] [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
+      Discover the
+      <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+        Cultural Treasures
+      </span>
+      of Sikkim
+    </h1>
+
+    {/* Subtitle */}
+    <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-[700px] mx-auto mb-12 leading-relaxed">
+      Immerse yourself in centuries-old traditions, sacred rituals, and the
+      warm hospitality that defines the heart of the Himalayas
+    </p>
+
+    {/* Feature Stats */}
+    <div className="flex gap-8 justify-center flex-wrap mb-8 max-md:flex-col max-md:gap-4">
+      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
+        <span className="text-3xl">🏛️</span>
+        <div className="text-left">
+          <div className="text-2xl font-bold">200+</div>
+          <div className="text-sm text-white/80">Monasteries</div>
         </div>
-
-        {/* Overlay */}
-        <div 
-          className="absolute inset-0" 
-          style={{
-            background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.3) 100%)'
-          }}
-        />
-
-        {/* Hero Content */}
-        <div className="relative z-[2] text-center max-w-[1200px] px-8 animate-[fadeInUp_1s_ease-out]">
-          {/* Badge */}
-          <div className="inline-block px-6 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold tracking-wider mb-8 border border-white/30 animate-pulse">
-            🎭 CULTURAL HERITAGE
-          </div>
-
-          {/* Title */}
-          <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold text-white mb-6 leading-[1.1] [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
-            Discover the
-            <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              Cultural Treasures
-            </span>
-            of Sikkim
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-[700px] mx-auto mb-12 leading-relaxed">
-            Immerse yourself in centuries-old traditions, sacred rituals, and the 
-            warm hospitality that defines the heart of the Himalayas
-          </p>
-
-          {/* Feature Stats */}
-          <div className="flex gap-8 justify-center flex-wrap mb-8 max-md:flex-col max-md:gap-4">
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🏛️</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">200+</div>
-                <div className="text-sm text-white/80">Monasteries</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🎭</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">25+</div>
-                <div className="text-sm text-white/80">Festivals</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🌏</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">4</div>
-                <div className="text-sm text-white/80">Major Ethnicities</div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
+        <span className="text-3xl">🎭</span>
+        <div className="text-left">
+          <div className="text-2xl font-bold">25+</div>
+          <div className="text-sm text-white/80">Festivals</div>
         </div>
-
-        {/* Scroll Indicator */}
-        
-      </section>
+      </div>
+      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
+        <span className="text-3xl">🌏</span>
+        <div className="text-left">
+          <div className="text-2xl font-bold">4</div>
+          <div className="text-sm text-white/80">Major Ethnicities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Filter Section */}
       <section className="py-12 px-4 bg-gradient-to-b from-slate-50 to-white top-16 z-10 border-b border-gray-200 backdrop-blur-md bg-white/80">

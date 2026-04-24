@@ -4,38 +4,55 @@ import { Link } from "react-router-dom";
 
 // Sample destinations data
 
-
 const DestinationsPage = () => {
   const [filter, setFilter] = useState("All");
-  
-  const difficulties = ["All", "Easy", "Moderate", "Challenging", "Very Challenging"];
-  
-  const filteredDestinations = (
+
+  const difficulties = [
+    "All",
+    "Easy",
+    "Moderate",
+    "Challenging",
+    "Very Challenging",
+  ];
+
+  const filteredDestinations =
     filter === "All"
       ? packages
-      : packages.filter((d: any) =>
-          String(d.difficulty).trim().toLowerCase() === String(filter).trim().toLowerCase()
-        )
-  );
+      : packages.filter(
+          (d: any) =>
+            String(d.difficulty).trim().toLowerCase() ===
+            String(filter).trim().toLowerCase(),
+        );
   console.log("Selected Filter:", filter);
-  console.log(filteredDestinations)
+  console.log(filteredDestinations);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section - Inspired by HomeHero */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        {/* Animated Background */}
-        <div className="absolute inset-0 animate-[float_20s_ease-in-out_infinite]">
-          <div 
-            className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20320%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%20d%3D%22M0%2C96L48%2C112C96%2C128%2C192%2C160%2C288%2C160C384%2C160%2C480%2C128%2C576%2C122.7C672%2C117%2C768%2C139%2C864%2C144C960%2C149%2C1056%2C139%2C1152%2C128C1248%2C117%2C1344%2C107%2C1392%2C101.3L1440%2C96L1440%2C320L1392%2C320C1344%2C320%2C1248%2C320%2C1152%2C320C1056%2C320%2C960%2C320%2C864%2C320C768%2C320%2C672%2C320%2C576%2C320C480%2C320%2C384%2C320%2C288%2C320C192%2C320%2C96%2C320%2C48%2C320L0%2C320Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-bottom bg-cover bg-no-repeat"
-          />
-        </div>
-
-        {/* Overlay */}
-        <div 
-          className="absolute inset-0" 
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.3) 100%)'
+            backgroundImage: `url('https://res.cloudinary.com/djsguxriw/image/upload/v1776186643/tanmay-jain-wFNmv1AgHEs-unsplash_rouo8h.jpg')`,
+          }}
+        />
+
+        {/* Purple gradient overlay to maintain brand tone */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(102,126,234,0.6) 0%, rgba(118,75,162,0.6) 100%)",
+          }}
+        />
+
+        {/* Radial dark overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%)",
           }}
         />
 
@@ -56,8 +73,8 @@ const DestinationsPage = () => {
 
           {/* Subtitle */}
           <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-[700px] mx-auto mb-12 leading-relaxed">
-            From sacred lakes to ancient monasteries, discover the breathtaking beauty 
-            of the Himalayas
+            From sacred lakes to ancient monasteries, discover the breathtaking
+            beauty of the Himalayas
           </p>
 
           {/* Feature Stats */}
@@ -85,9 +102,6 @@ const DestinationsPage = () => {
             </div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-       
       </section>
 
       {/* Filter Section */}
@@ -120,7 +134,10 @@ const DestinationsPage = () => {
               🏔️ CURATED EXPERIENCES
             </span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
-              Majestic <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Mountains</span>
+              Majestic{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Mountains
+              </span>
               <br />
               Await Your Discovery
             </h2>
@@ -132,16 +149,16 @@ const DestinationsPage = () => {
 
           {/* Destinations Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {filteredDestinations.map((destination:any, index:number) => (
-              <div 
-                key={destination.id} 
+            {filteredDestinations.map((destination: any, index: number) => (
+              <div
+                key={destination.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 border border-gray-200 hover:-translate-y-2 hover:shadow-2xl group animate-[fadeInUp_0.6s_ease-out]"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Destination Image */}
                 <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={destination.image} 
+                  <img
+                    src={destination.image}
                     alt={destination.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -168,15 +185,18 @@ const DestinationsPage = () => {
                     </div>
                     <div className="flex items-center gap-2 text-gray-600 text-sm">
                       <span className="text-lg">👥</span>
-                      <span>{destination?.minimum_guests} - {destination?.maximum_guests}</span>
+                      <span>
+                        {destination?.minimum_guests} -{" "}
+                        {destination?.maximum_guests}
+                      </span>
                     </div>
                   </div>
 
                   {/* Highlights */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {destination.summary.map((highlight : any, index : any) => (
-                      <span 
-                        key={index} 
+                    {destination.summary.map((highlight: any, index: any) => (
+                      <span
+                        key={index}
                         className="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium"
                       >
                         {highlight}
@@ -185,8 +205,8 @@ const DestinationsPage = () => {
                   </div>
 
                   {/* Link */}
-                  <Link 
-                    to={`/destinations/${destination.id}`} 
+                  <Link
+                    to={`/destinations/${destination.id}`}
                     className="group/link inline-flex items-center gap-2 text-blue-600 font-semibold no-underline transition-all duration-200 hover:gap-4"
                   >
                     Explore {destination.name}
@@ -202,8 +222,10 @@ const DestinationsPage = () => {
           {/* No Results Message */}
           {filteredDestinations.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-600">No destinations found for this difficulty level.</p>
-              <button 
+              <p className="text-xl text-gray-600">
+                No destinations found for this difficulty level.
+              </p>
+              <button
                 onClick={() => setFilter("All")}
                 className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
               >
@@ -235,12 +257,15 @@ const DestinationsPage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+      <section
+        className="relative py-24 px-4 overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        }}
+      >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div 
-            className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20320%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20fill-opacity%3D%221%22%20d%3D%22M0%2C96L48%2C112C96%2C128%2C192%2C160%2C288%2C160C384%2C160%2C480%2C128%2C576%2C122.7C672%2C117%2C768%2C139%2C864%2C144C960%2C149%2C1056%2C139%2C1152%2C128C1248%2C117%2C1344%2C107%2C1392%2C101.3L1440%2C96L1440%2C320L1392%2C320C1344%2C320%2C1248%2C320%2C1152%2C320C1056%2C320%2C960%2C320%2C864%2C320C768%2C320%2C672%2C320%2C576%2C320C480%2C320%2C384%2C320%2C288%2C320C192%2C320%2C96%2C320%2C48%2C320L0%2C320Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-bottom bg-cover bg-no-repeat"
-          />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20320%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20fill-opacity%3D%221%22%20d%3D%22M0%2C96L48%2C112C96%2C128%2C192%2C160%2C288%2C160C384%2C160%2C480%2C128%2C576%2C122.7C672%2C117%2C768%2C139%2C864%2C144C960%2C149%2C1056%2C139%2C1152%2C128C1248%2C117%2C1344%2C107%2C1392%2C101.3L1440%2C96L1440%2C320L1392%2C320C1344%2C320%2C1248%2C320%2C1152%2C320C1056%2C320%2C960%2C320%2C864%2C320C768%2C320%2C672%2C320%2C576%2C320C480%2C320%2C384%2C320%2C288%2C320C192%2C320%2C96%2C320%2C48%2C320L0%2C320Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-bottom bg-cover bg-no-repeat" />
         </div>
 
         <div className="relative max-w-4xl mx-auto text-center">
@@ -251,21 +276,22 @@ const DestinationsPage = () => {
             </span>
           </h2>
           <p className="text-xl text-white/90 mb-10 leading-relaxed">
-            Plan your perfect Sikkim journey with our expert guides and local insights
+            Plan your perfect Sikkim journey with our expert guides and local
+            insights
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to={'/contact'}>
-             <button 
-              className="group px-10 py-4 bg-white text-purple-600 rounded-xl font-semibold text-lg hover:bg-gray-50 hover:-translate-y-1 transition-all duration-200 shadow-xl inline-flex items-center justify-center"
-            >
-              <span>Plan Your Trip</span>
-              <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">→</span>
-            </button>
+            <Link to={"/contact"}>
+              <button className="group px-10 py-4 bg-white text-purple-600 rounded-xl font-semibold text-lg hover:bg-gray-50 hover:-translate-y-1 transition-all duration-200 shadow-xl inline-flex items-center justify-center">
+                <span>Plan Your Trip</span>
+                <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">
+                  →
+                </span>
+              </button>
             </Link>
-            <Link to={'/contact'}>
+            <Link to={"/contact"}>
               <button className="px-10 py-4 bg-transparent text-white border-2 border-white rounded-xl font-semibold text-lg hover:bg-white/10 hover:-translate-y-1 transition-all duration-200 backdrop-blur-sm">
-              Contact Us
-            </button> 
+                Contact Us
+              </button>
             </Link>
           </div>
         </div>
