@@ -1,25 +1,36 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useCurrentUser } from "../hooks/useCurrentUser"; // adjust path as needed
 
 const Navigation = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: user, isLoading } = useCurrentUser();
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const navLinkClass = (path: string) =>
+    `relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
+      location.pathname === path ? "text-blue-600 bg-gray-50 after:w-4/5" : ""
+    }`;
+
+  const mobileNavLinkClass = (path: string) =>
+    `block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
+      location.pathname === path
+        ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
+        : ""
+    }`;
+
+  const gradientBtn = "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)";
 
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] z-[1000] py-4 transition-all duration-200">
         <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between gap-8">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             onClick={closeMobileMenu}
             className="flex items-center gap-2 text-2xl font-bold text-blue-600 transition-transform duration-200 hover:scale-105 no-underline"
           >
@@ -31,95 +42,61 @@ const Navigation = () => {
 
           {/* Navigation Menu - Desktop */}
           <ul className="hidden md:flex list-none gap-4 m-0 p-0 flex-1 justify-center">
-            <Link
-              to="/"
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Home
-            </Link>
-           
-            <Link 
-              to="/destinations" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/destinations"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Destinations
-            </Link>
-<Link 
-              to="/cabs" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/cabs"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Cab Booking
-            </Link>
-            <Link 
-              to="/accommodations" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/accommodations"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Hotels
-            </Link>
-
-            <Link 
-              to="/bikes" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/bikes"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Bikes
-            </Link>
-
-            <Link 
-              to="/activities" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/activities"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Activities
-            </Link>
-
-            <Link 
-              to="/cultures" 
-              className={`relative px-4 py-2 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-600 after:to-purple-600 after:transition-all after:duration-200 hover:after:w-4/5 ${
-                location.pathname === "/cultures"
-                  ? "text-blue-600 bg-gray-50 after:w-4/5"
-                  : ""
-              }`}
-            >
-              Cultures
-            </Link>
+            {[
+              { to: "/", label: "Home" },
+              { to: "/destinations", label: "Destinations" },
+              { to: "/cabs", label: "Cab Booking" },
+              { to: "/accommodations", label: "Hotels" },
+              { to: "/bikes", label: "Bikes" },
+              { to: "/activities", label: "Activities" },
+              { to: "/cultures", label: "Cultures" },
+            ].map(({ to, label }) => (
+              <Link key={to} to={to} className={navLinkClass(to)}>
+                {label}
+              </Link>
+            ))}
           </ul>
 
           {/* Actions - Desktop */}
-          <div className="hidden md:flex gap-2">
-            <Link to={'/contact'}>
-             <button 
-              className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-200 focus-visible:outline-offset-2"
-              style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
-            >
-              <span 
-                className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100"
-              />
-              <span className="relative">Book Now</span>
-            </button>
-            </Link>
+          <div className="hidden md:flex items-center gap-3">
+            {!isLoading && (
+              <>
+                {user ? (
+                  <>
+                    {/* Book Now */}
+                    <Link to="/contact">
+                      <button
+                        className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg"
+                        style={{ background: gradientBtn }}
+                      >
+                        <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100" />
+                        <span className="relative">Book Now</span>
+                      </button>
+                    </Link>
+
+                    {/* User Avatar Icon → /user/dashboard */}
+                    <Link
+                      to="/user/dashboard"
+                      className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 no-underline"
+                      title="Go to your dashboard"
+                    >
+                      {user.name
+                        ? user.name.charAt(0).toUpperCase()
+                        : "U"}
+                    </Link>
+                  </>
+                ) : (
+                  /* Login Button */
+                  <Link to="/login">
+                    <button
+                      className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide border-2 border-blue-600 text-blue-600 bg-white transition-all duration-200 inline-flex items-center justify-center hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5"
+                    >
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,139 +105,74 @@ const Navigation = () => {
             className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-200"
             aria-label="Toggle menu"
           >
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-              }`}
-            />
+            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
           </button>
         </div>
 
         {/* Mobile Menu Dropdown */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+            isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="px-6 py-4 bg-white/95 backdrop-blur-md border-t border-gray-100">
             <ul className="list-none m-0 p-0 space-y-2">
-              <li>
-                <Link
-                  to="/"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/destinations"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/destinations"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Destinations
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cabs"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/cabs"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Cab Booking
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/accommodations"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/accommodations"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Hotels
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/bikes"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/bikes"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Bikes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/activities"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/activities"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Activities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cultures"
-                  onClick={closeMobileMenu}
-                  className={`block px-4 py-3 no-underline text-gray-600 font-medium rounded-lg transition-all duration-200 hover:text-blue-600 hover:bg-gray-50 ${
-                    location.pathname === "/cultures"
-                      ? "text-blue-600 bg-gray-50 border-l-4 border-blue-600"
-                      : ""
-                  }`}
-                >
-                  Cultures
-                </Link>
-              </li>
+              {[
+                { to: "/", label: "Home" },
+                { to: "/destinations", label: "Destinations" },
+                { to: "/cabs", label: "Cab Booking" },
+                { to: "/accommodations", label: "Hotels" },
+                { to: "/bikes", label: "Bikes" },
+                { to: "/activities", label: "Activities" },
+                { to: "/cultures", label: "Cultures" },
+              ].map(({ to, label }) => (
+                <li key={to}>
+                  <Link to={to} onClick={closeMobileMenu} className={mobileNavLinkClass(to)}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
 
-            {/* Mobile Book Now Button */}
-            <Link to={'/contact'} onClick={closeMobileMenu}>
-             <button 
-              className="w-full mt-4 px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-white shadow-lg transition-all duration-200 active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
-            >
-              Book Now
-            </button>
-            </Link>
+            {/* Mobile Auth Actions */}
+            {!isLoading && (
+              <div className="mt-4 space-y-2">
+                {user ? (
+                  <>
+                    <Link to="/contact" onClick={closeMobileMenu}>
+                      <button
+                        className="w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-white shadow-lg transition-all duration-200 active:scale-95"
+                        style={{ background: gradientBtn }}
+                      >
+                        Book Now
+                      </button>
+                    </Link>
+                    <Link to="/user/dashboard" onClick={closeMobileMenu}>
+                      <button className="w-full mt-2 px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-blue-600 border-2 border-blue-600 bg-white transition-all duration-200 active:scale-95 flex items-center justify-center gap-2">
+                        <span className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center text-xs font-bold">
+                          {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                        </span>
+                        My Dashboard
+                      </button>
+                    </Link>
+                  </>
+                ) : (
+                  <Link to="/login" onClick={closeMobileMenu}>
+                    <button
+                      className="w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-blue-600 border-2 border-blue-600 bg-white transition-all duration-200 active:scale-95"
+                    >
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/20 z-[999] md:hidden"
@@ -268,7 +180,6 @@ const Navigation = () => {
         />
       )}
 
-      {/* Spacer to account for fixed navigation */}
       <div className="h-20" />
     </>
   );
