@@ -14,8 +14,24 @@ import CultureDetailPage from "../pages/cultures/detail";
 import ContactPage from "../pages/contact";
 import LoginPage from "../pages/login/login";
 import SignupPage from "../pages/register/register";
+import AuthCallback from "../pages/AuthCallback";
+import Root from "../pages/Root";
+import Dashboard from "../pages/Dashboard";
 
 const router = createBrowserRouter([
+  {
+    path: "/user",
+    element: <Root />,
+    children: [
+      { path: "dashboard", element: <Dashboard /> },
+      // ...other routes
+    ],
+  },
+  // ✅ Outside auth-protected routes
+  {
+    path: "/auth/callback",
+    element: <AuthCallback />,
+  },
   {
     path:'/login',
     element: <LoginPage></LoginPage>,
