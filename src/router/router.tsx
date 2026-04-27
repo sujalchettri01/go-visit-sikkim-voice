@@ -12,63 +12,73 @@ import CabsListingPage from "../pages/cabs";
 import BikesListingPage from "../pages/bikes";
 import CultureDetailPage from "../pages/cultures/detail";
 import ContactPage from "../pages/contact";
-
+import LoginPage from "../pages/login/login";
+import SignupPage from "../pages/register/register";
 
 const router = createBrowserRouter([
-   {
-     path: "/",
-     element: <Layout></Layout>,
-     children: [
-        {
-          index: true,
-          element: <Home></Home>
-        },
-        {
-          path: '/destinations',
-          element: <DestinationsPage></DestinationsPage>
-        },
-        {
-          path: '/destinations/:id',
-          element: <TourDetailPage></TourDetailPage>
-        },
-        {
-          path: '/activities',
-          element: <ActivitiesPage></ActivitiesPage>
-        },
-        {
-          path: '/activities/:id',
-          element: <ActivityDetailPage></ActivityDetailPage>
-        },
-        {
-          path: '/cultures',
-          element: <CulturePage></CulturePage>
-        },
-         {
-          path: '/accommodations',
-          element: <AccommodationsPage></AccommodationsPage>
-        },
-        {
-          path: '/accommodations/:id',
-          element: <AccommodationDetailPage></AccommodationDetailPage>
-        },
-        {
-          path: '/cabs',
-          element: <CabsListingPage></CabsListingPage>
-        },
-        {
-          path: '/bikes',
-          element: <BikesListingPage></BikesListingPage>
-        },
-        {
-          path: '/cultures/:id',
-          element: <CultureDetailPage></CultureDetailPage>
-        },
-        {
-          path: '/contact',
-          element: <ContactPage></ContactPage>
-        }
-      ]
-   }
-])
+  {
+    index:true,
+    element: <LoginPage></LoginPage>,
+  },
+  {
+    path: "/register",
+    element: <SignupPage></SignupPage>,
+  },
+
+  {
+    path: "/",
+    element: <Layout></Layout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/destinations",
+        element: <DestinationsPage></DestinationsPage>,
+      },
+      {
+        path: "/destinations/:id",
+        element: <TourDetailPage></TourDetailPage>,
+      },
+      {
+        path: "/activities",
+        element: <ActivitiesPage></ActivitiesPage>,
+      },
+      {
+        path: "/activities/:id",
+        element: <ActivityDetailPage></ActivityDetailPage>,
+      },
+      {
+        path: "/cultures",
+        element: <CulturePage></CulturePage>,
+      },
+      {
+        path: "/accommodations",
+        element: <AccommodationsPage></AccommodationsPage>,
+      },
+      {
+        path: "/accommodations/:id",
+        element: <AccommodationDetailPage></AccommodationDetailPage>,
+      },
+      {
+        path: "/cabs",
+        element: <CabsListingPage></CabsListingPage>,
+      },
+      {
+        path: "/bikes",
+        element: <BikesListingPage></BikesListingPage>,
+      },
+      {
+        path: "/cultures/:id",
+        element: <CultureDetailPage></CultureDetailPage>,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage></ContactPage>,
+      },
+    ],
+  },
+]);
 
 export default router;
