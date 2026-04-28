@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSignup } from "../../hooks/useSignup"; // adjust path as needed
+import { toast } from "react-toastify";
+import { useSignup } from "../../hooks/useSignup";
 
 const SignupPage = () => {
   const { mutate: signup, isPending, error } = useSignup();
@@ -12,7 +13,14 @@ const SignupPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    signup(form);
+    signup(form, {
+      onSuccess: () => {
+        toast.success(
+          `📧 A confirmation email has been sent to ${form.email}. Please check your inbox!`,
+          { autoClose: 5000 }
+        );
+      },
+    });
   };
 
   return (
@@ -82,14 +90,11 @@ const SignupPage = () => {
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
 
-            {/* Button */}
             <button
               type="submit"
               disabled={isPending}
               className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-              style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%)'
-              }}
+              style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%)" }}
             >
               {isPending ? "Creating account…" : "Sign Up"}
             </button>
