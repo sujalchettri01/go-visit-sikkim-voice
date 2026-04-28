@@ -13,7 +13,7 @@ const LoginPage = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:3000/api/auth/google";
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/auth/google`; // adjust URL as needed
   };
 
   return (
