@@ -185,7 +185,7 @@ function PackageBookingModal({
 
       const url = `${
         import.meta.env.VITE_BASE_URL || "http://localhost:4000"
-      }/api/package-bookings`;
+      }/package-bookings`;
       console.log("POST URL:", url);
 
       const response = await apiFetch(url, {

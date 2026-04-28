@@ -138,7 +138,7 @@ export default function HotelBookingModal({
 
     try {
       const response = await apiFetch(
-        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/api/accommodation-bookings`,
+        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/accommodation-bookings`,
         {
           method: "POST",
           headers: {

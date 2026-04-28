@@ -144,7 +144,7 @@ export default function CabBookingModal({
 
     try {
       const response = await apiFetch(
-        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/api/vehicle-bookings`,
+        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/vehicle-bookings`,
         {
           method: "POST",
           headers: {

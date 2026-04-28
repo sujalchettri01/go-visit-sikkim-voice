@@ -89,7 +89,7 @@ export default function ActivityBookingModal({
 
     try {
       const response = await apiFetch(
-        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/api/activity-bookings`,
+        `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/activity-bookings`,
         {
           method: "POST",
           headers: {

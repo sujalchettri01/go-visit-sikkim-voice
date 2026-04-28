@@ -31,7 +31,7 @@ const ContactPage = () => {
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       // const response = await api.post('/contacts', data);
-      const response = await fetch( `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/api/contacts`, {
+      const response = await fetch( `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
