@@ -4,6 +4,7 @@ import packages from "../../data/package";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import ReCAPTCHA from "react-google-recaptcha";
+import apiFetch from "../../wrapper/apiCall";
 
 type Tour = any;
 
@@ -187,19 +188,20 @@ function PackageBookingModal({
       }/api/package-bookings`;
       console.log("POST URL:", url);
 
-      const response = await fetch(url, {
+      const response = await apiFetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          
         },
+        credentials: "include",
         body: JSON.stringify(bookingData),
       });
 
-      console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
+     
 
-      if (!response.ok) {
-        const errorText = await response.text();
+      if (!response || !response.ok) {
+        const errorText = await response?.text();
         console.error("Error response:", errorText);
         throw new Error(`Booking failed: ${errorText}`);
       }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "react-toastify";
+import apiFetch from "../../wrapper/apiCall";
 
 interface HotelBookingModalProps {
   isOpen: boolean;
@@ -136,18 +137,19 @@ export default function HotelBookingModal({
     };
 
     try {
-      const response = await fetch(
+      const response = await apiFetch(
         `${import.meta.env.VITE_BASE_URL || "http://localhost:4000"}/api/accommodation-bookings`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify(bookingPayload),
         }
       );
 
-      if (!response.ok) {
+      if (!response || !response.ok) {
         throw new Error("Booking failed");
       }
 

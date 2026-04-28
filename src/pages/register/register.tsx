@@ -1,4 +1,20 @@
+import { useState } from "react";
+import { useSignup } from "../../hooks/useSignup"; // adjust path as needed
+
 const SignupPage = () => {
+  const { mutate: signup, isPending, error } = useSignup();
+
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    signup(form);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
@@ -26,35 +42,56 @@ const SignupPage = () => {
             Start your adventure 🌍
           </p>
 
+          {/* Error message */}
+          {error && (
+            <div className="mb-4 px-4 py-3 rounded-xl bg-red-500/20 border border-red-400/40 text-red-200 text-sm text-center">
+              {error.message || "Something went wrong. Please try again."}
+            </div>
+          )}
+
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
 
             <input
               type="text"
+              name="name"
               placeholder="Full Name"
+              value={form.name}
+              onChange={handleChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
 
             <input
               type="email"
+              name="email"
               placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
 
             <input
               type="password"
+              name="password"
               placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
 
             {/* Button */}
             <button
-              className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:-translate-y-1"
+              type="submit"
+              disabled={isPending}
+              className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-200 hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               style={{
                 background: 'linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%)'
               }}
             >
-              Sign Up
+              {isPending ? "Creating account…" : "Sign Up"}
             </button>
 
           </form>
