@@ -17,6 +17,7 @@ import SignupPage from "../pages/register/register";
 import AuthCallback from "../pages/AuthCallback";
 import Root from "../pages/Root";
 import Dashboard from "../pages/Dashboard";
+import CabBookingPage from "../pages/cabs/Booking";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
         path: "/cabs",
         element: <CabsListingPage></CabsListingPage>,
       },
+      { path: "cabs/book/:id", element: <CabBookingPage /> },
       {
         path: "/bikes",
         element: <BikesListingPage></BikesListingPage>,

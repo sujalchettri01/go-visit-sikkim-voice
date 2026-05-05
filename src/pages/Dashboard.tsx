@@ -10,6 +10,16 @@ interface User {
   role: string;
 }
 
+interface Payment {
+  id: number;
+  razorpay_order_id: string;
+  razorpay_payment_id: string | null;
+  amount: number;
+  currency: string;
+  status: "CREATED" | "PAID" | "FAILED" | "REFUNDED";
+  paid_at: string | null;
+}
+
 interface PackageBooking {
   id: number;
   booking_ref: string;
@@ -39,6 +49,7 @@ interface VehicleBooking {
   totalCost: string;
   status: string;
   createdAt: string;
+  payment: Payment | null;
 }
 
 interface BikeBooking {
@@ -127,6 +138,51 @@ const StatusBadge = ({ status }: { status: string }) => {
   );
 };
 
+const PaymentBadge = ({ payment }: { payment: Payment | null }) => {
+  if (!payment) return <span className="text-slate-300 text-xs">—</span>;
+
+  const map: Record<string, { dot: string; pill: string; label: string }> = {
+    PAID: {
+      dot: "bg-emerald-400",
+      pill: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      label: "Paid",
+    },
+    CREATED: {
+      dot: "bg-amber-400",
+      pill: "bg-amber-50 text-amber-700 border-amber-200",
+      label: "Pending",
+    },
+    FAILED: {
+      dot: "bg-red-400",
+      pill: "bg-red-50 text-red-700 border-red-200",
+      label: "Failed",
+    },
+    REFUNDED: {
+      dot: "bg-sky-400",
+      pill: "bg-sky-50 text-sky-700 border-sky-200",
+      label: "Refunded",
+    },
+  };
+
+  const style = map[payment.status] ?? map.CREATED;
+
+  return (
+    <div className="flex flex-col gap-1">
+      <span
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${style.pill}`}
+      >
+        <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />
+        {style.label}
+      </span>
+      {payment.razorpay_payment_id && (
+        <span className="text-[10px] font-mono text-slate-400 truncate max-w-[120px]">
+          {payment.razorpay_payment_id}
+        </span>
+      )}
+    </div>
+  );
+};
+
 // ─── Empty State ──────────────────────────────────────────────────────────────
 
 const EmptyState = ({ icon, label }: { icon: string; label: string }) => (
@@ -207,7 +263,9 @@ const SectionCard = ({
   children: React.ReactNode;
 }) => (
   <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-    <div className={`px-5 py-4 flex items-center justify-between ${accentClass}`}>
+    <div
+      className={`px-5 py-4 flex items-center justify-between ${accentClass}`}
+    >
       <div className="flex items-center gap-2.5">
         <span className="text-lg">{icon}</span>
         <h2 className="text-sm font-bold text-slate-800 tracking-tight">
@@ -269,7 +327,9 @@ const TD = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <td className={`px-5 py-3.5 text-sm text-slate-600 whitespace-nowrap ${className}`}>
+  <td
+    className={`px-5 py-3.5 text-sm text-slate-600 whitespace-nowrap ${className}`}
+  >
     {children}
   </td>
 );
@@ -388,12 +448,12 @@ export default function Dashboard() {
 
       <div className="min-h-screen bg-[#f5f5f7] px-4 py-8 md:px-8">
         <div className="max-w-6xl mx-auto space-y-6">
-
           {/* ── Welcome ── */}
           <div
             className="rounded-2xl overflow-hidden shadow-sm"
             style={{
-              background: "linear-gradient(120deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
+              background:
+                "linear-gradient(120deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
               animation: "fadeSlideIn 0.5s ease-out both",
             }}
           >
@@ -478,10 +538,25 @@ export default function Dashboard() {
             {(
               [
                 { id: "all", icon: "🗂️", label: "All", count: totalBookings },
-                { id: "packages", icon: "🧳", label: "Packages", count: packages.length },
+                {
+                  id: "packages",
+                  icon: "🧳",
+                  label: "Packages",
+                  count: packages.length,
+                },
                 { id: "cabs", icon: "🚖", label: "Cabs", count: cabs.length },
-                { id: "bikes", icon: "🏍️", label: "Bikes", count: bikes.length },
-                { id: "hotels", icon: "🏨", label: "Hotels", count: hotels.length },
+                {
+                  id: "bikes",
+                  icon: "🏍️",
+                  label: "Bikes",
+                  count: bikes.length,
+                },
+                {
+                  id: "hotels",
+                  icon: "🏨",
+                  label: "Hotels",
+                  count: hotels.length,
+                },
               ] as const
             ).map((t) => (
               <TabBtn
@@ -528,8 +603,12 @@ export default function Dashboard() {
                         {b.package_name}
                       </TD>
                       <TD>
-                        <div className="font-medium text-slate-700">{b.name}</div>
-                        <div className="text-[11px] text-slate-400">{b.email}</div>
+                        <div className="font-medium text-slate-700">
+                          {b.name}
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                          {b.email}
+                        </div>
                       </TD>
                       <TD>{b.pickup_location}</TD>
                       <TD>{fmtDate(b.datetime)}</TD>
@@ -571,15 +650,21 @@ export default function Dashboard() {
                 <tbody>
                   {cabs.map((b, i) => (
                     <TR key={b.id} delay={i * 60}>
-                      <TD className="font-semibold text-slate-800">{b.cab_name}</TD>
+                      <TD className="font-semibold text-slate-800">
+                        {b.cab_name}
+                      </TD>
                       <TD>
                         <span className="text-[10px] font-bold bg-sky-100 text-sky-700 px-2 py-0.5 rounded-md uppercase tracking-wide">
                           {b.tripType.replace("_", " ")}
                         </span>
                       </TD>
                       <TD>
-                        <div className="font-medium text-slate-700">{b.name}</div>
-                        <div className="text-[11px] text-slate-400">{b.email}</div>
+                        <div className="font-medium text-slate-700">
+                          {b.name}
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                          {b.email}
+                        </div>
                       </TD>
                       <TD>
                         <div className="flex items-center gap-1.5 text-xs">
@@ -594,12 +679,18 @@ export default function Dashboard() {
                       </TD>
                       <TD>
                         <div>{fmtDate(b.pickUpDate)}</div>
-                        <div className="text-[11px] text-slate-400">{b.pickUpTime}</div>
+                        <div className="text-[11px] text-slate-400">
+                          {b.pickUpTime}
+                        </div>
                       </TD>
                       <TD>{b.numberOfPeople}</TD>
                       <TD className="font-semibold text-slate-800">
                         {fmtCurrency(b.totalCost)}
                       </TD>
+                      <TD>
+                        <PaymentBadge payment={b.payment} />
+                      </TD>{" "}
+                      {/* ← new */}
                       <TD>
                         <StatusBadge status={b.status} />
                       </TD>
@@ -633,10 +724,16 @@ export default function Dashboard() {
                 <tbody>
                   {bikes.map((b, i) => (
                     <TR key={b.id} delay={i * 60}>
-                      <TD className="font-semibold text-slate-800">{b.bike_name}</TD>
+                      <TD className="font-semibold text-slate-800">
+                        {b.bike_name}
+                      </TD>
                       <TD>
-                        <div className="font-medium text-slate-700">{b.name}</div>
-                        <div className="text-[11px] text-slate-400">{b.email}</div>
+                        <div className="font-medium text-slate-700">
+                          {b.name}
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                          {b.email}
+                        </div>
                       </TD>
                       <TD>{fmtDate(b.bookingDate)}</TD>
                       <TD>{b.bookingTime}</TD>
@@ -678,15 +775,21 @@ export default function Dashboard() {
                 <tbody>
                   {hotels.map((b, i) => (
                     <TR key={b.id} delay={i * 60}>
-                      <TD className="font-semibold text-slate-800">{b.hotel_name}</TD>
+                      <TD className="font-semibold text-slate-800">
+                        {b.hotel_name}
+                      </TD>
                       <TD>
                         <span className="text-[11px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md font-medium">
                           {b.roomType}
                         </span>
                       </TD>
                       <TD>
-                        <div className="font-medium text-slate-700">{b.name}</div>
-                        <div className="text-[11px] text-slate-400">{b.email}</div>
+                        <div className="font-medium text-slate-700">
+                          {b.name}
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                          {b.email}
+                        </div>
                       </TD>
                       <TD>{fmtDate(b.checkInDate)}</TD>
                       <TD>{fmtDate(b.checkOutDate)}</TD>
