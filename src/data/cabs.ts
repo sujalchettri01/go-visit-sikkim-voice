@@ -1,104 +1,208 @@
+// ─── Pricing Architecture ─────────────────────────────────────────────────────
+//
+//  Each route has a fixed base price (₹).
+//  Each cab has a `priceOffset` (₹) that adjusts it up or down from the base.
+//
+//  Final price = ROUTE_PRICES[from][to] + cab.priceOffset
+//
+//  If no route is searched, cards show the cab's cheapest available fare
+//  ("starting from ₹X").
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Full symmetric route price table (₹).
+ * Every origin → destination pair is listed.
+ */
+export const ROUTE_PRICES: Record<string, Record<string, number>> = {
+  Gangtok: {
+    Siliguri: 2800,
+    Namchi: 1800,
+    Ravangla: 2200,
+    Jorethang: 2000,
+    Singtam: 800,
+    Rangpo: 1600,
+    Mangan: 1400,
+  },
+
+  Siliguri: {
+    Gangtok: 5,// // ✅ FIXED (same as reverse)
+    Namchi: 2000,
+    Ravangla: 2400,
+    Jorethang: 2200,
+    Singtam: 1800,
+    Rangpo: 1600,
+    Mangan: 3000,
+  },
+
+  Namchi: {
+    Gangtok: 1800,
+    Siliguri: 2000,
+    Jorethang: 600,
+    Singtam: 1600,
+    Mangan: 3200,
+    Rangpo: 2000,
+  },
+
+  Singtam: {
+    Gangtok: 800,
+    Siliguri: 1800,
+    Jorethang: 600,
+    Mangan: 3200,
+    Rangpo: 2000,
+  },
+
+  Rangpo: {
+    Gangtok: 1600,
+    Siliguri: 1600,
+    Jorethang: 600,
+    Singtam: 1600,
+    Namchi: 2000,
+  },
+};
+
+/**
+ * Returns the exact fare for a cab on a given route.
+ * Returns null if the route doesn't exist in the table.
+ */
+export function getRoutePrice(
+  from: string,
+  to: string,
+  priceOffset: number
+): number | null {
+  const base = ROUTE_PRICES[from]?.[to];
+  if (base == null) return null;
+  return Math.max(0, base + priceOffset);
+}
+
+/**
+ * Returns the cheapest fare a cab offers from a given origin.
+ * Used for "starting from ₹X" when no destination is selected.
+ */
+export function getStartingPrice(
+  cab: (typeof cabsData)[0],
+  from: string
+): number {
+  const routes = ROUTE_PRICES[from];
+  if (!routes) return 0;
+  const prices = cab.destinations
+    .map((d) => {
+      const base = routes[d];
+      return base != null ? Math.max(0, base + cab.priceOffset) : null;
+    })
+    .filter((p): p is number => p !== null);
+  return prices.length ? Math.min(...prices) : 0;
+}
+
+// ─── Cab Data ─────────────────────────────────────────────────────────────────
+//
+//  `priceOffset` (₹) adjusts this cab's fares relative to the route base.
+//   0    = exactly the route base price
+//  -300  = ₹300 cheaper than base (budget option)
+//  +800  = ₹800 more than base (premium option)
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
 const cabsData = [
   {
     id: "1",
-    cab_name: "Sedan Classic",
-    company: "Yellow Cabs",
+    cab_name: "Maruti Suzuki Alto 800",
+    company: "Alto 800",
     capacity: 4,
-    pricePerDay: 50,
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=300&fit=crop",
+    priceOffset: 0,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143222/ChatGPT_Image_Apr_25_2026_11_35_38_PM_bi7k9m.png",
     rating: 4.5,
-    features: ["AC", "GPS", "Music System"]
+    features: [""],
+    destinations: [],
   },
-  {
-    id: "2",
-    cab_name: "SUV Premium",
-    company: "Elite Rides",
-    capacity: 6,
-    pricePerDay: 75,
-    image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&h=300&fit=crop",
-    rating: 4.8,
-    features: ["AC", "Leather Seats", "Sunroof"]
-  },
+ 
   {
     id: "3",
-    cab_name: "Eco Compact",
-    company: "Green Motors",
-    capacity: 4,
-    pricePerDay: 35,
-    image: "https://images.unsplash.com/photo-1583267746897-c187683f2f4d?w=400&h=300&fit=crop",
+    cab_name: "Mahindra Scorpio N",
+    company: "Scorpio n",
+    capacity: 7,
+    priceOffset: -200,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143214/20250515111753_Mahindra_Scorpio_N_Everest_White_1_vrnmdy.png",
     rating: 4.2,
-    features: ["AC", "Fuel Efficient", "Bluetooth"]
+    features: [""],
+    destinations: [],
   },
   {
     id: "4",
-    cab_name: "Van Spacious",
-    company: "Family Transport",
-    capacity: 8,
-    pricePerDay: 90,
-    image: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?w=400&h=300&fit=crop",
+    cab_name: "Toyota Innova",
+    company: "Toyota innova",
+    capacity: 7,
+    priceOffset: 500,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143223/ChatGPT_Image_Apr_25_2026_11_29_06_PM_hfrcoj.png",
     rating: 4.6,
-    features: ["AC", "Extra Luggage", "Entertainment System"]
+    features: [""],
+    destinations: [""],
   },
   {
     id: "5",
-    cab_name: "Luxury Executive",
-    company: "Premium Fleet",
-    capacity: 4,
-    pricePerDay: 120,
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=400&h=300&fit=crop",
+    cab_name: "Mahindra Xylo",
+    company: "Mahindra Xylo",
+    capacity: 7,
+    priceOffset: 1200,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143222/ChatGPT_Image_Apr_25_2026_11_30_10_PM_p1iu6v.png",
     rating: 4.9,
-    features: ["Premium AC", "Massage Seats", "Mini Bar"]
+    features: [],
+    destinations: [],
   },
   {
     id: "6",
-    cab_name: "Standard Sedan",
-    company: "City Cabs",
-    capacity: 5,
-    pricePerDay: 55,
-    image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=400&h=300&fit=crop",
+    cab_name: "Maruti Suzuki WagonR",
+    company: "Maruti Suzuki Wagnor",
+    capacity: 4,
+    priceOffset: -150,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143223/ChatGPT_Image_Apr_25_2026_11_38_53_PM_oysfrb.png",
     rating: 4.4,
-    features: ["AC", "Comfortable Seats", "USB Charging"]
+    features: [""],
+    destinations: [],
   },
   {
     id: "7",
-    cab_name: "Hatchback Budget",
-    company: "Economy Rides",
-    capacity: 4,
-    pricePerDay: 30,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop",
+    cab_name: "Mahindra Bolero",
+    company: "Mahindra Bolero",
+    capacity: 9,
+    priceOffset: -400,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143223/ChatGPT_Image_Apr_25_2026_11_31_33_PM_kqpdwb.png",
     rating: 4.0,
-    features: ["AC", "Compact", "Easy Parking"]
+    features: [""],
+    destinations: [""],
   },
   {
     id: "8",
-    cab_name: "Business Class",
-    company: "Corporate Cabs",
-    capacity: 4,
-    pricePerDay: 95,
-    image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=400&h=300&fit=crop",
+    cab_name: "Mahindra Bolero Neo",
+    company: "Bolero Neo",
+    capacity: 7,
+    priceOffset: 900,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143729/ChatGPT_Image_Apr_26_2026_12_28_37_AM_ss4dmt.png",
     rating: 4.7,
-    features: ["Premium AC", "WiFi", "Privacy Glass"]
+    features: [""],
+    destinations: [""],
   },
   {
     id: "9",
-    cab_name: "Luxury SUV",
-    company: "Premium Fleet",
-    capacity: 7,
-    pricePerDay: 140,
-    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=300&fit=crop",
+    cab_name: "Maruti Suzuki Swift",
+    company: "Swift",
+    capacity: 4,
+    priceOffset: 600,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143223/ChatGPT_Image_Apr_26_2026_12_19_12_AM_bbsoxb.png",
     rating: 4.9,
-    features: ["Premium AC", "Panoramic Roof", "Captain Seats"]
+    features: [""],
+    destinations: [""],
   },
   {
     id: "10",
-    cab_name: "Mini Cooper",
-    company: "Urban Wheels",
+    cab_name: "Maruti Suzuki Dzire",
+    company: "Dzire",
     capacity: 4,
-    pricePerDay: 65,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+    priceOffset: 1,
+    image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777143230/ChatGPT_Image_Apr_26_2026_12_20_14_AM_dk7ui8.png",
     rating: 4.5,
-    features: ["AC", "Stylish", "Bluetooth Audio"]
-  }
+    features: [""],
+    destinations: [""],
+  },
 ];
 
 export default cabsData;

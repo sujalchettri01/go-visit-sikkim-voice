@@ -1,5 +1,29 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 *{
     scroll-behavior: smooth;
+}
+
+/* Lamatic Chat Widget - Bold Font */
+#lamatic-chat-root * {
+  font-weight: 500 !important;
+}
+
+#lamatic-chat-root p,
+#lamatic-chat-root span,
+#lamatic-chat-root div {
+  font-weight: 500 !important;
+}
+
+#lamatic-chat-root h1,
+#lamatic-chat-root h2,
+#lamatic-chat-root h3 {
+  font-weight: 600 !important;
+}
+
+/* Lamatic Chat Widget - Inter Font */
+#lamatic-chat-root * {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
 }

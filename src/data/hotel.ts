@@ -1,29 +1,59 @@
 const accommodations = [
-  {
-    id: 1,
-    name: "Mayfair Spa Resort & Casino",
-    type: "Luxury Resort",
-    location: "Gangtok",
-    shortDescription: "Experience world-class luxury with stunning mountain views, spa facilities, and premium dining options.",
-    longDescription: "Indulge in the epitome of luxury at Mayfair Spa Resort & Casino, Gangtok's premier five-star destination. Nestled amidst the majestic Himalayas, this award-winning resort offers breathtaking views of Mount Kanchenjunga and the surrounding valleys. Each room is meticulously designed with contemporary elegance, featuring plush furnishings, state-of-the-art amenities, and private balconies. The resort's signature Mayfair Spa offers rejuvenating treatments inspired by ancient Himalayan healing traditions. Guests can enjoy fine dining at multiple restaurants serving international and local cuisine, try their luck at the exclusive casino, or unwind by the heated indoor pool. With impeccable service, luxurious accommodations, and world-class facilities, Mayfair ensures an unforgettable stay.",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-    rating: 4.8,
-    pricePerNight: 12000,
-    amenities: ["Spa & Wellness Center", "Casino", "Mountain View", "Fine Dining Restaurant", "Indoor Heated Pool", "Fitness Center", "24/7 Room Service", "Concierge Service", "Free WiFi", "Airport Shuttle"],
-    rooms: 85,
-    checkIn: "2:00 PM",
-    checkOut: "12:00 PM",
-    policies: ["Valid ID proof required", "Advance payment required", "Cancellation free up to 48 hours before check-in"],
-    nearbyAttractions: ["MG Road - 2 km", "Rumtek Monastery - 24 km", "Tsomgo Lake - 40 km"],
-    roomTypes: ["Deluxe Room", "Premium Suite", "Royal Suite", "Presidential Suite"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
+{
+  id: 1,
+  name: "Mayfair Spa Resort & Casino",
+  type: "Luxury Resort",
+  location: "Gangtok",
+  shortDescription: "A charming boutique property nestled in the mountains, offering personalized service and authentic experiences.",
+  longDescription: "Immerse in Art & History with cultural experiences as well as exquisite artefacts, paintings and statues adorning the hallways. All Mayfair stays boast of in-house speciality restaurants run by professional chefs offering regional & international cuisines",
+
+  image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/caption_cdhajk.jpg",
+
+  galleryImages: [
+    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/mayfair-gangtok_xbvyna.jpg",
+    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476167/0aef8f82_nxjffu.jpg",
+    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476168/672565686_ypagyt.jpg",
+    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/mayfair-spa-resort-casino_i24ap9.jpg",
   ],
+
+  roomGallery: {
+    "Deluxe Room": [
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482496/ab04b6b06b22d525d6ca8cf559cdd965-1692157551847-Mayfair_20Spa_20Resort_20and_20Casino_20Gangtok_20Deluxe_20Room_ectrzy.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482494/672589402_kpmrnm.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482493/mayfair-spa-resort-casino_h9zl3m.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777476171/aa990a02_wttriz.jpg",
+    ],
+    "Premium Suite": [
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482691/premium-room-unwind-in_kzj5ws.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777476167/0aef8f82_nxjffu.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482692/52c14204_kq8u4k.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482693/3c859475_ncxb86.jpg",
+    ],
+    "Royal Suite": [
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482796/6867ce89_ozi53z.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482800/939ddd60_qhqsrx.jpg" ,  
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482796/mayfair-spa-resort-casino_qettci.jpg",
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482798/T50BS5mv-Untitled-design-5_fgurbl.jpg"
+
+    ],
+    "Presidential Suite": [
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482963/Thi_E1_BA_BFt-k_E1_BA_BF-ch_C6_B0a-c_C3_B3-t_C3_AAn17-700x490_oullid.png",   
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482962/presidential-suite2_kogst2.jpg",    
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482959/54b2c3c6_wy32yx.jpg",    
+      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482958/spa_kyhp0e.jpg",
+    ],
   },
+
+  rating: 4.8,
+  pricePerNight: 1,
+  amenities: ["Spa & Wellness Center", "Casino", "Mountain View", "Fine Dining Restaurant", "Indoor Heated Pool", "Fitness Center", "24/7 Room Service", "Concierge Service", "Free WiFi", "Airport Shuttle"],
+  rooms: 85,
+  checkIn: "2:00 PM",
+  checkOut: "12:00 PM",
+  policies: ["Valid ID proof required", "Advance payment required", "Cancellation free up to 48 hours before check-in"],
+  nearbyAttractions: ["MG Road - 2 km", "Rumtek Monastery - 24 km", "Tsomgo Lake - 40 km"],
+  roomTypes: ["Deluxe Room", "Premium Suite", "Royal Suite", "Presidential Suite"],
+},
   {
     id: 2,
     name: "Orange Village Resort",
@@ -40,14 +70,7 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["ID proof mandatory", "No smoking in rooms", "Pets not allowed"],
     nearbyAttractions: ["Yumthang Valley - 25 km", "Zero Point - 35 km", "Lachung Monastery - 1 km"],
-    roomTypes: ["Standard Room", "Deluxe Valley View", "Family Suite"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Standard Room", "Deluxe Valley View", "Family Suite"]
   },
   {
     id: 3,
@@ -65,14 +88,7 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Photo ID required", "Children above 5 years charged as adults", "Flexible cancellation policy"],
     nearbyAttractions: ["Pemayangtse Monastery - 3 km", "Khecheopalri Lake - 25 km", "Rabdentse Ruins - 5 km"],
-    roomTypes: ["Heritage Room", "Premium View Room", "Executive Suite", "Family Room"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Heritage Room", "Premium View Room", "Executive Suite", "Family Room"]
   },
   {
     id: 4,
@@ -90,14 +106,7 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Valid ID proof required", "Smart casual dress code for dining", "Advance booking recommended"],
     nearbyAttractions: ["Rabdentse Ruins - 4 km", "Pemayangtse Monastery - 2 km", "Khecheopalri Lake - 26 km"],
-    roomTypes: ["Heritage Deluxe", "Colonial Suite", "Premium Heritage Room"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Heritage Deluxe", "Colonial Suite", "Premium Heritage Room"]
   },
   {
     id: 5,
@@ -115,14 +124,7 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Respectful behavior expected", "Participate in family activities", "Simple and authentic accommodation"],
     nearbyAttractions: ["Norbugang Coronation Throne - 1 km", "Dubdi Monastery - 2 km", "Khecheopalri Lake - 35 km"],
-    roomTypes: ["Traditional Room", "Family Room with attached kitchen"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Traditional Room", "Family Room with attached kitchen"]
   },
   {
     id: 6,
@@ -140,14 +142,7 @@ const accommodations = [
     checkOut: "12:00 PM",
     policies: ["Corporate rates available", "Early check-in subject to availability", "Business center open 24/7"],
     nearbyAttractions: ["MG Road - 0.5 km", "Enchey Monastery - 3 km", "Ganesh Tok - 7 km"],
-    roomTypes: ["Standard Room", "Executive Room", "Business Suite"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Standard Room", "Executive Room", "Business Suite"]
   },
   {
     id: 7,
@@ -165,14 +160,7 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Plastic-free property", "Minimal waste generation expected", "Respect for nature mandatory"],
     nearbyAttractions: ["Rinchenpong Monastery - 2 km", "Poison Lake - 5 km", "Varsey Rhododendron Sanctuary - 15 km"],
-    roomTypes: ["Bamboo Cottage", "Forest View Hut", "Eco-Suite"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Bamboo Cottage", "Forest View Hut", "Eco-Suite"]
   },
   {
     id: 8,
@@ -190,14 +178,7 @@ const accommodations = [
     checkOut: "1:00 PM",
     policies: ["Luxury experience guarantee", "Late checkout available", "Personal butler service in suites"],
     nearbyAttractions: ["MG Road - 1.5 km", "Hanuman Tok - 10 km", "Tashi View Point - 8 km"],
-    roomTypes: ["Luxury Room", "Executive Suite", "Royal Suite", "Penthouse"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Luxury Room", "Executive Suite", "Royal Suite", "Penthouse"]
   },
   {
     id: 9,
@@ -215,14 +196,7 @@ const accommodations = [
     checkOut: "11:00 AM",
     policies: ["Advance booking recommended", "Flexible payment options", "Student discounts available"],
     nearbyAttractions: ["Char Dham - 5 km", "Samdruptse Statue - 7 km", "Rock Garden - 3 km"],
-    roomTypes: ["Standard Room", "Deluxe Room", "Triple Sharing"],
-    galleryImages: [
-    { src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80", alt: "Trekking trail through forest" },
-    { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80", alt: "Alpine meadow views" },
-    { src: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80", alt: "Mountain sunrise" },
-    { src: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=800&q=80", alt: "Campsite under stars" },
-    { src: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80", alt: "Rhododendron forest path" },
-  ],
+    roomTypes: ["Standard Room", "Deluxe Room", "Triple Sharing"]
   },
   {
     id: 10,
