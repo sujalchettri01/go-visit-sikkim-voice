@@ -18,6 +18,11 @@ import AuthCallback from "../pages/AuthCallback";
 import Root from "../pages/Root";
 import Dashboard from "../pages/Dashboard";
 import CabBookingPage from "../pages/cabs/Booking";
+import HotelBookingPage from "../pages/accommodation/booking";
+import DestinationGalleryPage from "../pages/destinations/gallery";
+import DestinationBookingPage from "../pages/destinations/booking";
+import BikeBookingPage from "../pages/bikes/booking";
+import ActivityBookingPage from "../pages/activities/booking";
 
 const router = createBrowserRouter([
   {
@@ -59,8 +64,20 @@ const router = createBrowserRouter([
         element: <TourDetailPage></TourDetailPage>,
       },
       {
+        path: "/gallery/destination/:id",
+        element: <DestinationGalleryPage></DestinationGalleryPage>
+      },
+      {
+        path: "/destinations/book/:id",
+        element: <DestinationBookingPage></DestinationBookingPage>
+      },
+      {
         path: "/activities",
         element: <ActivitiesPage></ActivitiesPage>,
+      },
+      {
+       path: "/activities/book/:id",
+       element: <ActivityBookingPage></ActivityBookingPage>
       },
       {
         path: "/activities/:id",
@@ -79,6 +96,10 @@ const router = createBrowserRouter([
         element: <AccommodationDetailPage></AccommodationDetailPage>,
       },
       {
+        path: "/accommodations/book/:id",
+        element: <HotelBookingPage></HotelBookingPage>,
+      },
+      {
         path: "/cabs",
         element: <CabsListingPage></CabsListingPage>,
       },
@@ -86,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "/bikes",
         element: <BikesListingPage></BikesListingPage>,
+      },
+      {
+       path: "/bikes/book/:id",
+       element: <BikeBookingPage></BikeBookingPage>
       },
       {
         path: "/cultures/:id",

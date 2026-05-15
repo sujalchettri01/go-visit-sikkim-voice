@@ -161,7 +161,7 @@ export default function CabBookingPage() {
           if (result.success) {
             toast.success("Payment successful! Booking confirmed.");
             navigate(
-              `/booking/success?id=${result.booking.id}&type=vehicle`
+              `/user/dashboard`
             );
           } else {
             toast.error(
@@ -224,6 +224,7 @@ export default function CabBookingPage() {
 
       const response = await fetch(`${API_BASE_URL}/payments/create-order`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

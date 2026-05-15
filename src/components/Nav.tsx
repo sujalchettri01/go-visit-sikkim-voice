@@ -1,11 +1,33 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useCurrentUser } from "../hooks/useCurrentUser"; // adjust path as needed
+import { useState, useEffect, useRef } from "react";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 const Navigation = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: user, isLoading } = useCurrentUser();
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 10) {
+        setIsNavVisible(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsNavVisible(true);
+      } else {
+        setIsNavVisible(false);
+        setIsMobileMenuOpen(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -26,7 +48,11 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] z-[1000] py-4 transition-all duration-200">
+      <nav
+        className={`fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] z-[1000] py-4 transition-transform duration-300 ease-in-out ${
+          isNavVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between gap-8">
           {/* Logo */}
           <Link
@@ -80,17 +106,13 @@ const Navigation = () => {
                       className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 no-underline"
                       title="Go to your dashboard"
                     >
-                      {user.name
-                        ? user.name.charAt(0).toUpperCase()
-                        : "U"}
+                      {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                     </Link>
                   </>
                 ) : (
                   /* Login Button */
                   <Link to="/login">
-                    <button
-                      className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide border-2 border-blue-600 text-blue-600 bg-white transition-all duration-200 inline-flex items-center justify-center hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5"
-                    >
+                    <button className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide border-2 border-blue-600 text-blue-600 bg-white transition-all duration-200 inline-flex items-center justify-center hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5">
                       Login
                     </button>
                   </Link>
@@ -105,9 +127,21 @@ const Navigation = () => {
             className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-200"
             aria-label="Toggle menu"
           >
-            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
+            <span
+              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
+                isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${
+                isMobileMenuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
+                isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+              }`}
+            />
           </button>
         </div>
 
@@ -129,7 +163,11 @@ const Navigation = () => {
                 { to: "/cultures", label: "Cultures" },
               ].map(({ to, label }) => (
                 <li key={to}>
-                  <Link to={to} onClick={closeMobileMenu} className={mobileNavLinkClass(to)}>
+                  <Link
+                    to={to}
+                    onClick={closeMobileMenu}
+                    className={mobileNavLinkClass(to)}
+                  >
                     {label}
                   </Link>
                 </li>
@@ -160,9 +198,7 @@ const Navigation = () => {
                   </>
                 ) : (
                   <Link to="/login" onClick={closeMobileMenu}>
-                    <button
-                      className="w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-blue-600 border-2 border-blue-600 bg-white transition-all duration-200 active:scale-95"
-                    >
+                    <button className="w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-blue-600 border-2 border-blue-600 bg-white transition-all duration-200 active:scale-95">
                       Login
                     </button>
                   </Link>
