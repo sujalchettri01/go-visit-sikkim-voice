@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="flex flex-col gap-6 sm:col-span-2 lg:col-span-1">
             <h3 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-              Sikkim Tourism
+              GoVisit Sikkim
             </h3>
             <p className="text-white/70 leading-relaxed text-[0.9375rem]">
               Discover the enchanting beauty of Sikkim through authentic
@@ -158,7 +158,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-white/10 gap-4 flex-wrap">
           <p className="text-white/60 text-sm text-center sm:text-left">
-            © 2024 Sikkim Tourism. All rights reserved. | Crafted with ❤️ for
+            © 2024 GoVisit Sikkim. All rights reserved. | Crafted with ❤️ by Engineers for
             the Land of Mystical Beauty
           </p>
           <p className="px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold text-white/90 border border-white/20">

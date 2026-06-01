@@ -7,7 +7,6 @@ const ActivityDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const [activity, setActivity] = useState<any | null>(null);
 
-  // ✅ Single handleBooking - navigates to booking page
   const handleBooking = () => navigate(`/activities/book/${id}`);
 
   const handleWhatsAppContact = () => {
@@ -48,13 +47,32 @@ const ActivityDetailPage: React.FC = () => {
   const getCategoryColor = (category: string | undefined | null) => {
     if (!category) return 'bg-gray-500';
     const colors: Record<string, string> = {
+      Trekking: 'bg-green-600',
+      'River Rafting': 'bg-blue-500',
+      Cycling: 'bg-amber-500',
+      'Upcoming Events': 'bg-purple-600',
+      'Sports Events': 'bg-red-600',
       Adventure: 'bg-blue-500',
       Cultural: 'bg-purple-500',
       Wellness: 'bg-teal-500',
-      Nature: 'bg-green-500'
+      Nature: 'bg-green-500',
     };
     return colors[category] || 'bg-gray-500';
   };
+
+  // Dynamic section labels based on category
+  const getCategoryLabels = (category: string) => {
+    const map: Record<string, { about: string; itinerary: string; icon: string }> = {
+      Trekking:         { about: 'About This Trek',    itinerary: 'Trek Itinerary',    icon: '🥾' },
+      'River Rafting':  { about: 'About This Rafting', itinerary: 'Rafting Routes',    icon: '🌊' },
+      Cycling:          { about: 'About This Tour',    itinerary: 'Suggested Places',  icon: '🚴' },
+      'Upcoming Events':{ about: 'About This Event',   itinerary: 'Event Schedule',    icon: '📅' },
+      'Sports Events':  { about: 'About This Event',   itinerary: 'Event Schedule',    icon: '🏆' },
+    };
+    return map[category] ?? { about: 'About This Experience', itinerary: 'Itinerary', icon: '🗺️' };
+  };
+
+  const labels = getCategoryLabels(activity.category);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -113,10 +131,10 @@ const ActivityDetailPage: React.FC = () => {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
 
-            {/* About */}
+            {/* About — dynamic title */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                <span className="text-4xl">ℹ️</span> About This Trek
+                <span className="text-4xl">{labels.icon}</span> {labels.about}
               </h2>
               <p className="text-lg leading-relaxed text-slate-600">{activity.longDescription || activity.description}</p>
             </div>
@@ -138,17 +156,19 @@ const ActivityDetailPage: React.FC = () => {
               </div>
             )}
 
-            {/* Itinerary */}
+            {/* Itinerary — dynamic title, hide day number when day === 0 */}
             {activity.itinerary?.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
                 <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">🗺️</span> Trek Itinerary
+                  <span className="text-4xl">🗺️</span> {labels.itinerary}
                 </h2>
                 <div className="space-y-5">
-                  {activity.itinerary.map((day: any) => (
-                    <div key={day.day} className="border border-slate-200 rounded-xl p-5 bg-slate-50">
-                      <h3 className="text-xl font-bold text-slate-800 mb-2">Day {day.day}: {day.title}</h3>
-                      <p className="text-slate-600 leading-relaxed">{day.details}</p>
+                  {activity.itinerary.map((item: any, idx: number) => (
+                    <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                      <h3 className="text-xl font-bold text-slate-800 mb-2">
+                        {item.day > 0 ? `Day ${item.day}: ` : ''}{item.title}
+                      </h3>
+                      <p className="text-slate-600 leading-relaxed">{item.details}</p>
                     </div>
                   ))}
                 </div>
@@ -262,12 +282,14 @@ const ActivityDetailPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-3">
-                <button
-                  onClick={handleBooking}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  {activity.actionLabel ?? 'Book Now'}
-                </button>
+                {activity.actionLabel && (
+                  <button
+                    onClick={handleBooking}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg text-lg font-semibold hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  >
+                    {activity.actionLabel}
+                  </button>
+                )}
                 <button
                   onClick={handleWhatsAppContact}
                   className="w-full bg-green-500 text-white py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
@@ -291,14 +313,16 @@ const ActivityDetailPage: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready for an Adventure?</h2>
           <p className="text-xl text-white/90 mb-10">Join us for an unforgettable experience in the heart of the Himalayas</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button
-              onClick={handleBooking}
-              className="bg-white text-blue-600 px-10 py-4 rounded-lg text-lg font-semibold hover:bg-slate-100 hover:-translate-y-1 transition-all duration-300 shadow-xl"
-            >
-              {activity.actionLabel}
-            </button>
-          </div>
+          {activity.actionLabel && (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <button
+                onClick={handleBooking}
+                className="bg-white text-blue-600 px-10 py-4 rounded-lg text-lg font-semibold hover:bg-slate-100 hover:-translate-y-1 transition-all duration-300 shadow-xl"
+              >
+                {activity.actionLabel}
+              </button>
+            </div>
+          )}
           <Link
             to="/activities"
             className="inline-flex items-center gap-2 text-white font-semibold no-underline transition-all duration-200 hover:gap-4 text-lg group"
@@ -308,7 +332,6 @@ const ActivityDetailPage: React.FC = () => {
           </Link>
         </div>
       </section>
-
     </div>
   );
 };

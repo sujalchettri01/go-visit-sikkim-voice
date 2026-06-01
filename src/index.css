@@ -1,29 +1,29 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-*{
-    scroll-behavior: smooth;
+* {
+  scroll-behavior: smooth;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Lamatic Chat Widget - Bold Font */
-#lamatic-chat-root * {
-  font-weight: 500 !important;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#lamatic-chat-root p,
-#lamatic-chat-root span,
-#lamatic-chat-root div {
-  font-weight: 500 !important;
-}
-
-#lamatic-chat-root h1,
-#lamatic-chat-root h2,
-#lamatic-chat-root h3 {
-  font-weight: 600 !important;
-}
-
-/* Lamatic Chat Widget - Inter Font */
-#lamatic-chat-root * {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
+/* Remove ALL default button styles for chat FAB */
+.chat-fab,
+.chat-fab:hover,
+.chat-fab:focus,
+.chat-fab:active,
+.chat-fab:focus-visible {
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }

@@ -70,155 +70,75 @@ function FilterSection({
   defaultOpen?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
-
   return (
     <div className="border-b border-slate-100 py-4">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full text-left"
-      >
-        <span className="text-xs font-bold text-slate-600 tracking-widest uppercase">
-          {title}
-        </span>
-        {open ? (
-          <ChevronUp className="w-4 h-4 text-slate-400" />
-        ) : (
-          <ChevronDown className="w-4 h-4 text-slate-400" />
-        )}
+      <button onClick={() => setOpen(!open)} className="flex items-center justify-between w-full text-left">
+        <span className="text-xs font-bold text-slate-600 tracking-widest uppercase">{title}</span>
+        {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
       </button>
-
       {open && <div className="mt-3 space-y-2">{children}</div>}
     </div>
   );
 }
 
-function CheckItem({
-  label,
-  count,
-  checked,
-  onChange,
-}: {
-  label: string;
-  count: number;
-  checked: boolean;
-  onChange: () => void;
-}) {
+function CheckItem({ label, count, checked, onChange }: { label: string; count: number; checked: boolean; onChange: () => void; }) {
   return (
     <label className="flex items-center justify-between gap-2 cursor-pointer group">
       <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-          className="w-4 h-4 rounded accent-violet-600 cursor-pointer"
-        />
-        <span className="text-sm text-slate-600 group-hover:text-violet-600 transition-colors">
-          {label}
-        </span>
+        <input type="checkbox" checked={checked} onChange={onChange} className="w-4 h-4 rounded accent-violet-600 cursor-pointer" />
+        <span className="text-sm text-slate-600 group-hover:text-violet-600 transition-colors">{label}</span>
       </div>
-
-      <span className="text-xs text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">
-        {count}
-      </span>
+      <span className="text-xs text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">{count}</span>
     </label>
   );
 }
 
-function CabCard({
-  cab,
-  onBook,
-  appliedFrom,
-  appliedTo,
-}: {
-  cab: (typeof cabsData)[0];
-  onBook: () => void;
-  appliedFrom: string;
-  appliedTo: string;
-}) {
-  const routePrice = appliedTo
-    ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset)
-    : null;
-
+function CabCard({ cab, onBook, appliedFrom, appliedTo }: { cab: (typeof cabsData)[0]; onBook: () => void; appliedFrom: string; appliedTo: string; }) {
+  const routePrice = appliedTo ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) : null;
   const displayPrice = routePrice ?? getStartingPrice(cab, appliedFrom);
   const isExactRoute = routePrice !== null;
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col sm:flex-row hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
       <div className="sm:w-52 shrink-0 relative">
-        <img
-          src={cab.image}
-          alt={cab.cab_name}
-          className="w-full h-48 sm:h-full object-cover"
-        />
-        <div className="absolute top-3 left-3">
-          <StarBadge rating={cab.rating} />
-        </div>
+        <img src={cab.image} alt={cab.cab_name} className="w-full h-48 sm:h-full object-cover" />
+        <div className="absolute top-3 left-3"><StarBadge rating={cab.rating} /></div>
       </div>
-
       <div className="flex flex-col flex-1 p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h3 className="text-lg font-bold text-slate-800">{cab.cab_name}</h3>
             <p className="text-sm text-slate-500">{cab.company}</p>
-
             {appliedTo && (
               <span className="inline-flex items-center gap-1 mt-1 text-xs text-violet-600 bg-violet-50 border border-violet-100 px-2 py-0.5 rounded-full">
                 <MapPin className="w-3 h-3" /> Available to {appliedTo}
               </span>
             )}
           </div>
-
           <div className="text-right">
-            <p className="text-2xl font-extrabold text-slate-800">
-              {formatINR(displayPrice)}
-            </p>
-            <p className="text-xs text-slate-400">
-              {isExactRoute
-                ? `one-way · ${appliedFrom} → ${appliedTo}`
-                : "starting from · one-way"}
-            </p>
+            <p className="text-2xl font-extrabold text-slate-800">{formatINR(displayPrice)}</p>
+            <p className="text-xs text-slate-400">{isExactRoute ? `one-way · ${appliedFrom} → ${appliedTo}` : "starting from · one-way"}</p>
           </div>
         </div>
-
         <div className="flex flex-wrap gap-1.5 mt-3">
           {cab.features.filter(Boolean).map((f) => (
-            <span
-              key={f}
-              className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full border border-slate-200"
-            >
-              {f}
-            </span>
+            <span key={f} className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full border border-slate-200">{f}</span>
           ))}
         </div>
-
         <div className="mt-3">
           <p className="text-xs text-slate-400 mb-1.5">Serves destinations:</p>
           <div className="flex flex-wrap gap-1">
             {cab.destinations.filter(Boolean).map((d) => (
-              <span
-                key={d}
-                className={`text-xs px-2 py-0.5 rounded-full border font-medium transition-colors ${
-                  d === appliedTo
-                    ? "bg-violet-600 text-white border-violet-600"
-                    : "bg-slate-50 text-slate-500 border-slate-200"
-                }`}
-              >
-                {d}
-              </span>
+              <span key={d} className={`text-xs px-2 py-0.5 rounded-full border font-medium transition-colors ${d === appliedTo ? "bg-violet-600 text-white border-violet-600" : "bg-slate-50 text-slate-500 border-slate-200"}`}>{d}</span>
             ))}
           </div>
         </div>
-
         <div className="flex items-center justify-between mt-auto pt-4 gap-4 flex-wrap">
           <div className="flex items-center gap-1.5 text-slate-600">
             <Users className="w-4 h-4 text-violet-500" />
             <span className="text-sm">{cab.capacity} Seats</span>
           </div>
-
-          <button
-            onClick={onBook}
-            className="px-7 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm hover:shadow-md"
-          >
+          <button onClick={onBook} className="px-7 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm hover:shadow-md">
             Select Cab
           </button>
         </div>
@@ -229,17 +149,14 @@ function CabCard({
 
 export default function CabsListingPage() {
   const navigate = useNavigate();
-
   const today = new Date().toISOString().split("T")[0];
 
-  const [from, setFrom] = useState("Gangtok");
+  const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(today);
   const [time, setTime] = useState("10:00");
-
-  const [appliedFrom, setAppliedFrom] = useState("Gangtok");
+  const [appliedFrom, setAppliedFrom] = useState("");
   const [appliedTo, setAppliedTo] = useState("");
-
   const [selectedCapacity, setSelectedCapacity] = useState<string[]>([]);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
@@ -247,14 +164,9 @@ export default function CabsListingPage() {
   const [sort, setSort] = useState<SortOption>("price_asc");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const toggle = <T,>(arr: T[], val: T) =>
-    arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val];
+  const toggle = <T,>(arr: T[], val: T) => arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val];
 
-  const swapLocations = () => {
-    const prev = from;
-    setFrom(to || prev);
-    setTo(prev);
-  };
+  const swapLocations = () => { const prev = from; setFrom(to || prev); setTo(prev); };
 
   const handleSearch = () => {
     setAppliedFrom(from);
@@ -263,6 +175,17 @@ export default function CabsListingPage() {
     setSelectedFeatures([]);
     setSelectedCompanies([]);
     setMaxPrice(Infinity);
+  };
+
+  // ✅ Live filter: update applied values instantly when selects change
+  const handleFromChange = (val: string) => {
+    setFrom(val);
+    setAppliedFrom(val);
+  };
+
+  const handleToChange = (val: string) => {
+    setTo(val);
+    setAppliedTo(val);
   };
 
   const clearAll = () => {
@@ -276,45 +199,26 @@ export default function CabsListingPage() {
   };
 
   const countFor = {
-    capacity: (label: string) =>
-      cabsData.filter((c) => getCapacityLabel(c.capacity) === label).length,
+    capacity: (label: string) => cabsData.filter((c) => getCapacityLabel(c.capacity) === label).length,
     feature: (f: string) => cabsData.filter((c) => c.features.includes(f)).length,
     company: (co: string) => cabsData.filter((c) => c.company === co).length,
   };
 
   const effectivePrice = (cab: (typeof cabsData)[0]): number => {
-    if (appliedTo) {
-      return getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ?? Infinity;
-    }
-
+    if (appliedTo) return getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ?? Infinity;
     return getStartingPrice(cab, appliedFrom);
   };
 
   const filtered = useMemo(() => {
     const list = cabsData.filter((cab) => {
-      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) === null) {
-        return false;
-      }
-
+      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) === null) return false;
       const price = effectivePrice(cab);
-
       if (maxPrice !== Infinity && price > maxPrice) return false;
-      if (
-        selectedCapacity.length &&
-        !selectedCapacity.includes(getCapacityLabel(cab.capacity))
-      )
-        return false;
-      if (selectedCompanies.length && !selectedCompanies.includes(cab.company))
-        return false;
-      if (
-        selectedFeatures.length &&
-        !selectedFeatures.every((f) => cab.features.includes(f))
-      )
-        return false;
-
+      if (selectedCapacity.length && !selectedCapacity.includes(getCapacityLabel(cab.capacity))) return false;
+      if (selectedCompanies.length && !selectedCompanies.includes(cab.company)) return false;
+      if (selectedFeatures.length && !selectedFeatures.every((f) => cab.features.includes(f))) return false;
       return true;
     });
-
     return [...list].sort((a, b) => {
       if (sort === "price_asc") return effectivePrice(a) - effectivePrice(b);
       if (sort === "price_desc") return effectivePrice(b) - effectivePrice(a);
@@ -322,121 +226,57 @@ export default function CabsListingPage() {
       if (sort === "capacity_asc") return a.capacity - b.capacity;
       return 0;
     });
-  }, [
-    appliedFrom,
-    appliedTo,
-    selectedCapacity,
-    selectedFeatures,
-    selectedCompanies,
-    maxPrice,
-    sort,
-  ]);
+  }, [appliedFrom, appliedTo, selectedCapacity, selectedFeatures, selectedCompanies, maxPrice, sort]);
 
   const activeFilterCount =
-    selectedCapacity.length +
-    selectedFeatures.length +
-    selectedCompanies.length +
-    (maxPrice !== Infinity ? 1 : 0) +
-    (appliedTo ? 1 : 0);
+    selectedCapacity.length + selectedFeatures.length + selectedCompanies.length +
+    (maxPrice !== Infinity ? 1 : 0) + (appliedTo ? 1 : 0);
 
   const allPrices = cabsData.map((c) => effectivePrice(c)).filter((p) => p < Infinity);
   const sliderMin = allPrices.length ? Math.min(...allPrices) : 0;
-  const sliderMax = allPrices.length
-    ? Math.ceil(Math.max(...allPrices) / 500) * 500
-    : 10000;
+  const sliderMax = allPrices.length ? Math.ceil(Math.max(...allPrices) / 500) * 500 : 10000;
 
   const goToBooking = (cab: (typeof cabsData)[0]) => {
     const price = appliedTo
-      ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ??
-        getStartingPrice(cab, appliedFrom)
+      ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ?? getStartingPrice(cab, appliedFrom)
       : getStartingPrice(cab, appliedFrom);
-
-    navigate(
-      `/cabs/book/${cab.id}?from=${encodeURIComponent(
-        appliedFrom
-      )}&to=${encodeURIComponent(appliedTo)}&date=${encodeURIComponent(
-        date
-      )}&time=${encodeURIComponent(time)}&price=${price}`
-    );
+    navigate(`/cabs/book/${cab.id}?from=${encodeURIComponent(appliedFrom)}&to=${encodeURIComponent(appliedTo)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&price=${price}`);
   };
 
   const FilterPanel = () => (
     <div>
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-1">
         <h2 className="font-bold text-slate-800 text-base">Filters</h2>
-
         {activeFilterCount > 0 && (
-          <button
-            onClick={clearAll}
-            className="text-xs text-violet-600 font-semibold hover:underline"
-          >
-            Clear All
-          </button>
+          <button onClick={clearAll} className="text-xs text-violet-600 font-semibold hover:underline">Clear All</button>
         )}
       </div>
-
       <FilterSection title="Max Fare">
-        <input
-          type="range"
-          min={sliderMin}
-          max={sliderMax}
-          step={100}
+        <input type="range" min={sliderMin} max={sliderMax} step={100}
           value={maxPrice === Infinity ? sliderMax : Math.min(maxPrice, sliderMax)}
-          onChange={(e) => {
-            const val = Number(e.target.value);
-            setMaxPrice(val >= sliderMax ? Infinity : val);
-          }}
+          onChange={(e) => { const val = Number(e.target.value); setMaxPrice(val >= sliderMax ? Infinity : val); }}
           className="w-full accent-violet-600 cursor-pointer"
         />
-
         <div className="flex justify-between text-xs text-slate-500 mt-1">
           <span>{formatINR(sliderMin)}</span>
-          <span className="font-semibold text-violet-600">
-            {maxPrice === Infinity ? "Any" : formatINR(maxPrice)}
-          </span>
+          <span className="font-semibold text-violet-600">{maxPrice === Infinity ? "Any" : formatINR(maxPrice)}</span>
           <span>{formatINR(sliderMax)}</span>
         </div>
-
-        {appliedTo && (
-          <p className="text-xs text-slate-400 mt-1">
-            Fares for {appliedFrom} → {appliedTo}
-          </p>
-        )}
+        {appliedTo && <p className="text-xs text-slate-400 mt-1">Fares for {appliedFrom} → {appliedTo}</p>}
       </FilterSection>
-
       <FilterSection title="Capacity" defaultOpen={false}>
         {capacityGroups.map((cap) => (
-          <CheckItem
-            key={cap}
-            label={cap}
-            count={countFor.capacity(cap)}
-            checked={selectedCapacity.includes(cap)}
-            onChange={() => setSelectedCapacity(toggle(selectedCapacity, cap))}
-          />
+          <CheckItem key={cap} label={cap} count={countFor.capacity(cap)} checked={selectedCapacity.includes(cap)} onChange={() => setSelectedCapacity(toggle(selectedCapacity, cap))} />
         ))}
       </FilterSection>
-
       <FilterSection title="Car model" defaultOpen={false}>
         {allCompanies.map((co) => (
-          <CheckItem
-            key={co}
-            label={co}
-            count={countFor.company(co)}
-            checked={selectedCompanies.includes(co)}
-            onChange={() => setSelectedCompanies(toggle(selectedCompanies, co))}
-          />
+          <CheckItem key={co} label={co} count={countFor.company(co)} checked={selectedCompanies.includes(co)} onChange={() => setSelectedCompanies(toggle(selectedCompanies, co))} />
         ))}
       </FilterSection>
-
       <FilterSection title="Features" defaultOpen={false}>
         {allFeatures.map((f) => (
-          <CheckItem
-            key={f}
-            label={f}
-            count={countFor.feature(f)}
-            checked={selectedFeatures.includes(f)}
-            onChange={() => setSelectedFeatures(toggle(selectedFeatures, f))}
-          />
+          <CheckItem key={f} label={f} count={countFor.feature(f)} checked={selectedFeatures.includes(f)} onChange={() => setSelectedFeatures(toggle(selectedFeatures, f))} />
         ))}
       </FilterSection>
     </div>
@@ -444,89 +284,12 @@ export default function CabsListingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://res.cloudinary.com/djsguxriw/image/upload/v1776186680/rohitmondal31-sikkim-7254301_lnshuv.jpg')`,
-          }}
-        />
 
-        {/* Purple gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(102,126,234,0.6) 0%, rgba(118,75,162,0.6) 100%)",
-          }}
-        />
-
-        {/* Radial dark overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%)",
-          }}
-        />
-
-        {/* Hero Content */}
-        <div className="relative z-[2] text-center max-w-[1200px] px-8 animate-[fadeInUp_1s_ease-out]">
-          {/* Badge */}
-          <div className="inline-block px-6 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold tracking-wider mb-8 border border-white/30 animate-pulse">
-            🚕 RIDE IN COMFORT
-          </div>
-
-          {/* Title */}
-          <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold text-white mb-6 leading-[1.1] [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
-            Perfect
-            <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              Cabs
-            </span>
-            in Sikkim
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-[700px] mx-auto mb-12 leading-relaxed">
-            From luxury resorts to cozy homestays, find the perfect place to
-            rest after your Himalayan adventures
-          </p>
-
-          {/* Feature Stats */}
-          <div className="flex gap-8 justify-center flex-wrap mb-8 max-md:flex-col max-md:gap-4">
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🚕</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">100+</div>
-                <div className="text-sm text-white/80">Rides Completed</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">⭐</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">4.6/5</div>
-                <div className="text-sm text-white/80">Avg Rating</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-              <span className="text-3xl">🛎️</span>
-              <div className="text-left">
-                <div className="text-2xl font-bold">24/7</div>
-                <div className="text-sm text-white/80">Support</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* ── Sticky header with purple gradient ── */}
-      <div className="bg-gradient-to-r from-[#6b21a8] via-[#7c3aed] to-[#4f46e5] shadow-xl  z-30">
+      {/* ── Purple booking bar — page starts here ── */}
+      <div className="bg-gradient-to-r from-[#6b21a8] via-[#7c3aed] to-[#4f46e5] shadow-xl z-30">
         <div className="max-w-7xl mx-auto px-4 pt-3 pb-1">
-          <span className="text-[10px] font-bold tracking-widest text-violet-200 uppercase">
-            Outstation · One-Way
-          </span>
+          <span className="text-[10px] font-bold tracking-widest text-violet-200 uppercase">Outstation · One-Way</span>
         </div>
-
         <div className="max-w-7xl mx-auto px-4 pb-3">
           <div className="flex flex-wrap lg:flex-nowrap items-stretch gap-2">
             {/* From */}
@@ -534,107 +297,53 @@ export default function CabsListingPage() {
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <MapPin className="w-2.5 h-2.5" /> From
               </label>
-
-              <select
-                value={from}
-                onChange={(e) => setFrom(e.target.value)}
-                className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer appearance-none"
-              >
-                {SIKKIM_PLACES.map((p) => (
-                  <option key={p} value={p} className="text-slate-800 bg-white">
-                    {p}
-                  </option>
-                ))}
+              <select value={from} onChange={(e) => handleFromChange(e.target.value)} className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer appearance-none">
+                <option value="" className="text-slate-400 bg-white">Select origin</option>
+                {SIKKIM_PLACES.map((p) => (<option key={p} value={p} className="text-slate-800 bg-white">{p}</option>))}
               </select>
             </div>
 
-            {/* Swap button */}
-            <button
-              onClick={swapLocations}
-              title="Swap locations"
-              className="self-center bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 transition-colors shadow-md border border-white/30"
-            >
+            {/* Swap */}
+            <button onClick={swapLocations} title="Swap locations" className="self-center bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 transition-colors shadow-md border border-white/30">
               <ArrowLeftRight className="w-4 h-4" />
             </button>
 
             {/* To */}
-            <div
-              className={`flex-1 min-w-[130px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border transition-colors ${
-                to ? "border-white/60" : "border-white/20 focus-within:border-white/60"
-              }`}
-            >
+            <div className={`flex-1 min-w-[130px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border transition-colors ${to ? "border-white/60" : "border-white/20 focus-within:border-white/60"}`}>
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <MapPin className="w-2.5 h-2.5" /> To
               </label>
-
-              <select
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
-                className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer appearance-none"
-              >
-                <option value="" className="text-slate-400 bg-white">
-                  Select destination
-                </option>
-
-                {SIKKIM_PLACES.filter((p) => p !== from).map((p) => (
-                  <option key={p} value={p} className="text-slate-800 bg-white">
-                    {p}
-                  </option>
-                ))}
+              <select value={to} onChange={(e) => handleToChange(e.target.value)} className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer appearance-none">
+                <option value="" className="text-slate-400 bg-white">Select destination</option>
+                {SIKKIM_PLACES.filter((p) => p !== from).map((p) => (<option key={p} value={p} className="text-slate-800 bg-white">{p}</option>))}
               </select>
             </div>
 
-            {/* Pick-up Date */}
+            {/* Date */}
             <div className="flex-1 min-w-[140px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors">
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <Calendar className="w-2.5 h-2.5" /> Pick-up Date
               </label>
-
-              <input
-                type="date"
-                value={date}
-                min={today}
-                onChange={(e) => setDate(e.target.value)}
-                className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer [color-scheme:dark]"
-              />
+              <input type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer [color-scheme:dark]" />
             </div>
 
-            {/* Pick-up Time */}
+            {/* Time */}
             <div className="flex-1 min-w-[120px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors">
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <Clock className="w-2.5 h-2.5" /> Pick-up Time
               </label>
-
-              <input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer [color-scheme:dark]"
-              />
+              <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="bg-transparent text-white font-semibold text-sm focus:outline-none cursor-pointer [color-scheme:dark]" />
             </div>
 
-            {/* Search button */}
-            <button
-              onClick={handleSearch}
-              className="shrink-0 bg-white hover:bg-violet-50 active:scale-95 text-violet-700 font-extrabold text-sm px-8 rounded-lg flex items-center gap-2 shadow-lg transition-all duration-150 min-h-[58px]"
-            >
-              <Search className="w-4 h-4" />
-              SEARCH
+            {/* Search */}
+            <button onClick={handleSearch} className="shrink-0 bg-white hover:bg-violet-50 active:scale-95 text-violet-700 font-extrabold text-sm px-8 rounded-lg flex items-center gap-2 shadow-lg transition-all duration-150 min-h-[58px]">
+              <Search className="w-4 h-4" /> SEARCH
             </button>
           </div>
 
           <div className="flex gap-6 mt-2.5">
-            {[
-              { icon: "🏅", label: "Trusted Drivers" },
-              { icon: "✅", label: "Clean Cabs" },
-              { icon: "⏱️", label: "On-Time Pickup" },
-            ].map((b) => (
-              <span
-                key={b.label}
-                className="flex items-center gap-1.5 text-xs text-white/60 font-medium"
-              >
-                {b.icon} {b.label}
-              </span>
+            {[{ icon: "🏅", label: "Trusted Drivers" }, { icon: "✅", label: "Clean Cabs" }, { icon: "⏱️", label: "On-Time Pickup" }].map((b) => (
+              <span key={b.label} className="flex items-center gap-1.5 text-xs text-white/60 font-medium">{b.icon} {b.label}</span>
             ))}
           </div>
         </div>
@@ -650,28 +359,12 @@ export default function CabsListingPage() {
           {appliedTo && (
             <div className="mb-4 flex items-center gap-3 bg-violet-600 text-white px-4 py-3 rounded-xl shadow-sm">
               <MapPin className="w-4 h-4 shrink-0" />
-
               <p className="text-sm font-semibold flex-1">
-                Cabs from <span className="font-bold">{appliedFrom}</span> →{" "}
-                <span className="font-bold">{appliedTo}</span>
-                {date && (
-                  <span className="font-normal text-violet-200">
-                    {" "}
-                    · {new Date(date).toDateString()}
-                  </span>
-                )}
-                {time && (
-                  <span className="font-normal text-violet-200"> · {time}</span>
-                )}
+                Cabs from <span className="font-bold">{appliedFrom}</span> → <span className="font-bold">{appliedTo}</span>
+                {date && <span className="font-normal text-violet-200"> · {new Date(date).toDateString()}</span>}
+                {time && <span className="font-normal text-violet-200"> · {time}</span>}
               </p>
-
-              <button
-                onClick={() => {
-                  setAppliedTo("");
-                  setTo("");
-                }}
-                className="text-violet-200 hover:text-white flex items-center gap-1 text-xs font-semibold shrink-0"
-              >
+              <button onClick={() => { setAppliedTo(""); setTo(""); }} className="text-violet-200 hover:text-white flex items-center gap-1 text-xs font-semibold shrink-0">
                 <X className="w-3.5 h-3.5" /> Clear
               </button>
             </div>
@@ -679,44 +372,17 @@ export default function CabsListingPage() {
 
           <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
             <p className="text-sm text-slate-500">
-              Showing{" "}
-              <span className="font-semibold text-slate-800">
-                {filtered.length}
-              </span>{" "}
-              cabs
-              {activeFilterCount > 0 && (
-                <span className="ml-2 text-violet-600 font-medium">
-                  ({activeFilterCount} filter
-                  {activeFilterCount > 1 ? "s" : ""} active)
-                </span>
-              )}
+              Showing <span className="font-semibold text-slate-800">{filtered.length}</span> cabs
+              {activeFilterCount > 0 && <span className="ml-2 text-violet-600 font-medium">({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)</span>}
             </p>
-
             <div className="flex items-center gap-3">
-              {/* Mobile filter button */}
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className="lg:hidden flex items-center gap-2 text-sm font-semibold text-violet-600 border border-violet-200 rounded-lg px-3 py-1.5 bg-white shadow-sm"
-              >
-                <SlidersHorizontal className="w-4 h-4" />
-                Filters
-
-                {activeFilterCount > 0 && (
-                  <span className="bg-violet-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {activeFilterCount}
-                  </span>
-                )}
+              <button onClick={() => setDrawerOpen(true)} className="lg:hidden flex items-center gap-2 text-sm font-semibold text-violet-600 border border-violet-200 rounded-lg px-3 py-1.5 bg-white shadow-sm">
+                <SlidersHorizontal className="w-4 h-4" /> Filters
+                {activeFilterCount > 0 && <span className="bg-violet-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{activeFilterCount}</span>}
               </button>
-
-              {/* Sort dropdown */}
               <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-1.5 shadow-sm">
                 <span className="text-xs text-slate-500 font-medium">Sort:</span>
-
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value as SortOption)}
-                  className="text-sm font-semibold text-slate-700 bg-transparent focus:outline-none cursor-pointer"
-                >
+                <select value={sort} onChange={(e) => setSort(e.target.value as SortOption)} className="text-sm font-semibold text-slate-700 bg-transparent focus:outline-none cursor-pointer">
                   <option value="price_asc">Price: Low to High</option>
                   <option value="price_desc">Price: High to Low</option>
                   <option value="rating_desc">Rating: Best First</option>
@@ -726,143 +392,54 @@ export default function CabsListingPage() {
             </div>
           </div>
 
-          {/* Active filter chips */}
           {activeFilterCount > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
-              {appliedTo && (
-                <Chip
-                  label={`To: ${appliedTo}`}
-                  onRemove={() => {
-                    setAppliedTo("");
-                    setTo("");
-                  }}
-                />
-              )}
-
-              {selectedCapacity.map((c) => (
-                <Chip
-                  key={c}
-                  label={c}
-                  onRemove={() => setSelectedCapacity(toggle(selectedCapacity, c))}
-                />
-              ))}
-
-              {selectedCompanies.map((c) => (
-                <Chip
-                  key={c}
-                  label={c}
-                  onRemove={() =>
-                    setSelectedCompanies(toggle(selectedCompanies, c))
-                  }
-                />
-              ))}
-
-              {selectedFeatures.map((f) => (
-                <Chip
-                  key={f}
-                  label={f}
-                  onRemove={() =>
-                    setSelectedFeatures(toggle(selectedFeatures, f))
-                  }
-                />
-              ))}
-
-              {maxPrice !== Infinity && (
-                <Chip
-                  label={`Max ${formatINR(maxPrice)}`}
-                  onRemove={() => setMaxPrice(Infinity)}
-                />
-              )}
+              {appliedTo && <Chip label={`To: ${appliedTo}`} onRemove={() => { setAppliedTo(""); setTo(""); }} />}
+              {selectedCapacity.map((c) => <Chip key={c} label={c} onRemove={() => setSelectedCapacity(toggle(selectedCapacity, c))} />)}
+              {selectedCompanies.map((c) => <Chip key={c} label={c} onRemove={() => setSelectedCompanies(toggle(selectedCompanies, c))} />)}
+              {selectedFeatures.map((f) => <Chip key={f} label={f} onRemove={() => setSelectedFeatures(toggle(selectedFeatures, f))} />)}
+              {maxPrice !== Infinity && <Chip label={`Max ${formatINR(maxPrice)}`} onRemove={() => setMaxPrice(Infinity)} />}
             </div>
           )}
 
-          {/* Empty state */}
           {filtered.length === 0 ? (
             <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-16 text-center">
               <p className="text-5xl mb-4">🚗</p>
-
-              <p className="font-semibold text-slate-700 text-lg">
-                {appliedTo
-                  ? `No cabs available from ${appliedFrom} to ${appliedTo}`
-                  : "No cabs match your filters"}
-              </p>
-
-              <p className="text-sm text-slate-400 mt-1 mb-5">
-                {appliedTo
-                  ? "Try a different route or remove some filters"
-                  : "Try adjusting your filters"}
-              </p>
-
-              <button
-                onClick={clearAll}
-                className="text-violet-600 text-sm font-semibold border border-violet-200 rounded-lg px-5 py-2 hover:bg-violet-50 transition-colors"
-              >
-                Clear all filters
-              </button>
+              <p className="font-semibold text-slate-700 text-lg">{appliedTo ? `No cabs available from ${appliedFrom} to ${appliedTo}` : "No cabs match your filters"}</p>
+              <p className="text-sm text-slate-400 mt-1 mb-5">{appliedTo ? "Try a different route or remove some filters" : "Try adjusting your filters"}</p>
+              <button onClick={clearAll} className="text-violet-600 text-sm font-semibold border border-violet-200 rounded-lg px-5 py-2 hover:bg-violet-50 transition-colors">Clear all filters</button>
             </div>
           ) : (
             <div className="space-y-4">
               {filtered.map((cab) => (
-                <CabCard
-                  key={cab.id}
-                  cab={cab}
-                  appliedFrom={appliedFrom}
-                  appliedTo={appliedTo}
-                  onBook={() => goToBooking(cab)}
-                />
+                <CabCard key={cab.id} cab={cab} appliedFrom={appliedFrom} appliedTo={appliedTo} onBook={() => goToBooking(cab)} />
               ))}
             </div>
           )}
 
-          {/* Bottom CTA banner */}
           <div className="mt-10 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-r from-[#6b21a8] to-[#4f46e5] p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-white">
               <p className="text-xl font-bold">Ready for your Himalayan journey?</p>
-              <p className="text-sm text-white/70 mt-1">
-                Book a cab and explore Sikkim at your pace
-              </p>
+              <p className="text-sm text-white/70 mt-1">Book a cab and explore Sikkim at your pace</p>
             </div>
-
             <div className="flex gap-3 shrink-0 flex-wrap justify-center">
-              <Link to="/destinations">
-                <button className="px-6 py-2.5 bg-white text-violet-700 font-semibold rounded-xl text-sm hover:-translate-y-0.5 transition-transform shadow">
-                  Explore Destinations →
-                </button>
-              </Link>
-
-              <Link to="/contact">
-                <button className="px-6 py-2.5 border border-white/50 text-white font-semibold rounded-xl text-sm hover:bg-white/10 hover:-translate-y-0.5 transition-all">
-                  Contact Us
-                </button>
-              </Link>
+              <Link to="/destinations"><button className="px-6 py-2.5 bg-white text-violet-700 font-semibold rounded-xl text-sm hover:-translate-y-0.5 transition-transform shadow">Explore Destinations →</button></Link>
+              <Link to="/contact"><button className="px-6 py-2.5 border border-white/50 text-white font-semibold rounded-xl text-sm hover:bg-white/10 hover:-translate-y-0.5 transition-all">Contact Us</button></Link>
             </div>
           </div>
         </main>
       </div>
 
-      {/* Mobile filter drawer */}
       {drawerOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setDrawerOpen(false)}
-          />
-
+          <div className="absolute inset-0 bg-black/40" onClick={() => setDrawerOpen(false)} />
           <div className="relative ml-auto w-80 max-w-full bg-white h-full overflow-y-auto p-5 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-lg text-slate-800">Filters</h3>
-
-              <button onClick={() => setDrawerOpen(false)}>
-                <X className="w-5 h-5 text-slate-500" />
-              </button>
+              <button onClick={() => setDrawerOpen(false)}><X className="w-5 h-5 text-slate-500" /></button>
             </div>
-
             <FilterPanel />
-
-            <button
-              onClick={() => setDrawerOpen(false)}
-              className="mt-6 w-full py-3 bg-violet-600 text-white font-semibold rounded-xl hover:bg-violet-700 transition-colors"
-            >
+            <button onClick={() => setDrawerOpen(false)} className="mt-6 w-full py-3 bg-violet-600 text-white font-semibold rounded-xl hover:bg-violet-700 transition-colors">
               Show {filtered.length} Cabs
             </button>
           </div>

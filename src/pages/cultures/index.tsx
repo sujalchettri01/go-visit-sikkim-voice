@@ -2,254 +2,167 @@ import { useState } from "react";
 import cultureItems from "../../data/culture";
 import { Link } from "react-router-dom";
 
-// Culture items data
+const CATEGORIES = [
+  { key: "Places in Depth", label: "Places in Depth", icon: "📍", color: "#0891B2", count: "Sacred Lakes & Sites", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" },
+  { key: "Festivals", label: "Festivals", icon: "🎭", color: "#BE185D", count: "Celebrations & Rituals", image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80" },
+  { key: "Local Villages", label: "Local Villages", icon: "🏘️", color: "#92400E", count: "Heritage Homestays", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776790844/Lepcha_Village_Experience14-014db39f_ykashe.jpg" },
+  { key: "Tradition & Culture", label: "Tradition & Culture", icon: "🎨", color: "#7C3AED", count: "Art, Craft & Cuisine", image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80" },
+];
 
+// Map culture.ts categories to our new keys
+// Categories match directly now — no mapping needed
+
+function CategoryCard({ cat, onClick }: { cat: typeof CATEGORIES[0]; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative flex flex-col items-end justify-end rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl text-left w-full h-full"
+      style={{ border: "none" }}
+    >
+      <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-110"
+        style={{ backgroundImage: `url('${cat.image}')` }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%)" }} />
+      <div className="absolute top-3 left-3 text-2xl">{cat.icon}</div>
+      <div className="relative z-10 p-4 w-full">
+        <div className="font-extrabold text-white text-base leading-tight">{cat.label}</div>
+        <div className="flex items-center justify-between mt-1">
+          <div className="text-xs text-white/70">{cat.count}</div>
+          <div className="text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">Explore →</div>
+        </div>
+      </div>
+    </button>
+  );
+}
 
 const CulturePage = () => {
-  const [filter, setFilter] = useState("All");
-  
-  const categories = ["All", "Spiritual", "Celebration", "Art", "Culinary", "Performance", "Heritage", "Wellness"];
-  
-  const filteredItems = filter === "All" 
-    ? cultureItems 
-    : cultureItems.filter(item => item.category === filter);
+  const [activeTab, setActiveTab] = useState("");
+
+  const filteredItems = activeTab
+    ? cultureItems.filter((item) => item.category === activeTab)
+    : [];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-  {/* Background image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style={{
-      backgroundImage: `url('https://res.cloudinary.com/djsguxriw/image/upload/v1776790844/Lepcha_Village_Experience14-014db39f_ykashe.jpg')`,
-    }}
-  />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
-  {/* Purple gradient overlay */}
-  <div
-    className="absolute inset-0"
-    style={{ background: 'linear-gradient(135deg, rgba(102,126,234,0.6) 0%, rgba(118,75,162,0.6) 100%)' }}
-  />
-
-  {/* Radial dark overlay */}
-  <div
-    className="absolute inset-0"
-    style={{ background: 'radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%)' }}
-  />
-
-  {/* Hero Content */}
-  <div className="relative z-[2] text-center max-w-[1200px] px-8 animate-[fadeInUp_1s_ease-out]">
-    {/* Badge */}
-    <div className="inline-block px-6 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold tracking-wider mb-8 border border-white/30 animate-pulse">
-      🎭 CULTURAL HERITAGE
-    </div>
-
-    {/* Title */}
-    <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold text-white mb-6 leading-[1.1] [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
-      Discover the
-      <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-        Cultural Treasures
-      </span>
-      of Sikkim
-    </h1>
-
-    {/* Subtitle */}
-    <p className="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-[700px] mx-auto mb-12 leading-relaxed">
-      Immerse yourself in centuries-old traditions, sacred rituals, and the
-      warm hospitality that defines the heart of the Himalayas
-    </p>
-
-    {/* Feature Stats */}
-    <div className="flex gap-8 justify-center flex-wrap mb-8 max-md:flex-col max-md:gap-4">
-      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-        <span className="text-3xl">🏛️</span>
-        <div className="text-left">
-          <div className="text-2xl font-bold">200+</div>
-          <div className="text-sm text-white/80">Monasteries</div>
-        </div>
-      </div>
-      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-        <span className="text-3xl">🎭</span>
-        <div className="text-left">
-          <div className="text-2xl font-bold">25+</div>
-          <div className="text-sm text-white/80">Festivals</div>
-        </div>
-      </div>
-      <div className="flex items-center gap-3 text-white font-semibold px-6 py-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 transition-all duration-200 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-        <span className="text-3xl">🌏</span>
-        <div className="text-left">
-          <div className="text-2xl font-bold">4</div>
-          <div className="text-sm text-white/80">Major Ethnicities</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-      {/* Filter Section */}
-      <section className="py-12 px-4 bg-gradient-to-b from-slate-50 to-white top-16 z-10 border-b border-gray-200 backdrop-blur-md bg-white/80">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setFilter(category)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${
-                  filter === category
-                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105"
-                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 hover:scale-105 shadow-sm"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Culture Items Section */}
-      <section className="py-16 px-4 md:px-8 bg-gradient-to-b from-white to-slate-50">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 animate-[fadeInUp_1s_ease-out]">
-            <span className="inline-block px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-semibold tracking-wide mb-6 shadow-lg">
-              🌟 RICH HERITAGE
-            </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
-              Experience <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Timeless</span>
-              <br />
-              Traditions & Rituals
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              From sacred monasteries to vibrant festivals, discover the living culture 
-              that has thrived in the Himalayas for centuries
-            </p>
+      {/* ── Category Landing Grid ── */}
+      {!activeTab && (
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl font-extrabold text-gray-800">Culture & Heritage</h2>
+            <p className="text-gray-400 text-sm mt-1">Choose a category to explore Sikkim's rich culture</p>
           </div>
 
-          {/* Culture Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {filteredItems.map((item, index) => (
-              <div 
-                key={item.id} 
-                className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 border border-gray-200 hover:-translate-y-2 hover:shadow-2xl group animate-[fadeInUp_0.6s_ease-out]"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Culture Image with Overlay */}
-                <div className="relative h-56 overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:rotate-2"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute bottom-4 left-4 flex items-end gap-2">
-                    <span className="text-4xl" style={{ filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5))' }}>
-                      {item.icon}
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white">
-                    {item.category}
-                  </div>
-                  <div className="absolute top-4 left-4 px-4 py-1 bg-white/95 backdrop-blur-sm rounded-full text-sm font-semibold text-blue-600 shadow-md">
-                    {item.experiences} Experiences
-                  </div>
-                </div>
-
-                {/* Culture Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-4 min-h-[3em]">
-                    {item.description}
-                  </p>
-
-                  {/* Meta Information */}
-                  <div className="flex items-center gap-2 text-gray-600 text-sm mb-6 pb-6 border-b border-gray-200">
-                    <span className="text-base">🌤️</span>
-                    <span>Best Time: {item.bestTime}</span>
-                  </div>
-
-                  {/* Highlights */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {item.highlights.map((highlight, idx) => (
-                      <span 
-                        key={idx} 
-                        className="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium"
-                      >
-                        {highlight}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Button */}
-                  <Link to={'/cultures/' + item.id}>
-                  <button 
-                    className="group/btn relative w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-200 focus-visible:outline-offset-2"
-                    style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
-                  >
-                    <span 
-                      className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100"
-                    />
-                    <span className="relative">Explore Culture</span>
-                    <span className="relative inline-block ml-2 transition-transform duration-200 group-hover/btn:translate-x-1">
-                      →
-                    </span>
-                  </button>
-                  </Link>
-                </div>
+          {/* Row 1 — 2 large cards */}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            {CATEGORIES.slice(0, 2).map((cat) => (
+              <div key={cat.key} style={{ minHeight: "240px", height: "240px" }}>
+                <CategoryCard cat={cat} onClick={() => setActiveTab(cat.key)} />
               </div>
             ))}
           </div>
 
-          {/* No Results Message */}
-          {filteredItems.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-xl text-gray-600">No cultural experiences found in this category.</p>
-              <button 
-                onClick={() => setFilter("All")}
-                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
+          {/* Row 2 — 2 large cards */}
+          <div className="grid grid-cols-2 gap-4">
+            {CATEGORIES.slice(2, 4).map((cat) => (
+              <div key={cat.key} style={{ minHeight: "240px", height: "240px" }}>
+                <CategoryCard cat={cat} onClick={() => setActiveTab(cat.key)} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Back button ── */}
+      {activeTab && (
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
+          <button
+            onClick={() => setActiveTab("")}
+            className="flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+          >
+            ← Back to Categories
+          </button>
+        </div>
+      )}
+
+      {/* ── Section Header ── */}
+      {activeTab && (
+        <div className="max-w-7xl mx-auto px-4 pb-4">
+          <h2 className="text-2xl font-extrabold text-gray-800">{activeTab}</h2>
+          <p className="text-gray-400 text-sm mt-1">
+            {filteredItems.length} experience{filteredItems.length !== 1 ? "s" : ""} available
+          </p>
+        </div>
+      )}
+
+      {/* ── Culture Items Grid ── */}
+      {activeTab && (
+        <div className="max-w-7xl mx-auto px-4 pb-16">
+          {filteredItems.length === 0 ? (
+            <div className="text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
+              <p className="text-4xl mb-4">🏛️</p>
+              <p className="text-gray-600 font-semibold text-lg">No experiences yet in {activeTab}</p>
+              <p className="text-gray-400 text-sm mt-1 mb-5">Check back soon</p>
+              <button
+                onClick={() => setActiveTab("")}
+                className="px-6 py-2 rounded-full text-sm font-semibold text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition"
               >
-                View All Experiences
+                Back to categories
               </button>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredItems.map((item: any, index: number) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 border border-gray-200 hover:-translate-y-2 hover:shadow-2xl group"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-4 left-4">
+                      <span className="text-3xl" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.5))" }}>{item.icon}</span>
+                    </div>
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white">
+                      {item.category}
+                    </div>
+                    <div className="absolute top-4 left-4 px-4 py-1 bg-white/95 backdrop-blur-sm rounded-full text-sm font-semibold text-blue-600 shadow-md">
+                      {item.experiences} Experiences
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
+                    <p className="text-gray-600 leading-relaxed mb-4 min-h-[3em]">{item.shortDescription}</p>
+
+
+
+
+
+                    <Link to={'/cultures/' + item.id}>
+                      <button
+                        className="group/btn relative w-full px-6 py-3 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl"
+                        style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
+                      >
+                        <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100" />
+                        <span className="relative">Explore Culture</span>
+                        <span className="relative inline-block ml-2 transition-transform duration-200 group-hover/btn:translate-x-1">→</span>
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
-
-          {/* Section Footer */}
-         
         </div>
-      </section>
+      )}
 
-      {/* Cultural Quote Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-4xl mx-auto p-12 bg-white/80 backdrop-blur-md rounded-2xl border-2 border-purple-600/20 shadow-xl max-md:p-8">
-          <blockquote className="relative m-0 text-xl italic text-gray-800 leading-loose text-center max-md:text-base">
-            <span 
-              className="absolute -top-5 -left-2.5 text-6xl text-purple-600 opacity-30"
-              style={{ lineHeight: 0 }}
-            >
-              "
-            </span>
-            In Sikkim, every prayer flag carries a wish, every monastery holds
-            a story, and every festival celebrates the harmony between nature
-            and humanity.
-            <cite className="block mt-6 text-sm text-gray-600 not-italic font-semibold">
-              — Ancient Sikkimese Wisdom
-            </cite>
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
+      {/* CTA Section */}
       <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div 
-            className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20320%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20fill-opacity%3D%221%22%20d%3D%22M0%2C96L48%2C112C96%2C128%2C192%2C160%2C288%2C160C384%2C160%2C480%2C128%2C576%2C122.7C672%2C117%2C768%2C139%2C864%2C144C960%2C149%2C1056%2C139%2C1152%2C128C1248%2C117%2C1344%2C107%2C1392%2C101.3L1440%2C96L1440%2C320L1392%2C320C1344%2C320%2C1248%2C320%2C1152%2C320C1056%2C320%2C960%2C320%2C864%2C320C768%2C320%2C672%2C320%2C576%2C320C480%2C320%2C384%2C320%2C288%2C320C192%2C320%2C96%2C320%2C48%2C320L0%2C320Z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E')] bg-bottom bg-cover bg-no-repeat"
-          />
-        </div>
-
         <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
             Begin Your
@@ -258,52 +171,23 @@ const CulturePage = () => {
             </span>
           </h2>
           <p className="text-xl text-white/90 mb-10 leading-relaxed">
-            Connect with ancient traditions and create meaningful memories 
-            in the heart of the Himalayas
+            Connect with ancient traditions and create meaningful memories in the heart of the Himalayas
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              className="group px-10 py-4 bg-white text-purple-600 rounded-xl font-semibold text-lg hover:bg-gray-50 hover:-translate-y-1 transition-all duration-200 shadow-xl inline-flex items-center justify-center"
-            >
-              <span>Book Cultural Tour</span>
-              <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">→</span>
-            </button>
-            <button className="px-10 py-4 bg-transparent text-white border-2 border-white rounded-xl font-semibold text-lg hover:bg-white/10 hover:-translate-y-1 transition-all duration-200 backdrop-blur-sm">
-              Contact Guide
-            </button>
+            <Link to="/contact">
+              <button className="group px-10 py-4 bg-white text-purple-600 rounded-xl font-semibold text-lg hover:bg-gray-50 hover:-translate-y-1 transition-all duration-200 shadow-xl inline-flex items-center justify-center">
+                <span>Book Cultural Tour</span>
+                <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </button>
+            </Link>
+            <Link to="/contact">
+              <button className="px-10 py-4 bg-transparent text-white border-2 border-white rounded-xl font-semibold text-lg hover:bg-white/10 hover:-translate-y-1 transition-all duration-200 backdrop-blur-sm">
+                Contact Guide
+              </button>
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Custom Animations */}
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes scroll {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, 0);
-          }
-          40% { opacity: 1; }
-          80% {
-            opacity: 0;
-            transform: translate(-50%, 16px);
-          }
-          100% { opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 };

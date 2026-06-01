@@ -45,7 +45,7 @@ const accommodations = [
   },
 
   rating: 4.8,
-  pricePerNight: 1,
+  pricePerNight: 10000,
   amenities: ["Spa & Wellness Center", "Casino", "Mountain View", "Fine Dining Restaurant", "Indoor Heated Pool", "Fitness Center", "24/7 Room Service", "Concierge Service", "Free WiFi", "Airport Shuttle"],
   rooms: 85,
   checkIn: "2:00 PM",

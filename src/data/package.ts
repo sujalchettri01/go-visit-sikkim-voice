@@ -72,13 +72,13 @@ amenities: [
 
 
   pricingByPeople: {
-    1: 1,
-    2: 10000,
-    3: 12000,
-    4: 14000,
-    5: 16000,
-    6: 18000,
-    7: 20000,
+    1: 15000,
+    2: 15000,
+    3: 17000,
+    4: 19000,
+    5: 21000,
+    6: 23000,
+    7: 25000,
   },
 
 
@@ -239,12 +239,12 @@ amenities: [
 ],
 
   pricingByPeople: {
-    1: 1,
-    2: 13000,
-    3: 14000,
-    4: 25000,
-    5: 21000,
-    6: 230000,
+    1: 15000,
+    2: 17000,
+    3: 19000,
+    4: 21000,
+    5: 23000,
+    6: 25000,
   },
 
 
@@ -408,12 +408,12 @@ amenities: [
 ],
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 16000,
+    2: 18000,
+    3: 20000,
+    4: 12000,
+    5: 24000,
+    6: 26000,
   },
 
 
@@ -558,12 +558,12 @@ amenities: [
 ],
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 16000,
+    2: 18000,
+    3: 20000,
+    4: 22000,
+    5: 24000,
+    6: 26000,
   },
 
 
@@ -709,12 +709,12 @@ reviews: []
   ],
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 17000,
+    2: 19000,
+    3: 21000,
+    4: 23000,
+    5: 25000,
+    6: 27000,
   },
 
    images: [
@@ -845,12 +845,12 @@ reviews: []
   ],
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 3000,
+    2: 6000,
+    3: 9000,
+    4: 12000,
+    5: 15000,
+    6: 18000,
   },
 
 
@@ -969,12 +969,12 @@ reviews: []
   ],
 
     pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 13000,
+    2: 15000,
+    3: 17000,
+    4: 19000,
+    5: 21000,
+    6: 23000,
   },
 
   inclusions: [
@@ -1070,12 +1070,12 @@ reviews: []
   ],
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 1000,
+    2: 2000,
+    3: 3000,
+    4: 4000,
+    5: 5000,
+    6: 6000,
   },
 
   inclusions: [
@@ -1208,12 +1208,12 @@ reviews: []
 
 
   pricingByPeople: {
-    1: 11000,
-    2: 13000,
-    3: 15000,
-    4: 17000,
-    5: 19000,
-    6: 210000,
+    1: 17000,
+    2: 19000,
+    3: 21000,
+    4: 23000,
+    5: 25000,
+    6: 20000,
   },
 
   inclusions: [
@@ -1260,554 +1260,6 @@ reviews: []
 
   reviews: []
 }
-/*
-{
-  id: 6,
-  title: "Namchi Day Tour",
-  image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776186866/spandan-pattanayak-PpZobixj2KU-unsplash_d8fcoj.jpg",
-    shortDescription: "Experience the best Namchi Day Tour from Gangtok, covering major attractions like MG Road, Enchey Monastery, and Namgyal Institute of Tibetology.",
-    summary: [
-       "India-China Border",
-       "Snowy Mountain Views",
-         "Tsomgo Lake Visit",
-         "Baba Mandir Stop",
-        
-    ],
-  description:
-    "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok. This budget-friendly trip is perfect for travelers who wish to explore Nathula in a shared vehicle without the hassle of arranging permits and transport.",
-    
-  price: 0, // Set dynamically
-  duration: "1 day",
-  type: "Sharing Tour",
-  rating: 5,
-  reviewCount: 1,
-  maxGuests: 1,
-  minAge: 3,
-  difficulty: "Moderate",
-  languages: ["English", "Hindi", "Nepali"],
-  bestTime: "October to May (best), June to September (monsoon)",
-  itinerary: [
-    {
-      day: 1,
-      title: "Tsomgo Lake, Baba Mandir & Nathula Pass",
-      activities: [
-        "Morning Departure (8:00 AM): Pickup from Vajra Stand, Gangtok in a shared vehicle.",
-        "Tsomgo Lake (Changu Lake): Visit the sacred high-altitude glacial lake en route.",
-        "Baba Mandir: Pay respects at the famous shrine dedicated to Baba Harbhajan Singh.",
-        "Nathula Pass: Reach the Indo-China border and witness breathtaking Himalayan landscapes.",
-        "Evening Return (4:00–5:00 PM): Drive back to Gangtok.",
-      ],
-    },
-  ],
-  amenities: [
-    {
-      id: "permit",
-      name: "Permit Included",
-      included: true,
-    },
-    {
-      id: "sightseeing",
-      name: "Sightseeing Included",
-      included: true,
-    },
-    {
-      id: "shared-vehicle",
-      name: "Shared Vehicle",
-      included: true,
-    },
-    {
-      id: "professional-guide",
-      name: "Professional Guide & Driver",
-      included: true,
-    },
-  ],
-  inclusions: [
-    "Shared vehicle (permit included)",
-    "Professional driver & guide assistance",
-    "All required permits for Nathula Pass",
-  ],
-  exclusions: [
-    "Meals, snacks, and personal expenses",
-    "Entry fees (if applicable)",
-    "Anything not mentioned in inclusions",
-  ],
-  requirements: [
-    "Original ID proof (mandatory for permits)",
-    "Warm clothes, gloves, and cap",
-    "Sunglasses & sunscreen",
-    "Snacks & water",
-  ],
-  faqs: [
-    {
-      id: "faq-1",
-      question: "Do I need a permit to visit Nathula Pass?",
-      answer:
-        "Yes, a permit from the District Administration is mandatory. Our package includes this permit.",
-    },
-    {
-      id: "faq-2",
-      question: "Who can visit Nathula Pass?",
-      answer:
-        "Indian citizens and registered foreigners can visit. Our guides will assist with all requirements.",
-    },
-    {
-      id: "faq-3",
-      question: "On which days is Nathula Pass open for tourists?",
-      answer:
-        "Usually open from Wednesday to Sunday. Closed on Mondays and Tuesdays. Verify dates before booking.",
-    },
-    {
-      id: "faq-4",
-      question: "What is the best time to visit Nathula Pass?",
-      answer:
-        "October to May offers the best weather. June to September experiences monsoon conditions.",
-    },
-    {
-      id: "faq-5",
-      question: "Is Nathula Pass suitable for senior citizens and children?",
-      answer:
-        "Children above 3 years can visit with proper acclimatization. Senior citizens should consult their doctor.",
-    },
-    {
-      id: "faq-6",
-      question: "What should I wear and carry to Nathula Pass?",
-      answer:
-        "Wear warm clothes, carry sunscreen, sunglasses, and sufficient water due to high altitude.",
-    },
-    {
-      id: "faq-7",
-      question: "Is photography allowed at Nathula Pass?",
-      answer:
-        "Yes, photography is allowed for personal use. Avoid commercial photography.",
-    },
-    {
-      id: "faq-8",
-      question: "Will I find snow at Nathula Pass?",
-      answer:
-        "Yes, December to February usually has snow. Other months may have no snow depending on weather.",
-    },
-    {
-      id: "faq-9",
-      question: "How far is Nathula Pass from Gangtok?",
-      answer: "Approximately 52 km from Gangtok, about 1.5-2 hours drive.",
-    },
-    {
-      id: "faq-10",
-      question: "Can Foreigners visit Nathula Pass?",
-      answer:
-        "Yes, registered foreigners can visit with proper documentation and permits.",
-    },
-    {
-      id: "faq-11",
-      question: "Is the road to Nathula safe?",
-      answer:
-        "Yes, the road is well-maintained. Our experienced drivers ensure safe travel.",
-    },
-    {
-      id: "faq-12",
-      question: "What permits are required?",
-      answer:
-        "A permit from the District Administration is required. We handle this for you.",
-    },
-    {
-      id: "faq-13",
-      question: "What are the documents required for a Nathula Permit?",
-      answer:
-        "Original ID proof, citizenship certificate, or passport. Contact us for complete details.",
-    },
-  ],
-  locations: [
-    {
-      name: "Tsomgo Lake",
-      altitude: "12,400 ft",
-      distance: "28 km from Gangtok",
-    },
-    {
-      name: "Baba Mandir",
-      altitude: "13,500 ft",
-      distance: "37 km from Gangtok",
-    },
-    {
-      name: "Nathula Pass",
-      altitude: "14,140 ft",
-      distance: "52 km from Gangtok",
-    },
-  ],
-  reviews: [
-    {
-      id: "review-1",
-      author: "kiken",
-      rating: 5,
-      comment: "Nicee",
-      date: "April 16, 2025",
-    },
-  ],
-},
-{
-  id: 1,
-  title: "Nathula Sharing Tour – 1 Day",
-  image: "https://media.istockphoto.com/id/2154423340/photo/india-gangtok-india-china-border-december-2023-tourist-at-view-of-nathula-pass-entrance-gate.jpg?s=2048x2048&w=is&k=20&c=99ygf0K20JLqZ_cyyRDaMz_KduibMxgTmL8ml6K55fM=",
-    shortDescription: "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok.",
-    summary: [
-       "India-China Border",
-       "Snowy Mountain Views",
-         "Tsomgo Lake Visit",
-         "Baba Mandir Stop",
-        
-    ],
-  description:
-    "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok. This budget-friendly trip is perfect for travelers who wish to explore Nathula in a shared vehicle without the hassle of arranging permits and transport.",
-    
-  price: 0, // Set dynamically
-  duration: "1 day",
-  type: "Sharing Tour",
-  rating: 5,
-  reviewCount: 1,
-  maxGuests: 1,
-  minAge: 3,
-  difficulty: "Moderate",
-  languages: ["English", "Hindi", "Nepali"],
-  bestTime: "October to May (best), June to September (monsoon)",
-  itinerary: [
-    {
-      day: 1,
-      title: "Tsomgo Lake, Baba Mandir & Nathula Pass",
-      activities: [
-        "Morning Departure (8:00 AM): Pickup from Vajra Stand, Gangtok in a shared vehicle.",
-        "Tsomgo Lake (Changu Lake): Visit the sacred high-altitude glacial lake en route.",
-        "Baba Mandir: Pay respects at the famous shrine dedicated to Baba Harbhajan Singh.",
-        "Nathula Pass: Reach the Indo-China border and witness breathtaking Himalayan landscapes.",
-        "Evening Return (4:00–5:00 PM): Drive back to Gangtok.",
-      ],
-    },
-  ],
-  amenities: [
-    {
-      id: "permit",
-      name: "Permit Included",
-      included: true,
-    },
-    {
-      id: "sightseeing",
-      name: "Sightseeing Included",
-      included: true,
-    },
-    {
-      id: "shared-vehicle",
-      name: "Shared Vehicle",
-      included: true,
-    },
-    {
-      id: "professional-guide",
-      name: "Professional Guide & Driver",
-      included: true,
-    },
-  ],
-  inclusions: [
-    "Shared vehicle (permit included)",
-    "Professional driver & guide assistance",
-    "All required permits for Nathula Pass",
-  ],
-  exclusions: [
-    "Meals, snacks, and personal expenses",
-    "Entry fees (if applicable)",
-    "Anything not mentioned in inclusions",
-  ],
-  requirements: [
-    "Original ID proof (mandatory for permits)",
-    "Warm clothes, gloves, and cap",
-    "Sunglasses & sunscreen",
-    "Snacks & water",
-  ],
-  faqs: [
-    {
-      id: "faq-1",
-      question: "Do I need a permit to visit Nathula Pass?",
-      answer:
-        "Yes, a permit from the District Administration is mandatory. Our package includes this permit.",
-    },
-    {
-      id: "faq-2",
-      question: "Who can visit Nathula Pass?",
-      answer:
-        "Indian citizens and registered foreigners can visit. Our guides will assist with all requirements.",
-    },
-    {
-      id: "faq-3",
-      question: "On which days is Nathula Pass open for tourists?",
-      answer:
-        "Usually open from Wednesday to Sunday. Closed on Mondays and Tuesdays. Verify dates before booking.",
-    },
-    {
-      id: "faq-4",
-      question: "What is the best time to visit Nathula Pass?",
-      answer:
-        "October to May offers the best weather. June to September experiences monsoon conditions.",
-    },
-    {
-      id: "faq-5",
-      question: "Is Nathula Pass suitable for senior citizens and children?",
-      answer:
-        "Children above 3 years can visit with proper acclimatization. Senior citizens should consult their doctor.",
-    },
-    {
-      id: "faq-6",
-      question: "What should I wear and carry to Nathula Pass?",
-      answer:
-        "Wear warm clothes, carry sunscreen, sunglasses, and sufficient water due to high altitude.",
-    },
-    {
-      id: "faq-7",
-      question: "Is photography allowed at Nathula Pass?",
-      answer:
-        "Yes, photography is allowed for personal use. Avoid commercial photography.",
-    },
-    {
-      id: "faq-8",
-      question: "Will I find snow at Nathula Pass?",
-      answer:
-        "Yes, December to February usually has snow. Other months may have no snow depending on weather.",
-    },
-    {
-      id: "faq-9",
-      question: "How far is Nathula Pass from Gangtok?",
-      answer: "Approximately 52 km from Gangtok, about 1.5-2 hours drive.",
-    },
-    {
-      id: "faq-10",
-      question: "Can Foreigners visit Nathula Pass?",
-      answer:
-        "Yes, registered foreigners can visit with proper documentation and permits.",
-    },
-    {
-      id: "faq-11",
-      question: "Is the road to Nathula safe?",
-      answer:
-        "Yes, the road is well-maintained. Our experienced drivers ensure safe travel.",
-    },
-    {
-      id: "faq-12",
-      question: "What permits are required?",
-      answer:
-        "A permit from the District Administration is required. We handle this for you.",
-    },
-    {
-      id: "faq-13",
-      question: "What are the documents required for a Nathula Permit?",
-      answer:
-        "Original ID proof, citizenship certificate, or passport. Contact us for complete details.",
-    },
-  ],
-  locations: [
-    {
-      name: "Tsomgo Lake",
-      altitude: "12,400 ft",
-      distance: "28 km from Gangtok",
-    },
-    {
-      name: "Baba Mandir",
-      altitude: "13,500 ft",
-      distance: "37 km from Gangtok",
-    },
-    {
-      name: "Nathula Pass",
-      altitude: "14,140 ft",
-      distance: "52 km from Gangtok",
-    },
-  ],
-  reviews: [
-    {
-      id: "review-1",
-      author: "kiken",
-      rating: 5,
-      comment: "Nicee",
-      date: "April 16, 2025",
-    },
-  ],
-},
-{
-  id: 1,
-  title: "Nathula Sharing Tour – 1 Day",
-  image: "https://media.istockphoto.com/id/2154423340/photo/india-gangtok-india-china-border-december-2023-tourist-at-view-of-nathula-pass-entrance-gate.jpg?s=2048x2048&w=is&k=20&c=99ygf0K20JLqZ_cyyRDaMz_KduibMxgTmL8ml6K55fM=",
-    shortDescription: "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok.",
-    summary: [
-       "India-China Border",
-       "Snowy Mountain Views",
-         "Tsomgo Lake Visit",
-         "Baba Mandir Stop",
-        
-    ],
-  description:
-    "Experience the thrill of visiting Nathula Pass (14,140 ft), one of the most iconic mountain passes on the Indo-China border, with our 1 Day Nathula Sharing Tour from Gangtok. This budget-friendly trip is perfect for travelers who wish to explore Nathula in a shared vehicle without the hassle of arranging permits and transport.",
-    
-  price: 0, // Set dynamically
-  duration: "1 day",
-  type: "Sharing Tour",
-  rating: 5,
-  reviewCount: 1,
-  maxGuests: 1,
-  minAge: 3,
-  difficulty: "Moderate",
-  languages: ["English", "Hindi", "Nepali"],
-  bestTime: "October to May (best), June to September (monsoon)",
-  itinerary: [
-    {
-      day: 1,
-      title: "Tsomgo Lake, Baba Mandir & Nathula Pass",
-      activities: [
-        "Morning Departure (8:00 AM): Pickup from Vajra Stand, Gangtok in a shared vehicle.",
-        "Tsomgo Lake (Changu Lake): Visit the sacred high-altitude glacial lake en route.",
-        "Baba Mandir: Pay respects at the famous shrine dedicated to Baba Harbhajan Singh.",
-        "Nathula Pass: Reach the Indo-China border and witness breathtaking Himalayan landscapes.",
-        "Evening Return (4:00–5:00 PM): Drive back to Gangtok.",
-      ],
-    },
-  ],
-  amenities: [
-    {
-      id: "permit",
-      name: "Permit Included",
-      included: true,
-    },
-    {
-      id: "sightseeing",
-      name: "Sightseeing Included",
-      included: true,
-    },
-    {
-      id: "shared-vehicle",
-      name: "Shared Vehicle",
-      included: true,
-    },
-    {
-      id: "professional-guide",
-      name: "Professional Guide & Driver",
-      included: true,
-    },
-  ],
-  inclusions: [
-    "Shared vehicle (permit included)",
-    "Professional driver & guide assistance",
-    "All required permits for Nathula Pass",
-  ],
-  exclusions: [
-    "Meals, snacks, and personal expenses",
-    "Entry fees (if applicable)",
-    "Anything not mentioned in inclusions",
-  ],
-  requirements: [
-    "Original ID proof (mandatory for permits)",
-    "Warm clothes, gloves, and cap",
-    "Sunglasses & sunscreen",
-    "Snacks & water",
-  ],
-  faqs: [
-    {
-      id: "faq-1",
-      question: "Do I need a permit to visit Nathula Pass?",
-      answer:
-        "Yes, a permit from the District Administration is mandatory. Our package includes this permit.",
-    },
-    {
-      id: "faq-2",
-      question: "Who can visit Nathula Pass?",
-      answer:
-        "Indian citizens and registered foreigners can visit. Our guides will assist with all requirements.",
-    },
-    {
-      id: "faq-3",
-      question: "On which days is Nathula Pass open for tourists?",
-      answer:
-        "Usually open from Wednesday to Sunday. Closed on Mondays and Tuesdays. Verify dates before booking.",
-    },
-    {
-      id: "faq-4",
-      question: "What is the best time to visit Nathula Pass?",
-      answer:
-        "October to May offers the best weather. June to September experiences monsoon conditions.",
-    },
-    {
-      id: "faq-5",
-      question: "Is Nathula Pass suitable for senior citizens and children?",
-      answer:
-        "Children above 3 years can visit with proper acclimatization. Senior citizens should consult their doctor.",
-    },
-    {
-      id: "faq-6",
-      question: "What should I wear and carry to Nathula Pass?",
-      answer:
-        "Wear warm clothes, carry sunscreen, sunglasses, and sufficient water due to high altitude.",
-    },
-    {
-      id: "faq-7",
-      question: "Is photography allowed at Nathula Pass?",
-      answer:
-        "Yes, photography is allowed for personal use. Avoid commercial photography.",
-    },
-    {
-      id: "faq-8",
-      question: "Will I find snow at Nathula Pass?",
-      answer:
-        "Yes, December to February usually has snow. Other months may have no snow depending on weather.",
-    },
-    {
-      id: "faq-9",
-      question: "How far is Nathula Pass from Gangtok?",
-      answer: "Approximately 52 km from Gangtok, about 1.5-2 hours drive.",
-    },
-    {
-      id: "faq-10",
-      question: "Can Foreigners visit Nathula Pass?",
-      answer:
-        "Yes, registered foreigners can visit with proper documentation and permits.",
-    },
-    {
-      id: "faq-11",
-      question: "Is the road to Nathula safe?",
-      answer:
-        "Yes, the road is well-maintained. Our experienced drivers ensure safe travel.",
-    },
-    {
-      id: "faq-12",
-      question: "What permits are required?",
-      answer:
-        "A permit from the District Administration is required. We handle this for you.",
-    },
-    {
-      id: "faq-13",
-      question: "What are the documents required for a Nathula Permit?",
-      answer:
-        "Original ID proof, citizenship certificate, or passport. Contact us for complete details.",
-    },
-  ],
-  locations: [
-    {
-      name: "Tsomgo Lake",
-      altitude: "12,400 ft",
-      distance: "28 km from Gangtok",
-    },
-    {
-      name: "Baba Mandir",
-      altitude: "13,500 ft",
-      distance: "37 km from Gangtok",
-    },
-    {
-      name: "Nathula Pass",
-      altitude: "14,140 ft",
-      distance: "52 km from Gangtok",
-    },
-  ],
-  reviews: [
-    {
-      id: "review-1",
-      author: "kiken",
-      rating: 5,
-      comment: "Nicee",
-      date: "April 16, 2025",
-    },
-  ],
-}
- */
 ]
 
 export default packages;

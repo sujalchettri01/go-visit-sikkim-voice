@@ -73,7 +73,7 @@ const HotelBookingPage = () => {
       key: orderData.keyId,
       amount: orderData.amount,
       currency: orderData.currency,
-      name: "Go Visit Sikkim",
+      name: "GoVisit Sikkim",
       description: `Hotel Booking - ${hotel.name}`,
       order_id: orderData.orderId,
       prefill: {
