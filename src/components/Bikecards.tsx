@@ -23,13 +23,13 @@ interface BikeCardsProps {
   city?: string;
 }
 
-export default function BikeCards({ bikes, city = "Sikkim" }: BikeCardsProps) {
+export default function BikeCards({ bikes, city = "Sikkim"  }: BikeCardsProps) {
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
 
   if (!bikes || bikes.length === 0) return null;
-
+  
   const scrollTo = (idx: number) => {
     if (!scrollRef.current) return;
     scrollRef.current.scrollTo({ left: idx * 210, behavior: "smooth" });
