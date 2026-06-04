@@ -274,10 +274,10 @@ export const cultureItems: CultureItem[] = [
 
 export const testimonials: Testimonial[] = [
   {
-    id: "sarah",
-    name: "Sarah Johnson",
-    location: "New York, USA",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk-j215pLptnk06KZPYdP3i0cPKWj-6YY_Sg&s",
+    id: "Ashish Das",
+    name: "Ashish Das",
+    location: "Guwahati , Assam",
+    image: "",
     rating: 5,
     experience: "Goecha La Trek",
     comment:
@@ -287,47 +287,47 @@ export const testimonials: Testimonial[] = [
     id: "raj",
     name: "Raj Patel",
     location: "Mumbai, India",
-    image: "https://images.pexels.com/photos/3971608/pexels-photo-3971608.jpeg?cs=srgb&dl=pexels-yogendras31-3971608.jpg&fm=jpg",
+    image: "",
     rating: 5,
     experience: "Photography Tour",
     comment:
       "As a photography enthusiast, Sikkim was paradise. Every corner offered a new perspective, from the monasteries to the rhododendron forests. Absolutely magical!",
   },
   {
-    id: "emma",
-    name: "Emma Thompson",
-    location: "London, UK",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaGSsOXWjzmGozErolrI0tniXk_J3tfbEMEA&s",
+    id: "Abi Chettri",
+    name: "Abi Chettri",
+    location: "kathmandu Nepal",
+    image: "",
     rating: 5,
     experience: "Cultural Homestay",
     comment:
       "The cultural immersion was incredible. Staying in a homestay in Pelling gave us authentic insights into Sikkimese life. The food was amazing too!",
   },
   {
-    id: "david",
-    name: "David Chen",
-    location: "Singapore",
-    image: "https://img.freepik.com/free-photo/self-portrait-happy-hiker-baseball-cap-taking-selfie-while-standing-against-waterfall-green-exotic-woods-young-tourist-trekking-rainforest-his-holidays_273609-1607.jpg?semt=ais_hybrid&w=740&q=80",
+    id: "Saumya Chaudhary",
+    name: "Saumya Chaudhary",
+    location: "Kolkata",
+    image: "",
     rating: 5,
     experience: "Adventure Package",
     comment:
       "Perfect blend of adventure and tranquility. The river rafting was thrilling, and the monastery visits were so peaceful. Sikkim has something for everyone.",
   },
   {
-    id: "maria",
-    name: "Maria Rodriguez",
-    location: "Barcelona, Spain",
-    image: "https://media.istockphoto.com/id/1311452628/photo/i-want-to-share-my-journey-with-everyone.jpg?s=612x612&w=0&k=20&c=iLe-8n2dTo5f_Xi1VEowCSapBd9Cv44fKtus-GX7l8E=",
+    id: "Seedorf Rai",
+    name: "Seedorf Rai",
+    location: "Dharan Nepal",
+    image: "",
     rating: 5,
     experience: "Wildlife Safari",
     comment:
       "The biodiversity in Sikkim is incredible! We spotted red pandas and so many bird species. The guides were knowledgeable and passionate about conservation.",
   },
   {
-    id: "james",
-    name: "James Wilson",
-    location: "Sydney, Australia",
-    image: "https://www.shutterstock.com/image-photo/hiking-man-portrait-happy-selfie-260nw-2587225863.jpg",
+    id: "Eros",
+    name: "Eros",
+    location: "Siliguri",
+    image: "",
     rating: 5,
     experience: "Scenic Tour",
     comment:
@@ -341,42 +341,42 @@ export const travelTips: TravelTip[] = [
     title: "Best Time to Visit",
     description:
       "March to May and October to December offer clear skies and pleasant weather. Avoid monsoons (June-September).",
-    icon: "📅",
+    icon: "",
   },
   {
     id: "weather",
     title: "Weather & Climate",
     description:
       "Pack layers! Temperatures vary greatly with altitude. Carry warm clothes even in summer for high-altitude areas.",
-    icon: "🌡️",
+    icon: "",
   },
   {
     id: "packing",
     title: "What to Pack",
     description:
       "Sturdy trekking shoes, warm clothing, rain gear, sunscreen, first aid kit, and portable charger are essentials.",
-    icon: "🎒",
+    icon: "",
   },
   {
     id: "permits",
     title: "Permits & Documents",
     description:
       "Inner Line Permit required for non-Sikkimese Indians. Foreign tourists need Protected Area Permit. Carry ID proofs.",
-    icon: "📋",
+    icon: "",
   },
   {
     id: "transport",
     title: "Getting Around",
     description:
       "Shared taxis are common. Book vehicles in advance for remote areas. Roads can be challenging during monsoons.",
-    icon: "🚗",
+    icon: "",
   },
   {
     id: "health",
     title: "Health & Safety",
     description:
       "Acclimatize gradually to high altitudes. Carry altitude sickness medication. Stay hydrated and avoid alcohol initially.",
-    icon: "🏥",
+    icon: "",
   },
 ];
 

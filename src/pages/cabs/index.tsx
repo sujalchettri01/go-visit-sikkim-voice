@@ -24,7 +24,7 @@ const SIKKIM_PLACES = [
   "Rangpo",
 ];
 
-type SortOption = "price_asc" | "price_desc" | "rating_desc" | "capacity_asc";
+type SortOption = "any" | "price_asc" | "price_desc" | "rating_desc" | "capacity_asc";
 
 const allFeatures = Array.from(new Set(cabsData.flatMap((c) => c.features))).filter(Boolean);
 const allCompanies = Array.from(new Set(cabsData.map((c) => c.company))).filter(Boolean);
@@ -94,7 +94,7 @@ function CheckItem({ label, count, checked, onChange }: { label: string; count: 
 }
 
 function CabCard({ cab, onBook, appliedFrom, appliedTo }: { cab: (typeof cabsData)[0]; onBook: () => void; appliedFrom: string; appliedTo: string; }) {
-  const routePrice = appliedTo ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) : null;
+  const routePrice = appliedTo ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset, cab.category) : null;
   const displayPrice = routePrice ?? getStartingPrice(cab, appliedFrom);
   const isExactRoute = routePrice !== null;
 
@@ -138,7 +138,7 @@ function CabCard({ cab, onBook, appliedFrom, appliedTo }: { cab: (typeof cabsDat
             <Users className="w-4 h-4 text-violet-500" />
             <span className="text-sm">{cab.capacity} Seats</span>
           </div>
-          <button onClick={onBook} className="px-7 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm hover:shadow-md">
+          <button onClick={onBook} className="px-7 py-2.5 text-white text-sm font-bold rounded-xl transition-all shadow-sm hover:shadow-md hover:opacity-90 hover:-translate-y-0.5" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)" }}>
             Select Cab
           </button>
         </div>
@@ -161,7 +161,7 @@ export default function CabsListingPage() {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState<number>(Infinity);
-  const [sort, setSort] = useState<SortOption>("price_asc");
+  const [sort, setSort] = useState<SortOption>("any");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggle = <T,>(arr: T[], val: T) => arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val];
@@ -177,7 +177,6 @@ export default function CabsListingPage() {
     setMaxPrice(Infinity);
   };
 
-  // ✅ Live filter: update applied values instantly when selects change
   const handleFromChange = (val: string) => {
     setFrom(val);
     setAppliedFrom(val);
@@ -205,13 +204,13 @@ export default function CabsListingPage() {
   };
 
   const effectivePrice = (cab: (typeof cabsData)[0]): number => {
-    if (appliedTo) return getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ?? Infinity;
+    if (appliedTo) return getRoutePrice(appliedFrom, appliedTo, cab.priceOffset, cab.category) ?? Infinity;
     return getStartingPrice(cab, appliedFrom);
   };
 
   const filtered = useMemo(() => {
     const list = cabsData.filter((cab) => {
-      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) === null) return false;
+      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, cab.priceOffset, cab.category) === null) return false;
       const price = effectivePrice(cab);
       if (maxPrice !== Infinity && price > maxPrice) return false;
       if (selectedCapacity.length && !selectedCapacity.includes(getCapacityLabel(cab.capacity))) return false;
@@ -220,6 +219,7 @@ export default function CabsListingPage() {
       return true;
     });
     return [...list].sort((a, b) => {
+      if (sort === "any") return 0;
       if (sort === "price_asc") return effectivePrice(a) - effectivePrice(b);
       if (sort === "price_desc") return effectivePrice(b) - effectivePrice(a);
       if (sort === "rating_desc") return b.rating - a.rating;
@@ -238,7 +238,7 @@ export default function CabsListingPage() {
 
   const goToBooking = (cab: (typeof cabsData)[0]) => {
     const price = appliedTo
-      ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset) ?? getStartingPrice(cab, appliedFrom)
+      ? getRoutePrice(appliedFrom, appliedTo, cab.priceOffset, cab.category) ?? getStartingPrice(cab, appliedFrom)
       : getStartingPrice(cab, appliedFrom);
     navigate(`/cabs/book/${cab.id}?from=${encodeURIComponent(appliedFrom)}&to=${encodeURIComponent(appliedTo)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&price=${price}`);
   };
@@ -285,15 +285,25 @@ export default function CabsListingPage() {
   return (
     <div className="min-h-screen bg-slate-50">
 
-      {/* ── Purple booking bar — page starts here ── */}
-      <div className="bg-gradient-to-r from-[#6b21a8] via-[#7c3aed] to-[#4f46e5] shadow-xl z-30">
-        <div className="max-w-7xl mx-auto px-4 pt-3 pb-1">
-          <span className="text-[10px] font-bold tracking-widest text-violet-200 uppercase">Outstation · One-Way</span>
+      {/* ── Hero booking bar ── */}
+      <div style={{ background: "linear-gradient(135deg, #1a1035 0%, #4c1d95 40%, #4f46e5 100%)", position: "relative", overflow: "hidden" }}>
+
+        {/* Decorative circles */}
+        <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "220px", height: "220px", borderRadius: "50%", background: "rgba(124,58,237,0.2)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "-60px", left: "30%", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(79,70,229,0.15)", pointerEvents: "none" }} />
+
+        <div className="max-w-7xl mx-auto px-4 pt-5 pb-1 relative z-10">
+          <div className="flex items-center gap-3 mb-3">
+            <span style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.8)", fontSize: "10px", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", padding: "3px 12px", borderRadius: "20px" }}>
+              Outstation · One-Way
+            </span>
+          </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 pb-3">
+
+        <div className="max-w-7xl mx-auto px-4 pb-5 relative z-10">
           <div className="flex flex-wrap lg:flex-nowrap items-stretch gap-2">
             {/* From */}
-            <div className="flex-1 min-w-[130px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors">
+            <div className="flex-1 min-w-[130px] rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors" style={{ background: "rgba(255,255,255,0.08)" }}>
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <MapPin className="w-2.5 h-2.5" /> From
               </label>
@@ -304,12 +314,12 @@ export default function CabsListingPage() {
             </div>
 
             {/* Swap */}
-            <button onClick={swapLocations} title="Swap locations" className="self-center bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 transition-colors shadow-md border border-white/30">
-              <ArrowLeftRight className="w-4 h-4" />
+            <button onClick={swapLocations} title="Swap locations" className="self-center rounded-full w-8 h-8 flex items-center justify-center shrink-0 transition-colors shadow-md border border-white/30" style={{ background: "rgba(255,255,255,0.15)" }}>
+              <ArrowLeftRight className="w-4 h-4 text-white" />
             </button>
 
             {/* To */}
-            <div className={`flex-1 min-w-[130px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border transition-colors ${to ? "border-white/60" : "border-white/20 focus-within:border-white/60"}`}>
+            <div className={`flex-1 min-w-[130px] rounded-lg px-3 py-2 flex flex-col gap-0.5 border transition-colors ${to ? "border-white/60" : "border-white/20 focus-within:border-white/60"}`} style={{ background: "rgba(255,255,255,0.08)" }}>
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <MapPin className="w-2.5 h-2.5" /> To
               </label>
@@ -320,7 +330,7 @@ export default function CabsListingPage() {
             </div>
 
             {/* Date */}
-            <div className="flex-1 min-w-[140px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors">
+            <div className="flex-1 min-w-[140px] rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors" style={{ background: "rgba(255,255,255,0.08)" }}>
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <Calendar className="w-2.5 h-2.5" /> Pick-up Date
               </label>
@@ -328,7 +338,7 @@ export default function CabsListingPage() {
             </div>
 
             {/* Time */}
-            <div className="flex-1 min-w-[120px] bg-[#5b21b6]/60 rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors">
+            <div className="flex-1 min-w-[120px] rounded-lg px-3 py-2 flex flex-col gap-0.5 border border-white/20 focus-within:border-white/60 transition-colors" style={{ background: "rgba(255,255,255,0.08)" }}>
               <label className="text-[10px] font-bold text-violet-200 tracking-widest uppercase flex items-center gap-1">
                 <Clock className="w-2.5 h-2.5" /> Pick-up Time
               </label>
@@ -336,14 +346,15 @@ export default function CabsListingPage() {
             </div>
 
             {/* Search */}
-            <button onClick={handleSearch} className="shrink-0 bg-white hover:bg-violet-50 active:scale-95 text-violet-700 font-extrabold text-sm px-8 rounded-lg flex items-center gap-2 shadow-lg transition-all duration-150 min-h-[58px]">
+            <button onClick={handleSearch} className="shrink-0 active:scale-95 font-extrabold text-sm px-8 rounded-lg flex items-center gap-2 shadow-lg transition-all duration-150 min-h-[58px]" style={{ background: "linear-gradient(135deg, #fff 0%, #f0eaff 100%)", color: "#6d28d9" }}>
               <Search className="w-4 h-4" /> SEARCH
             </button>
           </div>
 
-          <div className="flex gap-6 mt-2.5">
+          {/* Trust badges */}
+          <div className="flex gap-6 mt-3">
             {[{ icon: "🏅", label: "Trusted Drivers" }, { icon: "✅", label: "Clean Cabs" }, { icon: "⏱️", label: "On-Time Pickup" }].map((b) => (
-              <span key={b.label} className="flex items-center gap-1.5 text-xs text-white/60 font-medium">{b.icon} {b.label}</span>
+              <span key={b.label} className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>{b.icon} {b.label}</span>
             ))}
           </div>
         </div>
@@ -357,14 +368,14 @@ export default function CabsListingPage() {
 
         <main className="flex-1 min-w-0">
           {appliedTo && (
-            <div className="mb-4 flex items-center gap-3 bg-violet-600 text-white px-4 py-3 rounded-xl shadow-sm">
+            <div className="mb-4 flex items-center gap-3 text-white px-4 py-3 rounded-xl shadow-sm" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)" }}>
               <MapPin className="w-4 h-4 shrink-0" />
               <p className="text-sm font-semibold flex-1">
                 Cabs from <span className="font-bold">{appliedFrom}</span> → <span className="font-bold">{appliedTo}</span>
-                {date && <span className="font-normal text-violet-200"> · {new Date(date).toDateString()}</span>}
-                {time && <span className="font-normal text-violet-200"> · {time}</span>}
+                {date && <span className="font-normal" style={{ color: "rgba(255,255,255,0.7)" }}> · {new Date(date).toDateString()}</span>}
+                {time && <span className="font-normal" style={{ color: "rgba(255,255,255,0.7)" }}> · {time}</span>}
               </p>
-              <button onClick={() => { setAppliedTo(""); setTo(""); }} className="text-violet-200 hover:text-white flex items-center gap-1 text-xs font-semibold shrink-0">
+              <button onClick={() => { setAppliedTo(""); setTo(""); }} className="flex items-center gap-1 text-xs font-semibold shrink-0" style={{ color: "rgba(255,255,255,0.7)" }}>
                 <X className="w-3.5 h-3.5" /> Clear
               </button>
             </div>
@@ -383,6 +394,7 @@ export default function CabsListingPage() {
               <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-1.5 shadow-sm">
                 <span className="text-xs text-slate-500 font-medium">Sort:</span>
                 <select value={sort} onChange={(e) => setSort(e.target.value as SortOption)} className="text-sm font-semibold text-slate-700 bg-transparent focus:outline-none cursor-pointer">
+                  <option value="any">Any</option>
                   <option value="price_asc">Price: Low to High</option>
                   <option value="price_desc">Price: High to Low</option>
                   <option value="rating_desc">Rating: Best First</option>
@@ -417,14 +429,28 @@ export default function CabsListingPage() {
             </div>
           )}
 
-          <div className="mt-10 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-r from-[#6b21a8] to-[#4f46e5] p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-white">
+          {/* ── CTA Banner — rich gradient ── */}
+          <div className="mt-10 rounded-2xl overflow-hidden shadow-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative"
+            style={{ background: "linear-gradient(135deg, #2e1065 0%, #6d28d9 45%, #4338ca 100%)" }}>
+            {/* Decorative circles inside banner */}
+            <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,0.06)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", bottom: "-40px", left: "40%", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
+
+            <div className="text-white relative z-10">
               <p className="text-xl font-bold">Ready for your Himalayan journey?</p>
-              <p className="text-sm text-white/70 mt-1">Book a cab and explore Sikkim at your pace</p>
+              <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>Book a cab and explore Sikkim at your pace</p>
             </div>
-            <div className="flex gap-3 shrink-0 flex-wrap justify-center">
-              <Link to="/destinations"><button className="px-6 py-2.5 bg-white text-violet-700 font-semibold rounded-xl text-sm hover:-translate-y-0.5 transition-transform shadow">Explore Destinations →</button></Link>
-              <Link to="/contact"><button className="px-6 py-2.5 border border-white/50 text-white font-semibold rounded-xl text-sm hover:bg-white/10 hover:-translate-y-0.5 transition-all">Contact Us</button></Link>
+            <div className="flex gap-3 shrink-0 flex-wrap justify-center relative z-10">
+              <Link to="/destinations">
+                <button className="px-6 py-2.5 font-semibold rounded-xl text-sm transition-all hover:-translate-y-0.5 shadow-lg" style={{ background: "linear-gradient(135deg, #fff 0%, #f0eaff 100%)", color: "#6d28d9" }}>
+                  Explore Destinations →
+                </button>
+              </Link>
+              <Link to="/contact">
+                <button className="px-6 py-2.5 font-semibold rounded-xl text-sm hover:-translate-y-0.5 transition-all text-white" style={{ border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.1)" }}>
+                  Contact Us
+                </button>
+              </Link>
             </div>
           </div>
         </main>
@@ -439,7 +465,7 @@ export default function CabsListingPage() {
               <button onClick={() => setDrawerOpen(false)}><X className="w-5 h-5 text-slate-500" /></button>
             </div>
             <FilterPanel />
-            <button onClick={() => setDrawerOpen(false)} className="mt-6 w-full py-3 bg-violet-600 text-white font-semibold rounded-xl hover:bg-violet-700 transition-colors">
+            <button onClick={() => setDrawerOpen(false)} className="mt-6 w-full py-3 text-white font-semibold rounded-xl transition-colors" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)" }}>
               Show {filtered.length} Cabs
             </button>
           </div>

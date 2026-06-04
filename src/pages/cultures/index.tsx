@@ -3,10 +3,10 @@ import cultureItems from "../../data/culture";
 import { Link } from "react-router-dom";
 
 const CATEGORIES = [
-  { key: "Places in Depth", label: "Places in Depth", icon: "📍", color: "#0891B2", count: "Sacred Lakes & Sites", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" },
-  { key: "Festivals", label: "Festivals", icon: "🎭", color: "#BE185D", count: "Celebrations & Rituals", image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80" },
-  { key: "Local Villages", label: "Local Villages", icon: "🏘️", color: "#92400E", count: "Heritage Homestays", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776790844/Lepcha_Village_Experience14-014db39f_ykashe.jpg" },
-  { key: "Tradition & Culture", label: "Tradition & Culture", icon: "🎨", color: "#7C3AED", count: "Art, Craft & Cuisine", image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80" },
+  { key: "Places in Depth", label: "Places in Depth", icon: "", color: "#0891B2", count: "Sacred Lakes & Sites", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780410918/orchid_tggkzw.jpg" },
+  { key: "Festivals", label: "Festivals", icon: "", color: "#BE185D", count: "Celebrations & Rituals", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780412058/Pang_lapsol_zqvf4n.jpg" },
+  { key: "Local Villages", label: "Local Villages", icon: "", color: "#92400E", count: "Heritage Homestays", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776790844/Lepcha_Village_Experience14-014db39f_ykashe.jpg" },
+  { key: "Tradition & Culture", label: "Tradition & Culture", icon: "", color: "#7C3AED", count: "Art, Craft & Cuisine", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780412056/Music_ueyuma.jpg" },
 ];
 
 // Map culture.ts categories to our new keys
@@ -53,7 +53,7 @@ const CulturePage = () => {
           </div>
 
           {/* Row 1 — 2 large cards */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid sm:grid-cols-2 gap-4 mb-4">
             {CATEGORIES.slice(0, 2).map((cat) => (
               <div key={cat.key} style={{ minHeight: "240px", height: "240px" }}>
                 <CategoryCard cat={cat} onClick={() => setActiveTab(cat.key)} />
@@ -62,7 +62,7 @@ const CulturePage = () => {
           </div>
 
           {/* Row 2 — 2 large cards */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {CATEGORIES.slice(2, 4).map((cat) => (
               <div key={cat.key} style={{ minHeight: "240px", height: "240px" }}>
                 <CategoryCard cat={cat} onClick={() => setActiveTab(cat.key)} />
@@ -149,7 +149,7 @@ const CulturePage = () => {
                         style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
                       >
                         <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100" />
-                        <span className="relative">Explore Culture</span>
+                        <span className="relative">Explore </span>
                         <span className="relative inline-block ml-2 transition-transform duration-200 group-hover/btn:translate-x-1">→</span>
                       </button>
                     </Link>
@@ -162,7 +162,7 @@ const CulturePage = () => {
       )}
 
       {/* CTA Section */}
-      <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+      <section className="relative py-12 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
         <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
             Begin Your

@@ -15,43 +15,59 @@ export default function BikesListingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
 
-      {/* ── City Picker Bar ── */}
-      <div className="bg-gradient-to-r from-[#4F46E5] via-[#7C3AED] to-[#6D28D9] shadow-xl">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <p className="text-white/70 text-xs font-bold tracking-widest uppercase mb-4">
-             Bike Rental in Sikkim
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
+      {/* ── Hero Bar ── */}
+      <div style={{ background: "linear-gradient(135deg, #1a1035 0%, #4c1d95 40%, #4338ca 100%)", position: "relative", overflow: "hidden" }}>
 
-            {/* Dropdown */}
+        {/* Decorative circles */}
+        <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "220px", height: "220px", borderRadius: "50%", background: "rgba(124,58,237,0.2)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "-60px", right: "120px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(79,70,229,0.15)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: "20px", left: "40%", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
+
+        <div className="max-w-7xl mx-auto px-6 py-8" style={{ position: "relative", zIndex: 1 }}>
+
+          {/* Tags */}
+          <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+            <span style={{ background: "#7C3AED", color: "#fff", fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "20px" }}>Bikes</span>
+            <span style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)", fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "20px" }}>Sikkim</span>
+          </div>
+
+          {/* Title */}
+          <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#fff", lineHeight: 1.2, marginBottom: "6px" }}>
+            Rent a Bike in Sikkim
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", marginBottom: "20px" }}>
+            Explore the Himalayas on two wheels
+          </p>
+
+          {/* Controls */}
+          <div className="flex flex-wrap items-center gap-4">
             <div className="relative flex-1 min-w-[220px] max-w-xs">
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="w-full appearance-none bg-white/15 backdrop-blur-md text-white font-semibold text-sm px-4 py-3 pr-10 rounded-xl border border-white/30 focus:outline-none focus:border-white/60 cursor-pointer"
+                style={{ width: "100%", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", color: "#fff", fontWeight: 600, fontSize: "14px", padding: "10px 36px 10px 16px", borderRadius: "12px", appearance: "none", cursor: "pointer", outline: "none" }}
               >
                 <option value="" className="text-slate-800 bg-white">Choose a city...</option>
                 {CITIES.map((c) => (
                   <option key={c} value={c} className="text-slate-800 bg-white">{c}</option>
                 ))}
               </select>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 pointer-events-none text-sm">▾</span>
+              <span style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.6)", pointerEvents: "none", fontSize: "12px" }}>▾</span>
             </div>
 
-            {/* Show Bikes button */}
             <button
               onClick={() => setApplied(selectedCity)}
-              className="px-8 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
-              style={{ background: "white", color: "#4F46E5", boxShadow: "0 4px 14px rgba(0,0,0,0.15)" }}
+              style={{ background: "linear-gradient(135deg, #fff 0%, #f0eaff 100%)", color: "#6d28d9", border: "none", padding: "10px 24px", borderRadius: "12px", fontSize: "14px", fontWeight: 700, cursor: "pointer", transition: "all 0.2s", boxShadow: "0 4px 14px rgba(0,0,0,0.2)" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
             >
               Show Bikes →
             </button>
 
-            {/* Clear */}
             {applied && (
               <button
                 onClick={() => { setSelectedCity(""); setApplied(""); }}
-                className="text-white/70 hover:text-white text-sm font-medium transition-colors"
+                style={{ color: "rgba(255,255,255,0.6)", background: "none", border: "none", fontSize: "14px", fontWeight: 500, cursor: "pointer" }}
               >
                 ✕ Clear
               </button>
@@ -59,17 +75,26 @@ export default function BikesListingPage() {
           </div>
 
           {applied && (
-            <p className="text-white/60 text-xs mt-3">
-              Showing bikes in <span className="text-white font-semibold">{applied}</span>
+            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", marginTop: "10px" }}>
+              Showing bikes in <span style={{ color: "#fff", fontWeight: 700 }}>{applied}</span>
             </p>
           )}
+
+          {/* Stats row */}
+          <div style={{ display: "flex", gap: "24px", marginTop: "20px", paddingTop: "20px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            {[["6+", "Bike Models"], ["4", "Cities"], ["₹1,000", "Starting/day"]].map(([val, lbl]) => (
+              <div key={lbl}>
+                <div style={{ color: "#fff", fontSize: "16px", fontWeight: 800 }}>{val}</div>
+                <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px", marginTop: "2px" }}>{lbl}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ── BIKES GRID ── */}
       <div className="max-w-7xl mx-auto px-4 py-12">
 
-        {/* Section heading */}
         <div className="mb-8">
           <h2 className="text-2xl font-extrabold text-gray-800">
             {applied ? `Bikes in ${applied}` : "All Available Bikes"}
@@ -150,7 +175,7 @@ export default function BikesListingPage() {
                       <Link
                         to={`/bikes/book/${bike.id}`}
                         className="px-4 py-2 rounded-xl text-white text-sm font-semibold"
-                        style={{ background: "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)" }}
+                        style={{ background: "linear-gradient(135deg, #4c1d95 0%, #4338ca 100%)" }}
                       >
                         Book now
                       </Link>
@@ -161,6 +186,34 @@ export default function BikesListingPage() {
             ))}
           </div>
         )}
+
+        {/* ── CTA Banner ── */}
+        <div className="mt-12 rounded-2xl overflow-hidden shadow-xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative"
+          style={{ background: "linear-gradient(135deg, #2e1065 0%, #6d28d9 45%, #4338ca 100%)" }}>
+          {/* Decorative circles */}
+          <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,0.06)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: "-40px", left: "40%", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
+
+          <div className="relative z-10 text-white">
+            <p className="text-xl font-bold">Ready to ride the Himalayas?</p>
+            <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.65)" }}>Book a bike and explore Sikkim at your own pace</p>
+          </div>
+          <div className="flex gap-3 shrink-0 flex-wrap justify-center relative z-10">
+            <Link to="/destinations">
+              <button className="px-6 py-2.5 font-semibold rounded-xl text-sm transition-all hover:-translate-y-0.5 shadow-lg"
+                style={{ background: "linear-gradient(135deg, #fff 0%, #f0eaff 100%)", color: "#6d28d9" }}>
+                Explore Destinations →
+              </button>
+            </Link>
+            <Link to="/contact">
+              <button className="px-6 py-2.5 font-semibold rounded-xl text-sm hover:-translate-y-0.5 transition-all text-white"
+                style={{ border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.1)" }}>
+                Contact Us
+              </button>
+            </Link>
+          </div>
+        </div>
+
       </div>
     </div>
   );

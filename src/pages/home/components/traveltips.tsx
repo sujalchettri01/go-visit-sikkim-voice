@@ -18,7 +18,7 @@ const TravelTips = () => {
             className="inline-block px-6 py-1 text-white rounded-full text-sm font-semibold tracking-wide mb-6"
             style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
           >
-            💡 Essential Tips
+              Essential Tips
           </span>
           <h2 className="text-[clamp(2rem,5vw,3rem)] font-extrabold text-gray-800 mb-4 leading-tight">
             Travel Smart in

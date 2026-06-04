@@ -3,11 +3,11 @@ import activities from "../../data/activity";
 import { Link } from "react-router-dom";
 
 const CATEGORIES = [
-  { key: "Trekking", label: "Trekking", icon: "🥾", color: "#059669", count: "3 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776424398/657852386_1404912934984388_4859059018332100521_n_kgauwv.jpg" },
-  { key: "River Rafting", label: "River Rafting", icon: "🌊", color: "#0284C7", count: "2 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257313/1696576475_aasyznp9i1d7ijmx3a3gn9xwsfm2_suminei6amay9qhghmuliz7is4yx_shutterstock_1372981319_min.jpg_cwqpcq.webp" },
-  { key: "Cycling", label: "Cycling", icon: "🚴", color: "#D97706", count: "2 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257627/photo-1772770645152-1d382648cc21_bg4sme.jpg" },
-  { key: "Upcoming Events", label: "Upcoming Events", icon: "📅", color: "#7C3AED", count: "2 events", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257171/SIFF_wpo6lg.png" },
-  { key: "Sports Events", label: "Sports Events", icon: "🏆", color: "#DC2626", count: "2 events", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257171/SPL_x7hbbj.png" },
+  { key: "Trekking", label: "Trekking", icon: "", color: "#059669", count: "3 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776424398/657852386_1404912934984388_4859059018332100521_n_kgauwv.jpg" },
+  { key: "River Rafting", label: "River Rafting", icon: "", color: "#0284C7", count: "2 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257313/1696576475_aasyznp9i1d7ijmx3a3gn9xwsfm2_suminei6amay9qhghmuliz7is4yx_shutterstock_1372981319_min.jpg_cwqpcq.webp" },
+  { key: "Cycling", label: "Cycling", icon: "", color: "#D97706", count: "2 experiences", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257627/photo-1772770645152-1d382648cc21_bg4sme.jpg" },
+  { key: "Upcoming Events", label: "Upcoming Events", icon: "", color: "#7C3AED", count: "2 events", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257171/SIFF_wpo6lg.png" },
+  { key: "Sports Events", label: "Sports Events", icon: "", color: "#DC2626", count: "2 events", image: "https://res.cloudinary.com/djsguxriw/image/upload/v1780257171/SPL_x7hbbj.png" },
 ];
 
 function tab(key: string) {
@@ -60,7 +60,7 @@ const ActivitiesPage = () => {
           </div>
 
           {/* Top row — 3 cards */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid sm:grid-cols-3 gap-4 mb-4">
             {CATEGORIES.slice(0, 3).map((cat) => (
               <div key={cat.key} style={{ minHeight: "220px", height: "220px" }}>
                 <CategoryCard cat={cat} onClick={() => setActiveTab(cat.key)} />
@@ -181,9 +181,9 @@ const ActivitiesPage = () => {
       )}
 
       {/* CTA Section */}
-      <section className="relative py-24 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+      <section className="relative py-12 px-4 overflow-hidden" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
         <div className="relative max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
+          <h2 className="text-4xl md:text-4xl font-extrabold text-white mb-6 [text-shadow:_0_4px_20px_rgba(0,0,0,0.3)]">
             Ready for Your Next
             <span className="block bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
               Adventure Experience?

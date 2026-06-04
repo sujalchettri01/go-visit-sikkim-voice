@@ -57,13 +57,13 @@ const Testimonials = () => {
         <div className="text-center max-w-[700px] mx-auto ">
           <span className="inline-block px-5 py-1 text-white rounded-full text-sm font-semibold tracking-wide mb-5"
             style={{ background: 'linear-gradient(135deg, #2563eb, #8b5cf6)' }}>
-            💬 Traveler Stories
+             Traveler Stories
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
             What Our Travelers Say
           </h2>
           <p className="text-lg text-gray-500">
-            Real experiences from travelers who discovered the magic of Sikkim
+            Real experiences from travelers in Sikkim
           </p>
         </div>
 

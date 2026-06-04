@@ -10,7 +10,7 @@ const ActivityDetailPage: React.FC = () => {
   const handleBooking = () => navigate(`/activities/book/${id}`);
 
   const handleWhatsAppContact = () => {
-    const phoneNumber = '1234567890';
+    const phoneNumber = '917001103688';
     const message = encodeURIComponent(`Hi, I'm interested in ${activity?.name}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
@@ -60,16 +60,15 @@ const ActivityDetailPage: React.FC = () => {
     return colors[category] || 'bg-gray-500';
   };
 
-  // Dynamic section labels based on category
   const getCategoryLabels = (category: string) => {
-    const map: Record<string, { about: string; itinerary: string; icon: string }> = {
-      Trekking:         { about: 'About This Trek',    itinerary: 'Trek Itinerary',    icon: '🥾' },
-      'River Rafting':  { about: 'About This Rafting', itinerary: 'Rafting Routes',    icon: '🌊' },
-      Cycling:          { about: 'About This Tour',    itinerary: 'Suggested Places',  icon: '🚴' },
-      'Upcoming Events':{ about: 'About This Event',   itinerary: 'Event Schedule',    icon: '📅' },
-      'Sports Events':  { about: 'About This Event',   itinerary: 'Event Schedule',    icon: '🏆' },
+    const map: Record<string, { about: string; itinerary: string }> = {
+      Trekking:          { about: 'About This Trek',     itinerary: 'Trek Itinerary'   },
+      'River Rafting':   { about: 'About This Rafting',  itinerary: 'Rafting Routes'   },
+      Cycling:           { about: 'About This Tour',     itinerary: 'Suggested Places' },
+      'Upcoming Events': { about: 'About This Event',    itinerary: 'Event Schedule'   },
+      'Sports Events':   { about: 'About This Event',    itinerary: 'Event Schedule'   },
     };
-    return map[category] ?? { about: 'About This Experience', itinerary: 'Itinerary', icon: '🗺️' };
+    return map[category] ?? { about: 'About This Experience', itinerary: 'Itinerary' };
   };
 
   const labels = getCategoryLabels(activity.category);
@@ -77,7 +76,7 @@ const ActivityDetailPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* Hero Section */}
+      {/* Hero */}
       <div
         className="relative h-[500px] md:h-[600px] bg-cover bg-center flex items-end overflow-hidden"
         style={{ backgroundImage: `url('${activity.image}')` }}
@@ -101,24 +100,15 @@ const ActivityDetailPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 -mt-16 relative z-30 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-xl shadow-xl p-6 hover:-translate-y-2 transition-transform duration-300">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-3xl">⏱️</span>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Duration</div>
-            </div>
+            <div className="text-sm text-slate-500 font-medium uppercase tracking-wide mb-2">Duration</div>
             <div className="text-2xl font-bold text-slate-800">{activity.duration}</div>
           </div>
           <div className="bg-white rounded-xl shadow-xl p-6 hover:-translate-y-2 transition-transform duration-300">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-3xl">🌤️</span>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Best Season</div>
-            </div>
+            <div className="text-sm text-slate-500 font-medium uppercase tracking-wide mb-2">Best Season</div>
             <div className="text-2xl font-bold text-slate-800">{activity.bestSeason}</div>
           </div>
           <div className="bg-white rounded-xl shadow-xl p-6 hover:-translate-y-2 transition-transform duration-300">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-3xl">💪</span>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Experience Level</div>
-            </div>
+            <div className="text-sm text-slate-500 font-medium uppercase tracking-wide mb-2">Experience Level</div>
             <div className="text-xl font-bold text-slate-800">{activity.experienceLevel || activity.difficulty}</div>
           </div>
         </div>
@@ -131,24 +121,20 @@ const ActivityDetailPage: React.FC = () => {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
 
-            {/* About — dynamic title */}
+            {/* About */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                <span className="text-4xl">{labels.icon}</span> {labels.about}
-              </h2>
+              <h2 className="text-3xl font-bold text-slate-800 mb-6">{labels.about}</h2>
               <p className="text-lg leading-relaxed text-slate-600">{activity.longDescription || activity.description}</p>
             </div>
 
             {/* Highlights */}
             {activity.highlights?.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">✨</span> Highlights
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6">Highlights</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {activity.highlights.map((item: string, idx: number) => (
                     <div key={idx} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4 hover:bg-slate-100 transition-colors">
-                      <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">★</div>
+                      <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 text-sm font-bold">★</div>
                       <span className="text-slate-700 font-medium">{item}</span>
                     </div>
                   ))}
@@ -156,12 +142,10 @@ const ActivityDetailPage: React.FC = () => {
               </div>
             )}
 
-            {/* Itinerary — dynamic title, hide day number when day === 0 */}
+            {/* Itinerary */}
             {activity.itinerary?.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">🗺️</span> {labels.itinerary}
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6">{labels.itinerary}</h2>
                 <div className="space-y-5">
                   {activity.itinerary.map((item: any, idx: number) => (
                     <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-slate-50">
@@ -176,15 +160,13 @@ const ActivityDetailPage: React.FC = () => {
             )}
 
             {/* Features */}
-            {activity.features?.length > 0 && (
+            {activity.features?.filter((f: string) => f).length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">🧰</span> Included Features
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6">Included Features</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {activity.features.map((feature: string, idx: number) => (
+                  {activity.features.filter((f: string) => f).map((feature: string, idx: number) => (
                     <div key={idx} className="flex items-center gap-3 bg-slate-50 rounded-lg p-4 hover:bg-slate-100 transition-colors">
-                      <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">✓</div>
+                      <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
                       <span className="text-slate-700 font-medium">{feature}</span>
                     </div>
                   ))}
@@ -195,13 +177,11 @@ const ActivityDetailPage: React.FC = () => {
             {/* What to Bring */}
             {activity.whatToBring?.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">🎒</span> What to Bring
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6">What to Bring</h2>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {activity.whatToBring.map((item: string, idx: number) => (
                     <li key={idx} className="flex items-start gap-2 bg-slate-50 rounded-lg p-3">
-                      <span className="text-blue-500 mt-1">→</span>
+                      <span className="text-blue-500 mt-1 font-bold">→</span>
                       <span className="text-slate-700">{item}</span>
                     </li>
                   ))}
@@ -212,13 +192,11 @@ const ActivityDetailPage: React.FC = () => {
             {/* Documents Required */}
             {activity.documentsRequired?.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                  <span className="text-4xl">🪪</span> Documents Required
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6">Documents Required</h2>
                 <ul className="space-y-3">
                   {activity.documentsRequired.map((doc: string, idx: number) => (
                     <li key={idx} className="flex items-start gap-3 bg-slate-50 rounded-lg p-4">
-                      <span className="text-purple-600 text-lg">•</span>
+                      <span className="text-purple-600 text-lg font-bold">•</span>
                       <span className="text-slate-700">{doc}</span>
                     </li>
                   ))}
@@ -228,9 +206,7 @@ const ActivityDetailPage: React.FC = () => {
 
             {/* Preparation & Safety */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-                <span className="text-4xl">🛡️</span> Preparation & Safety
-              </h2>
+              <h2 className="text-3xl font-bold text-slate-800 mb-6">Preparation & Safety</h2>
               {activity.preparation && (
                 <div className="border-l-4 border-blue-500 pl-4 py-2 mb-5">
                   <h3 className="font-bold text-slate-800 mb-1">Preparation</h3>
@@ -246,7 +222,7 @@ const ActivityDetailPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column */}
+          {/* Right Column — Booking Card */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-xl p-8 sticky top-4 border-2 border-blue-100">
               <div className="mb-6">
@@ -294,14 +270,14 @@ const ActivityDetailPage: React.FC = () => {
                   onClick={handleWhatsAppContact}
                   className="w-full bg-green-500 text-white py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  <span>💬</span> WhatsApp Inquiry
+                  WhatsApp Inquiry
                 </button>
               </div>
               <div className="mt-8 pt-8 border-t border-slate-200">
                 <h4 className="font-bold text-slate-800 mb-3">Need Help?</h4>
                 <p className="text-sm text-slate-600 mb-3">Contact our team for personalized assistance.</p>
-                <p className="text-sm text-slate-600">📞 <span className="font-semibold">+91 1234567890</span></p>
-                <p className="text-sm text-slate-600">✉️ <span className="font-semibold">info@sikkimtours.com</span></p>
+                <p className="text-sm text-slate-600">Phone: <span className="font-semibold">+91 7001103688</span></p>
+                <p className="text-sm text-slate-600">Email: <span className="font-semibold">govisitsikkim@gmail.com</span></p>
               </div>
             </div>
           </div>

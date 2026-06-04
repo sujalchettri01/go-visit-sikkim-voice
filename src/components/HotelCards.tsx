@@ -128,7 +128,7 @@ export default function HotelCards({ hotels, city = "Gangtok", onClose}: HotelCa
       <div style={styles.header}>
         <div style={styles.headerLeft}>
           <div style={styles.headerIcon}>
-            <span style={{ fontSize: "18px" }}>🏨</span>
+            <span style={{ fontSize: "18px" }}></span>
           </div>
           <div>
             <div style={styles.headerTitle}>Recommendations in {city}</div>

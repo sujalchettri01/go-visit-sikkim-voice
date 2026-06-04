@@ -6,6 +6,7 @@ export interface Cab {
   cab_name: string;
   company: string;
   capacity: number;
+  category: string;
   priceOffset: number;
   image: string;
   rating: number;
@@ -19,6 +20,42 @@ interface CabCardsProps {
   to?: string;
   routePrices?: Record<string, number>;
   onClose?: () => void;
+}
+
+// Mirror the 3 price tables from cabs.ts
+const PRICES_4SEATER: Record<string, Record<string, number>> = {
+  Siliguri: { Gangtok: 2500, Rangpo: 2000, Jorethang: 2500, Namchi: 2500, Singtam: 2500, Mangan: 3000 },
+  Gangtok:  { Siliguri: 2500, Namchi: 1500, Singtam: 800, Mangan: 1500, Rangpo: 1300 },
+  Namchi:   { Siliguri: 2500, Gangtok: 1500, Singtam: 1500, Mangan: 2000, Rangpo: 1500 },
+  Singtam:  { Siliguri: 2500, Gangtok: 800, Namchi: 1500, Mangan: 1500, Rangpo: 800 },
+  Mangan:   { Siliguri: 3000, Gangtok: 1500, Namchi: 2000, Singtam: 1500, Rangpo: 2000 },
+  Rangpo:   { Siliguri: 2000, Gangtok: 1300, Namchi: 1500, Singtam: 800, Mangan: 2000 },
+  Jorethang:{ Siliguri: 2500 },
+};
+
+const PRICES_7SEATER: Record<string, Record<string, number>> = {
+  Siliguri: { Gangtok: 4000, Rangpo: 3000, Jorethang: 4000, Namchi: 4000, Singtam: 3500, Mangan: 4500 },
+  Gangtok:  { Siliguri: 4000, Namchi: 2500, Singtam: 1500, Mangan: 2500, Rangpo: 2000 },
+  Namchi:   { Siliguri: 4000, Gangtok: 2500, Singtam: 2000, Mangan: 3000, Rangpo: 1800 },
+  Singtam:  { Siliguri: 3500, Gangtok: 1500, Namchi: 2000, Mangan: 2000, Rangpo: 1500 },
+  Mangan:   { Siliguri: 4500, Gangtok: 2500, Namchi: 3000, Singtam: 2000, Rangpo: 3000 },
+  Rangpo:   { Siliguri: 3000, Gangtok: 2500, Namchi: 1800, Singtam: 1500, Mangan: 3000 },
+  Jorethang:{ Siliguri: 4000 },
+};
+
+const PRICES_9SEATER: Record<string, Record<string, number>> = {
+  Siliguri: { Gangtok: 3500, Rangpo: 2500, Jorethang: 3500, Namchi: 3500, Singtam: 3000, Mangan: 4000 },
+  Gangtok:  { Siliguri: 3500, Namchi: 2000, Singtam: 1000, Mangan: 2000, Rangpo: 1500 },
+  Namchi:   { Siliguri: 3500, Gangtok: 2000, Singtam: 1800, Mangan: 2500, Rangpo: 1700 },
+  Singtam:  { Siliguri: 3000, Gangtok: 1000, Namchi: 1800, Mangan: 1800, Rangpo: 1000 },
+  Mangan:   { Siliguri: 4000, Gangtok: 2000, Namchi: 2500, Singtam: 1800, Rangpo: 2500 },
+  Rangpo:   { Siliguri: 2500, Gangtok: 1500, Namchi: 1700, Singtam: 1000, Mangan: 2500 },
+  Jorethang:{ Siliguri: 3500 },
+};
+
+function getRoutePrice(from: string, to: string, category: string): number | null {
+  const table = category === "7seater" ? PRICES_7SEATER : category === "9seater" ? PRICES_9SEATER : PRICES_4SEATER;
+  return table[from]?.[to] ?? null;
 }
 
 export default function CabCards({ cabs, from = "Gangtok", to = "", routePrices = {}, onClose }: CabCardsProps) {
@@ -42,18 +79,12 @@ export default function CabCards({ cabs, from = "Gangtok", to = "", routePrices 
   const today = new Date();
   const dateStr = today.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short" });
 
-  const getPrice = (cab: Cab) => {
-    const base = Object.values(routePrices)[0];
-    if (!base) return null;
-    return base + cab.priceOffset;
-  };
-
   return (
     <div style={styles.wrapper}>
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.headerLeft}>
-          <div style={styles.headerIcon}>🚖</div>
+          <div style={styles.headerIcon}></div>
           <div>
             <div style={styles.headerTitle}>
               {to ? `${from} → ${to}` : `Cabs from ${from}`}
@@ -70,52 +101,55 @@ export default function CabCards({ cabs, from = "Gangtok", to = "", routePrices 
       {/* Horizontal scroll */}
       <div ref={scrollRef} style={styles.scrollTrack} onScroll={handleScroll}>
         {cabs.map((cab) => {
-          const price = getPrice(cab);
+          const price = to
+            ? getRoutePrice(from, to, cab.category ?? "4seater")
+            : (() => {
+                // Show cheapest route price as "starting from"
+                const table = (cab.category ?? "4seater") === "7seater" ? PRICES_7SEATER : (cab.category ?? "4seater") === "9seater" ? PRICES_9SEATER : PRICES_4SEATER;
+                const routes = table[from];
+                if (!routes) return null;
+                const prices = Object.values(routes).filter(p => p != null) as number[];
+                return prices.length ? Math.min(...prices) : null;
+              })();
+          const isStartingFrom = !to && price !== null;
           return (
             <div
               key={cab.id}
               style={styles.card}
               onClick={() => { onClose?.(); navigate("/cabs"); }}
             >
-              {/* Image */}
               <div style={styles.imageWrap}>
                 <img src={cab.image} alt={cab.cab_name} style={styles.image} />
-                <span style={styles.capacityBadge}>👥 {cab.capacity} seats</span>
+                <span style={styles.capacityBadge}> {cab.capacity} seats</span>
               </div>
 
-              {/* Info */}
               <div style={styles.cardInfo}>
                 <div style={styles.cardName}>{cab.cab_name}</div>
                 <div style={styles.company}>{cab.company}</div>
 
-                {/* Route */}
                 {to && (
-                  <div style={styles.route}>
-                    📍 {from} → {to}
-                  </div>
+                  <div style={styles.route}> {from} → {to}</div>
                 )}
 
-                {/* Features */}
                 <div style={styles.chips}>
-                  <span style={styles.chip}>🚗 Private Cab</span>
-                  <span style={styles.chip}>🧳 Luggage OK</span>
+                  <span style={styles.chip}> Private Cab</span>
+                  <span style={styles.chip}> Luggage OK</span>
                 </div>
 
-                {/* Rating */}
                 <div style={styles.ratingRow}>
                   <span style={styles.rating}>⭐ {cab.rating}</span>
-                  <span style={styles.ac}>❄️ AC</span>
+                  <span style={styles.ac}> AC</span>
                 </div>
 
-                {/* Price */}
                 <div style={styles.priceRow}>
-                  {price ? (
+                  {price !== null ? (
                     <>
+                      {isStartingFrom && <div style={{ fontSize: "9px", color: "#888", marginBottom: "1px" }}>Starting from</div>}
                       <span style={styles.price}>₹{price.toLocaleString()}</span>
                       <span style={styles.perTrip}>/trip</span>
                     </>
                   ) : (
-                    <span style={styles.price}>On Request</span>
+                    <span style={{ ...styles.price, color: "#888", fontSize: "12px" }}>Select route for price</span>
                   )}
                 </div>
 

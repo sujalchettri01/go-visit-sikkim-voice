@@ -49,7 +49,7 @@ export default function BikeCards({ bikes, city = "Sikkim" }: BikeCardsProps) {
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.headerLeft}>
-          <div style={styles.headerIcon}>🏍️</div>
+          <div style={styles.headerIcon}></div>
           <div>
             <div style={styles.headerTitle}>Bikes available in {city}</div>
             <div style={styles.headerDate}>{dateStr}</div>

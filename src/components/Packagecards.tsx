@@ -78,7 +78,7 @@ export default function PackageCards({ packages, onClose}: PackageCardsProps) {
               {/* Image */}
               <div style={styles.imageWrap}>
                 <img src={pkg.image} alt={pkg.title} style={styles.image} />
-                <span style={styles.durationBadge}>📅 {pkg.duration}</span>
+                <span style={styles.durationBadge}>{pkg.duration}</span>
               </div>
 
               {/* Info */}
