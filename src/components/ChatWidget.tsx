@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import HotelCards, {type Hotel } from "./HotelCards";
 import accommodationsData from "../data/hotel";
 import BikeCards, { type Bike } from "./Bikecards";
