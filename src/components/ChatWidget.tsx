@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HotelCards, { type Hotel } from "./HotelCards";
+import HotelCards, { Hotel } from "./HotelCards";
 import accommodationsData from "../data/hotel";
 import BikeCards, { type Bike } from "./Bikecards";
 import bikesData from "../data/bikes";
 import PackageCards, { type Package } from "./Packagecards";
 import packagesData from "../data/package";
-import ActivityCards, { type Activity } from "./Activitycards";
+import ActivityCards, { Activity } from "./ActivityCards";
 import activitiesData from "../data/activity";
-import CabCards, { type Cab } from "./CabCards";
+import CabCards, { Cab } from "./CabCards";
 import cabsData, { ROUTE_PRICES } from "../data/cabs";
 
 if (!document.getElementById("chat-styles")) {
@@ -135,9 +135,17 @@ function getHotelsForCity(city: string): any[] {
 function getBikesForCity(city: string): Bike[] {
   const key = city.toLowerCase();
   const filtered = (bikesData as any[]).filter(b =>
-    b.city && typeof b.city === "string" && b.city.toLowerCase().includes(key)
+    Array.isArray(b.city)
+      ? b.city.some((c: string) => c.toLowerCase().includes(key))
+      : typeof b.city === "string" && b.city.toLowerCase().includes(key)
   );
-  return filtered.length > 0 ? filtered : bikesData as Bike[];
+
+  const normalize = (b: any): Bike => ({
+    ...b,
+    city: Array.isArray(b.city) ? b.city[0] : b.city,   // string[] → string
+  });
+
+  return (filtered.length > 0 ? filtered : (bikesData as any[])).map(normalize);
 }
 
 function extractCity(text: string): string {
@@ -314,7 +322,6 @@ async function handleMessage(userMessage: string, history: Message[]): Promise<O
 }
 
 export default function ChatWidget() {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", text: "Namaste! I'm Guide AI, your Sikkim travel expert! Ask me anything — hotels, treks, permits, food, cabs, or the best places to visit!", time: getTime() },
@@ -424,7 +431,7 @@ export default function ChatWidget() {
                   <HotelCards hotels={msg.hotels} city={msg.city} onClose={() => setOpen(false)} />
                 )}
                 {msg.role === "assistant" && msg.bikes && msg.bikes.length > 0 && (
-                  <BikeCards bikes={msg.bikes} city={msg.city} onClose={() => setOpen(false)} />
+                  <BikeCards bikes={msg.bikes} city={msg.city} />
                 )}
                 {msg.role === "assistant" && msg.packages && msg.packages.length > 0 && (
                   <PackageCards packages={msg.packages} onClose={() => setOpen(false)} />

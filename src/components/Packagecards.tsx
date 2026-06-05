@@ -67,7 +67,7 @@ export default function PackageCards({ packages, onClose}: PackageCardsProps) {
 
       {/* Horizontal scroll */}
       <div ref={scrollRef} style={styles.scrollTrack} onScroll={handleScroll}>
-        {packages.map((pkg, idx) => {
+        {packages.map((pkg) => {
           const startingPrice = getStartingPrice(pkg);
           return (
             <div
