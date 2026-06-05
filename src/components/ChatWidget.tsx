@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HotelCards, { Hotel } from "./HotelCards";
+import HotelCards, {type Hotel } from "./HotelCards";
 import accommodationsData from "../data/hotel";
 import BikeCards, { type Bike } from "./Bikecards";
 import bikesData from "../data/bikes";
 import PackageCards, { type Package } from "./Packagecards";
 import packagesData from "../data/package";
-import ActivityCards, { Activity } from "./ActivityCards";
+import ActivityCards, { type Activity } from "./Activitycards";
 import activitiesData from "../data/activity";
-import CabCards, { Cab } from "./CabCards";
+import CabCards, { type Cab } from "./CabCards";
 import cabsData, { ROUTE_PRICES } from "../data/cabs";
 
 if (!document.getElementById("chat-styles")) {
