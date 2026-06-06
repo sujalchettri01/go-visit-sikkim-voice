@@ -58,7 +58,7 @@ function getRoutePrice(from: string, to: string, category: string): number | nul
   return table[from]?.[to] ?? null;
 }
 
-export default function CabCards({ cabs, from = "Gangtok", to = "", routePrices = {}, onClose }: CabCardsProps) {
+export default function CabCards({ cabs, from = "Gangtok", to = "", onClose }: CabCardsProps) {
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);

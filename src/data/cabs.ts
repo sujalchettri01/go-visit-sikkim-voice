@@ -51,7 +51,6 @@ function getPriceTable(category: string): Record<string, Record<string, number>>
 export function getRoutePrice(
   from: string,
   to: string,
-  priceOffset: number,
   category: string = "4seater"
 ): number | null {
   const table = getPriceTable(category);
