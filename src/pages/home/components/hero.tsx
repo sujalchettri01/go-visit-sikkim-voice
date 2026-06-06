@@ -63,7 +63,7 @@ const HomeHero = () => {
         }}
       />
       <div className="absolute inset-0 bg-[#f7f5f0]/40" />
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 0%, transparent 20%, rgba(0,0,0,0.8) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 0%, transparent 30%, rgba(0,0,0,0.18) 100%)' }} />
 
       {/* Decorative rings — hidden on mobile to prevent overflow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden hidden sm:block">
@@ -157,14 +157,14 @@ const HomeHero = () => {
 
         {/* Tab pill switcher — scrollable on mobile */}
         <div className="w-full overflow-x-auto pb-2 mb-6 sm:mb-10 no-scrollbar">
-          <div className="flex gap-1.5 bg-gray-100 rounded-2xl p-1.5 mx-auto w-fit min-w-full sm:min-w-0 tab-glow">
+          <div className="flex gap-1 sm:gap-1.5 bg-gray-100 rounded-2xl p-1 sm:p-1.5 w-max sm:w-fit sm:mx-auto tab-glow">
             {PILLS.map((pill) => (
               <a
                 key={pill.label}
                 href={pill.href}
-                className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-[12px] sm:text-[13px] font-medium transition-all bg-white text-gray-900 shadow-sm border border-gray-100 hover:border-indigo-200 hover:shadow-indigo-100 whitespace-nowrap flex-shrink-0"
+                className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-[13px] font-medium transition-all bg-white text-gray-900 shadow-sm border border-gray-100 hover:border-indigo-200 hover:shadow-indigo-100 whitespace-nowrap flex-shrink-0"
               >
-                {pill.icon}
+                <span className="flex-shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5 sm:[&>svg]:w-5 sm:[&>svg]:h-5">{pill.icon}</span>
                 {pill.label}
               </a>
             ))}

@@ -42,7 +42,7 @@ if (!document.getElementById("chat-styles")) {
       0%,100% { transform: translateY(0px) rotate(-3deg); }
       50% { transform: translateY(-5px) rotate(3deg); }
     }
-    .panda-think { display: inline-block; font-size: 22px; animation: pandaThink 1.5s ease-in-out infinite; }
+    .panda-think { display: inline-block; animation: pandaThink 1.5s ease-in-out infinite; }
 
     @keyframes pandaWave {
       0%   { transform: rotate(0deg); }
@@ -139,12 +139,10 @@ function getBikesForCity(city: string): Bike[] {
       ? b.city.some((c: string) => c.toLowerCase().includes(key))
       : typeof b.city === "string" && b.city.toLowerCase().includes(key)
   );
-
   const normalize = (b: any): Bike => ({
     ...b,
-    city: Array.isArray(b.city) ? b.city[0] : b.city,   // string[] → string
+    city: Array.isArray(b.city) ? b.city[0] : b.city,
   });
-
   return (filtered.length > 0 ? filtered : (bikesData as any[])).map(normalize);
 }
 
@@ -367,7 +365,7 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* FAB */}
+      {/* FAB — fixed bottom right, never moves */}
       {!open && (
         <div style={S.fabWrapper}>
           <button style={S.fabLabel} onClick={() => setOpen(true)}>
@@ -393,12 +391,14 @@ export default function ChatWidget() {
 
           {/* Header */}
           <div style={S.header}>
-            <div style={S.headerAvatar}><img src="/red-panda.png" alt="Guide AI" style={{ width: "100%", height: "100%", objectFit: "contain" }} /></div>
+            <div style={S.headerAvatar}>
+              <img src="/red-panda.png" alt="Guide AI" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            </div>
             <div style={S.headerCenter}>
               <div style={S.headerName}>Guide AI</div>
               <div style={S.headerSub}>
                 <span className="online-dot" style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#4ade80", marginRight: 5 }} />
-                 Your Sikkim's AI Guide Bot
+                Your Sikkim's AI Guide Bot
               </div>
             </div>
             <button style={S.headerCloseBtn} onClick={() => setOpen(false)}>✕</button>
@@ -426,7 +426,6 @@ export default function ChatWidget() {
                   </div>
                 )}
 
-                {/* Cards */}
                 {msg.role === "assistant" && msg.hotels && msg.hotels.length > 0 && (
                   <HotelCards hotels={msg.hotels} city={msg.city} onClose={() => setOpen(false)} />
                 )}
@@ -450,16 +449,13 @@ export default function ChatWidget() {
               <div className="msg-animate" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                 <div style={S.aiLabel}>Guide AI ✦</div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", padding: "4px 8px" }}>
-                    {/* Thought bubble */}
-                    <div style={{ background: "linear-gradient(135deg, #ede9fe, #ddd6fe)", borderRadius: "16px 16px 16px 4px", padding: "8px 14px", border: "1px solid #c4b5fd", display: "flex", gap: "5px", alignItems: "center" }}>
-                      <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#7c3aed" }} />
-                      <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#a78bfa" }} />
-                      <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#c4b5fd" }} />
-                    </div>
-
-                    {/* Panda */}
-                    <img src="/head.png" alt="Guide AI" className="panda-think" style={{ width: "72px", height: "72px", objectFit: "contain" }} />
+                  <div style={{ background: "linear-gradient(135deg, #ede9fe, #ddd6fe)", borderRadius: "16px 16px 16px 4px", padding: "8px 14px", border: "1px solid #c4b5fd", display: "flex", gap: "5px", alignItems: "center" }}>
+                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#7c3aed" }} />
+                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#a78bfa" }} />
+                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#c4b5fd" }} />
                   </div>
+                  <img src="/head.png" alt="Guide AI" className="panda-think" style={{ width: "72px", height: "72px", objectFit: "contain" }} />
+                </div>
               </div>
             )}
 
@@ -496,9 +492,9 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Footer branding */}
+          {/* Footer */}
           <div style={{ textAlign: "center", fontSize: "10px", color: "#a78bfa", padding: "4px 0 8px", background: "#faf8ff" }}>
-             <span style={{ color: "#6d28d9", fontWeight: 800 }}>Made in Sikkim</span>
+            <span style={{ color: "#6d28d9", fontWeight: 800 }}>Made in Sikkim</span>
           </div>
         </div>
       )}
@@ -508,13 +504,23 @@ export default function ChatWidget() {
 
 const S: Record<string, React.CSSProperties> = {
   fabWrapper: {
-    position: "fixed", bottom: "0px", right: "16px", zIndex: 9999,
-    display: "flex", flexDirection: "column", alignItems: "flex-end",
-    background: "none", pointerEvents: "none",
+    position: "fixed",
+    bottom: "16px",        // ← fixed distance from bottom
+    right: "16px",         // ← fixed distance from right
+    zIndex: 9999,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    background: "none",
+    pointerEvents: "none",
   },
   fabImg: {
-    width: "110px", height: "110px", objectFit: "contain",
-    cursor: "pointer", pointerEvents: "auto", display: "block",
+    width: "100px",
+    height: "100px",
+    objectFit: "contain",
+    cursor: "pointer",
+    pointerEvents: "auto",
+    display: "block",
     background: "transparent",
   },
   fabLabel: {
@@ -528,29 +534,47 @@ const S: Record<string, React.CSSProperties> = {
     cursor: "pointer",
     pointerEvents: "auto" as const,
     whiteSpace: "nowrap" as const,
-    marginBottom: "4px",
-    marginRight: "12px",
+    marginBottom: "6px",
+    marginRight: "8px",
     letterSpacing: "0.3px",
     fontFamily: "'Inter', sans-serif",
     animation: "fabBounce 1.4s ease-in-out infinite, fabGlow 1.4s ease-in-out infinite",
     display: "inline-block",
   },
   closeFloat: {
-    position: "fixed", bottom: "20px", right: "16px", zIndex: 9999,
-    width: "44px", height: "44px", borderRadius: "50%",
+    position: "fixed",
+    bottom: "24px",
+    right: "20px",
+    zIndex: 9999,
+    width: "44px",
+    height: "44px",
+    borderRadius: "50%",
     background: "linear-gradient(135deg, #4c1d95, #6d28d9)",
-    color: "#fff", border: "none", cursor: "pointer",
-    fontSize: "16px", fontWeight: 700,
-    display: "flex", alignItems: "center", justifyContent: "center",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "16px",
+    fontWeight: 700,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     boxShadow: "0 4px 16px rgba(109,40,217,0.4)",
     transition: "transform 0.15s ease",
   },
   panel: {
-    position: "fixed", bottom: "80px", right: "12px", zIndex: 9998,
-    width: "calc(100vw - 24px)", maxWidth: "370px", height: "600px",
-    background: "#faf8ff", borderRadius: "24px",
+    position: "fixed",
+    bottom: "16px",
+    right: "12px",
+    zIndex: 9998,
+    width: "calc(100vw - 24px)",
+    maxWidth: "370px",
+    height: "600px",
+    background: "#faf8ff",
+    borderRadius: "24px",
     boxShadow: "0 24px 64px rgba(109,40,217,0.15)",
-    display: "flex", flexDirection: "column", overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
     border: "1px solid #ddd6fe",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   },
@@ -559,11 +583,7 @@ const S: Record<string, React.CSSProperties> = {
     background: "linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #4338ca 100%)", color: "#fff",
     flexShrink: 0, minHeight: "64px",
   },
-  headerAvatar: {
-    width: "52px", height: "52px",
-    flexShrink: 0,
-    background: "transparent",
-  },
+  headerAvatar: { width: "52px", height: "52px", flexShrink: 0, background: "transparent" },
   headerCenter: { flex: 1 },
   headerName: { fontWeight: 700, fontSize: "15px" },
   headerSub: { fontSize: "11px", opacity: 0.9, marginTop: "2px", display: "flex", alignItems: "center" },

@@ -28,9 +28,9 @@ const Destinations = () => {
           </p>
         </div>
 
-        {/* Destinations Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
-          {packages.slice(0,6).map((destination:any) => (
+        {/* Destinations Grid — show only 2 on home */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+          {packages.slice(0, 2).map((destination: any) => (
             <div 
               key={destination.id} 
               className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-200 border border-gray-200 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]"
@@ -70,7 +70,7 @@ const Destinations = () => {
 
                 {/* Highlights */}
                 <div className="flex flex-wrap gap-1 mb-6">
-                  {destination.summary.map((highlight : any, index : any) => (
+                  {destination.summary.map((highlight: any, index: any) => (
                     <span 
                       key={index} 
                       className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-[0.8125rem] font-medium"
@@ -81,15 +81,11 @@ const Destinations = () => {
                 </div>
 
                 {/* Link */}
-                <Link to={
-                  `/destinations/${destination.id}`
-                }
+                <Link to={`/destinations/${destination.id}`}
                   className="group inline-flex items-center gap-2 text-blue-600 font-semibold no-underline transition-all duration-200 hover:gap-4"
                 >
                   Explore {destination.name}
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">
-                    →
-                  </span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </Link>
               </div>
             </div>
@@ -99,12 +95,10 @@ const Destinations = () => {
         {/* Section Footer */}
         <div className="text-center">
           <Link to="/destinations" 
-             className="group/btn relative w-full px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg sm:w-1/4 focus-visible:outline-4 focus-visible:outline-blue-200 focus-visible:outline-offset-2"
-                      style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
+            className="group/btn relative w-full px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg sm:w-1/4 focus-visible:outline-4 focus-visible:outline-blue-200 focus-visible:outline-offset-2"
+            style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}
           >
-            <span 
-              className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-            />
+            <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
             <span className="relative">View All Destinations</span>
           </Link>
         </div>

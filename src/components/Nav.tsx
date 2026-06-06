@@ -12,7 +12,6 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       if (currentScrollY < 10) {
         setIsNavVisible(true);
       } else if (currentScrollY < lastScrollY.current) {
@@ -21,10 +20,8 @@ const Navigation = () => {
         setIsNavVisible(false);
         setIsMobileMenuOpen(false);
       }
-
       lastScrollY.current = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -49,18 +46,18 @@ const Navigation = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] z-[1000] py-4 transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 w-full bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.1)] z-[1000] py-4 transition-transform duration-300 ease-in-out ${
           isNavVisible ? "translate-y-0" : "-translate-y-full"
         }`}
+        style={{ boxSizing: "border-box" }}
       >
-        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between gap-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
             to="/"
             onClick={closeMobileMenu}
-            className="flex items-center gap-2 text-2xl font-bold text-blue-600 transition-transform duration-200 hover:scale-105 no-underline"
+            className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-blue-600 transition-transform duration-200 hover:scale-105 no-underline flex-shrink-0"
           >
-            <span className="text-3xl"></span>
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               GoVisit Sikkim
             </span>
@@ -84,12 +81,11 @@ const Navigation = () => {
           </ul>
 
           {/* Actions - Desktop */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
             {!isLoading && (
               <>
                 {user ? (
                   <>
-                    {/* Book Now */}
                     <Link to="/contact">
                       <button
                         className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide text-white border-2 border-transparent shadow-sm transition-all duration-200 inline-flex items-center justify-center overflow-hidden hover:-translate-y-1 hover:shadow-xl active:-translate-y-0.5 active:shadow-lg"
@@ -99,8 +95,6 @@ const Navigation = () => {
                         <span className="relative">Book Now</span>
                       </button>
                     </Link>
-
-                    {/* User Avatar Icon → /user/dashboard */}
                     <Link
                       to="/user/dashboard"
                       className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 no-underline"
@@ -110,7 +104,6 @@ const Navigation = () => {
                     </Link>
                   </>
                 ) : (
-                  /* Login Button */
                   <Link to="/login">
                     <button className="group/btn relative px-6 py-2 rounded-xl text-sm font-semibold tracking-wide border-2 border-blue-600 text-blue-600 bg-white transition-all duration-200 inline-flex items-center justify-center hover:bg-blue-600 hover:text-white hover:-translate-y-1 hover:shadow-lg active:-translate-y-0.5">
                       Login
@@ -124,24 +117,12 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex-shrink-0"
             aria-label="Toggle menu"
           >
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-              }`}
-            />
+            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-gray-600 my-1 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
           </button>
         </div>
 
@@ -151,7 +132,7 @@ const Navigation = () => {
             isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-6 py-4 bg-white/95 backdrop-blur-md border-t border-gray-100">
+          <div className="px-4 py-4 bg-white/95 backdrop-blur-md border-t border-gray-100">
             <ul className="list-none m-0 p-0 space-y-2">
               {[
                 { to: "/", label: "Home" },
@@ -163,18 +144,13 @@ const Navigation = () => {
                 { to: "/cultures", label: "Cultures" },
               ].map(({ to, label }) => (
                 <li key={to}>
-                  <Link
-                    to={to}
-                    onClick={closeMobileMenu}
-                    className={mobileNavLinkClass(to)}
-                  >
+                  <Link to={to} onClick={closeMobileMenu} className={mobileNavLinkClass(to)}>
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
 
-            {/* Mobile Auth Actions */}
             {!isLoading && (
               <div className="mt-4 space-y-2">
                 {user ? (
@@ -216,7 +192,8 @@ const Navigation = () => {
         />
       )}
 
-      <div className="h-20" />
+      {/* Spacer matches navbar height */}
+      <div className="h-[72px]" />
     </>
   );
 };

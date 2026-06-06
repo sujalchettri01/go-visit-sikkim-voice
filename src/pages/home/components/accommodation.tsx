@@ -28,7 +28,7 @@ const Accommodations = () => {
 
         {/* Accommodations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {accommodations.slice(0,6).map((accommodation) => (
+          {accommodations.slice(0,3).map((accommodation) => (
             <div 
               key={accommodation.id} 
               className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-200 border border-gray-200 flex flex-col hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]"
