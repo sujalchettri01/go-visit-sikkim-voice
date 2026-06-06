@@ -5,7 +5,6 @@ import { useLogout } from "../hooks/useLogout";
 export default function Root() {
   const { data: user, isLoading, isError } = useCurrentUser();
   const { mutate: logout, isPending } = useLogout();
-
   if (isLoading) {
     return (
       <div style={{ display: "grid", placeItems: "center", height: "100vh" }}>
