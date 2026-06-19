@@ -150,19 +150,19 @@ export default function BikesListingPage() {
                     <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600">{bike.capacity} riders</span>
                     <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600">{bike.engineCC}cc</span>
                     <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600">{bike.transmission}</span>
-                    {bike.helmetIncluded && (
+                    {/* {bike.helmetIncluded && (
                       <span className="flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-blue-50 text-blue-600">Helmet included</span>
-                    )}
+                    )} */}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {bike.features.map((f) => (
+                    {bike.features && bike.features.map((f) => (
                       <span key={f} className="text-xs px-2 py-1 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">{f}</span>
                     ))}
                   </div>
 
                   <p className="text-xs text-gray-400 mb-4">
-                    {bike.kmLimit} km/day · ₹{bike.extraKmCharge}/extra km
+                    {/* {bike.kmLimit} km/day · ₹{bike.extraKmCharge}/extra km */}
                   </p>
 
                   <div className="flex items-center justify-between border-t border-gray-100 pt-4">
