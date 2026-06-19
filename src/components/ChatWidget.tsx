@@ -114,9 +114,10 @@ interface Message {
   time?: string;
 }
 
-const PROJECT_ID = "061634c9-83fc-41c9-8a3d-a90abe1c960a";
-const FLOW_ID    = "562f10a8-747e-4966-ad82-5ea38db6d3ea";
-const API_URL    = "https://sikkimchatbotsorganization635-sikkimchatbotsproject277.lamatic.dev";
+// ✅ UPDATED CREDENTIALS
+const PROJECT_ID = "54f7475e-0966-494d-bfce-5a5ec8706c3b";
+const FLOW_ID    = "a4d54412-aef3-4d1c-a00c-a9b2820925d4";
+const API_URL    = "https://sujalsorganization852-sujalsproject863.lamatic.dev";
 const API_KEY    = import.meta.env.VITE_LAMATIC_API_KEY as string;
 
 const SIKKIM_CITIES = ["Gangtok","Pelling","Lachung","Namchi","Ravangla","Yuksom","Singtam","Mangan","Jorethang","Rangpo"];
@@ -504,8 +505,8 @@ export default function ChatWidget() {
 const S: Record<string, React.CSSProperties> = {
   fabWrapper: {
     position: "fixed",
-    bottom: "16px",        // ← fixed distance from bottom
-    right: "16px",         // ← fixed distance from right
+    bottom: "16px",
+    right: "16px",
     zIndex: 9999,
     display: "flex",
     flexDirection: "column",

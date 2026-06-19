@@ -72,7 +72,6 @@ amenities: [
 
 
   pricingByPeople: {
-    1: 15000,
     2: 15000,
     3: 17000,
     4: 19000,
