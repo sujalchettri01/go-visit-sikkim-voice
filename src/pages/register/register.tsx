@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useSignup } from "../../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
 
