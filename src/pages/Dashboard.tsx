@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getCookie } from "../utils/cookie";
 import apiFetch from "../wrapper/apiCall";
+import { useNavigate } from "react-router-dom";
+import { MoveLeft } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -448,7 +450,7 @@ export default function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>("all");
   const [modal, setModal] = useState<ModalState | null>(null);
-
+  const navigate = useNavigate();
   const [packages, setPackages] = useState<PackageBooking[]>([]);
   const [cabs, setCabs] = useState<VehicleBooking[]>([]);
   const [bikes, setBikes] = useState<BikeBooking[]>([]);
@@ -531,7 +533,11 @@ export default function Dashboard() {
 
       <div className="min-h-screen bg-[#f5f5f7] px-4 py-8 md:px-8">
         <div className="max-w-6xl mx-auto space-y-6">
-
+        <div className="flex items-center gap-2 text-sm text-slate-600 hover:text-slate-800 cursor-pointer" onClick={() => navigate("/")}>
+            <MoveLeft size={16} />
+            <span>Go Back to Visit Sikkim</span>
+          </div>
+           
           {/* ── Welcome ── */}
           <div className="rounded-2xl overflow-hidden shadow-sm" style={{ background: "linear-gradient(120deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)", animation: "fadeSlideIn 0.5s ease-out both" }}>
             <div className="px-7 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
