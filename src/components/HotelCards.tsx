@@ -225,10 +225,15 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: "20px",
     padding: "14px 14px 10px",
     boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
-    maxWidth: "300px",
+    // Was `maxWidth: "300px"` — that hardcoded cap is what stopped this short of
+    // the AI text bubble's right edge. Now it fills whatever width its parent
+    // container gives it (in ChatWidget.tsx, that's `S.cardsWrapper`, already
+    // sized to match the message bubbles above).
+    width: "100%",
     fontFamily: "'Segoe UI', sans-serif",
     marginTop: "10px",
     overflow: "hidden",
+    boxSizing: "border-box",
   },
   header: {
     display: "flex",

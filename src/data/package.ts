@@ -28,38 +28,60 @@ bestTime: "April to June & October to December",
 itinerary: [
 {
 day: 1,
-title: "NJP → Lachen Transfer",
+title: "NJP/Bagdogra → Lachen Transfer",
 activities: [
 "Pickup from NJP / Bagdogra Airport",
-"Drive to Lachen (8–9 hrs)",
-"Seven Sisters Waterfall",
-"Singhik Viewpoint",
-"Chungthang Confluence",
-"Night Stay at Lachen"
-]
+"Drive to Lachen from  pickup point(8–9 hrs)",
+" Visit Seven Sisters Waterfall",
+" Vsit Singhik Viewpoint",
+" Explore Chungthang Confluence",
+"Night Stay at Lachen(Hotel)"
+],
+photos: [
+  "https://res.cloudinary.com/djsguxriw/image/upload/c_fit,w_1200/v1783018137/WhatsApp_Image_2026-07-03_at_00.04.09_aziljv.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1783018741/m_Lachen_3_l_633_1000_umplfy.avif",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1783018835/lachen_12658_600x400_vz1w0h.webp",
+
+],
+origin: "NJP Railway Station, Siliguri",
+destination: "Lachen, Sikkim"
 },
 {
 day: 2,
 title: "Lachen → Gurudongmar → Gangtok",
 activities: [
-"Early morning visit to Gurudongmar Lake",
+"Early morning drive to Gurudongmar Lake from Lachen",
 "Optional visit to Kalapathar (extra cost)",
 "Stop at Thangu Valley",
-"Drive Lachen → Gangtok",
+"Drive back to Lachen and towards Gangtok",
 "Hotel check-in at Gangtok",
 "Night Stay at Gangtok"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186680/rohitmondal31-sikkim-7254301_lnshuv.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186640/prakriti-prakash-gd0eaaBbD5w-unsplash_qtlxkx.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186638/huzaifa-ginwala-rDUV-NZWDKw-unsplash_xhl5ri.jpg"
+],
+origin: "Lachen, Sikkim",
+destination: "Gangtok, Sikkim"
 },
 {
 day: 3,
 title: "Gangtok Sightseeing → NJP Drop",
 activities: [
-"MG Marg",
-"Banjhakri Waterfalls",
-"Tashi Viewpoint",
-"Flower Exhibition Centre",
+"Explore MG Marg",
+"Explore Banjhakri Waterfalls",
+"Explore Tashi Viewpoint",
+"Explore Orchidarium — Ridge Park, Gangtok",
 "Drop to NJP / Bagdogra"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186455/652491543_18060569984416803_2282662252883816845_n_pa876b.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186452/588550355_18090614675297675_7412424156012602620_n_tjbyfc.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186490/north-bengal-tourism-E6rnGEJnvYo-unsplash_vgslfi.jpg"
+],
+origin: "Gangtok, Sikkim",
+destination: "NJP Railway Station, Siliguri"
 }
 ],
 
@@ -199,12 +221,19 @@ day: 1,
 title: "NJP → Lachung Transfer",
 activities: [
 "Pickup from NJP / Bagdogra Airport",
-"Drive to Lachung (8–9 hrs)",
-"Seven Sisters Waterfall",
-"Singhik Viewpoint",
-"Chungthang Confluence",
+"Drive to Lachung from Pickup point(8–9 hrs)",
+"Explore Seven Sisters Waterfall",
+"Explore Singhik Viewpoint",
+"Explore Chungthang Confluence",
 "Night Stay at Lachung"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783019324/WhatsApp_Image_2026-07-03_at_00.22.08_xfjfzt.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776187050/539316907_24204919412510340_6747624356021774511_n_givtk4.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783019527/5266-1528267640_o9nyih.webp"
+],
+origin: "NJP Railway Station, Siliguri",
+destination: "Lachung, Sikkim"
 },
 {
 day: 2,
@@ -212,21 +241,36 @@ title: "Lachung → Yumthang → Gangtok",
 activities: [
 "Visit Yumthang Valley (Valley of Flowers)",
 "Optional visit to Zero Point (extra cost)",
-"Lachung → Yumthang → Gangtok drive",
+"Back to Lachung and towards Gangtok ",
 "Hotel check-in at Gangtok",
 "Night Stay at Gangtok"
-]
+],
+photos: [
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187176/bhaskar-agarwal-2LxJQfP40-o-unsplash_wyvp9u.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776187044/538499020_24204917805843834_7715157953633841283_n_bjbbck.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776187074/645249339_26311019021865526_3002698391402773651_n_gmxsaw.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776187058/640891547_4269681156619410_5654302855926105980_n_ia9ql9.jpg"
+],
+origin: "Lachung, Sikkim",
+destination: "Gangtok, Sikkim"
 },
 {
 day: 3,
 title: "Gangtok Sightseeing → NJP Drop",
 activities: [
-"MG Marg",
-"Banjhakri Waterfalls",
-"Tashi Viewpoint",
-"Flower Exhibition Centre",
+"Visit MG Marg",
+"Visit Banjhakri Waterfalls",
+"Visit Tashi Viewpoint",
+"Explore Orchidarium — Ridge Park, Gangtok",
 "Drop to NJP / Bagdogra"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186520/utkarsh-tiwari-fFvRCjaMBOc-unsplash_x2lorz.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186448/586676351_18090614918297675_1125526252192704122_n_tos3hs.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186490/north-bengal-tourism-E6rnGEJnvYo-unsplash_vgslfi.jpg"
+],
+origin: "Gangtok, Sikkim",
+destination: "NJP Railway Station, Siliguri"
 }
 ],
 
@@ -244,6 +288,7 @@ amenities: [
     4: 21000,
     5: 23000,
     6: 25000,
+    7: 27000,
   },
 
 
@@ -353,49 +398,77 @@ bestTime: "March to June & October to December",
 itinerary: [
 {
 day: 1,
-title: "NJP → Gangtok Transfer",
+title: "NJP/Bagdogra → Gangtok Transfer",
 activities: [
-"Pickup from NJP Railway Station",
-"Drive to Gangtok (4–5 hrs)",
-"Scenic Teesta River views",
+"Pickup from NJP Railway Station/Bagdogra Airport",
+"Drive to Gangtok from pickup point(4–5 hrs)",
+"Watch Scenic Teesta River views",
 "Hotel check-in",
 "Evening visit to MG Marg",
 "Night Stay at Gangtok"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783020028/bengal-cab-service-hill-cart-road-siliguri-taxi-services-472w4si3q7-250_rtntpf.webp",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186452/588550355_18090614675297675_7412424156012602620_n_tjbyfc.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186455/652491543_18060569984416803_2282662252883816845_n_pa876b.jpg"
+],
+origin: "NJP Railway Station, Siliguri",
+destination: "Gangtok, Sikkim"
 },
 {
 day: 2,
 title: "Gangtok Local Sightseeing",
 activities: [
 "Breakfast at hotel",
-"Tashi View Point",
-"Ganesh Tok",
-"Hanuman Tok",
-"Banjhakri Falls",
+"Visit Tashi View Point",
+"Visit Ganesh Tok",
+"Visit Hanuman Tok",
+"Explore Orchidarium — Ridge Park, Gangtok",
 "Night Stay at Gangtok"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186453/639670478_2436600280131597_6702979471100235529_n_owr05t.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186448/587568197_18090614867297675_4270002849398937332_n_dc5mbj.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186517/tiachen-aier-Yf9WoHnuqqs-unsplash_g5dqjm.jpg"
+],
+origin: "Gangtok, Sikkim",
+destination: "Gangtok, Sikkim"
 },
 {
 day: 3,
 title: "Changu Lake & Baba Mandir Excursion",
 activities: [
-"Early morning start (permit required)",
+"Wake up early and head towards Changu from Gangtok",
 "Visit Changu Lake (12,400 ft)",
-"Baba Harbhajan Singh Mandir",
+"Visit Baba Harbhajan Singh Mandir",
 "Optional Nathula Pass (extra cost)",
-"Return to Gangtok",
+"Return to Gangtok from Changu",
 "Night Stay at Gangtok"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783020548/Babaji_kruhuu.png",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776184327/652552505_3882241121912256_2051934602556132284_n_xmyyur.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776184327/653069443_1272241418272984_4204513784550989228_n_bhp6pa.jpg"
+],
+origin: "Gangtok, Sikkim",
+destination: "Tsomgo Lake, Sikkim"
 },
 {
 day: 4,
-title: "Gangtok → NJP Drop",
+title: "Gangtok → NJP/Bagdogra Drop",
 activities: [
 "Breakfast",
 "Hotel checkout",
-"Drive to NJP (4–5 hrs)",
-"Drop at NJP Railway Station"
-]
+"Drive to NJP (4–5 hrs)/Bagdogra",
+"Drop at NJP Railway Station/Bagdogra Airport"
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783020802/Bagdogra-Airport-Entrance_0_1200.jpg_jfl7nb.webp",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783020812/NJP_k812cd.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186531/629808296_18302831497274777_1963415971081881073_n_lwddkv.jpg"
+],
+origin: "Gangtok, Sikkim",
+destination: "NJP Railway Station, Siliguri"
 }
 ],
 
@@ -413,6 +486,7 @@ amenities: [
     4: 12000,
     5: 24000,
     6: 26000,
+    7: 28000,
   },
 
 
@@ -503,49 +577,77 @@ bestTime: "March to June & October to December",
 itinerary: [
 {
 day: 1,
-title: "NJP → Namchi Transfer",
+title: "NJP/Bagdogra → Namchi Transfer",
 activities: [
-"Pickup from NJP Railway Station",
-"Drive to Namchi (5–6 hrs)",
-"Hotel check-in & rest",
+"Pickup from NJP Railway Station/Bagdogra airport",
+"Drive towards Namchi (5–6 hrs)",
+"Hotel check-in at Namchi & rest",
 "Explore Namchi town",
 "Night Stay at Namchi"
-]
+],
+photos: [
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1783107269/car_image_q4wi5l.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186796/473188417_1167822451591943_5773727650260042798_n_wmcfpr.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186857/IMG_3862_1_k63gt7.jpg"
+],
+origin: "NJP Railway Station, Siliguri",
+destination: "Namchi, Sikkim"
 },
 {
 day: 2,
-title: "Namchi → Pelling Transfer",
+title: "Explore Namchi → Pelling Transfer",
 activities: [
 "Breakfast at hotel",
-"Drive to Pelling",
 "Visit Siddhesvara Dham (Char Dham)",
 "Visit Ravangla Buddha Park",
+"Drive towards Pellig from Ravangla",
 "Reach Pelling & hotel check-in",
-"Night Stay at Pelling"
-]
+"Night Stay at Pelling",
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186866/spandan-pattanayak-PpZobixj2KU-unsplash_d8fcoj.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186846/jayanth-muppaneni-33p22OdYyUo-unsplash_1_byvi0p.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776192352/488041949_1145450837591845_2709436092176855634_n_tqcmvt.jpg"
+],
+origin: "Namchi, Sikkim",
+destination: "Pelling, Sikkim"
 },
 {
 day: 3,
 title: "Pelling Full Day Sightseeing",
 activities: [
-"Sky Walk Pelling",
-"Pemayangtse Monastery",
-"Rabdentse Ruins",
-"Khecheopalri Lake",
-"Rimbi Waterfalls",
-"Sunset view of Kanchenjunga",
+"Explore Sky Walk Pelling",
+"Visit Pemayangtse Monastery",
+"Visit Rabdentse Ruins",
+"Visit Khecheopalri Lake",
+"Visit Rimbi Waterfalls",
+" Watch Sunset view of Kanchenjunga",
 "Night Stay at Pelling"
-]
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186915/neeraj-pramanik-I0wN-oUkHcc-unsplash_hw2ehz.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186892/labunhanglimboo-bridge-6363065_mp1aos.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776187001/sagar-dwivedi-qhQg07YHjvU-unsplash_btdkcj.jpg"
+],
+origin: "Pelling, Sikkim",
+destination: "Pelling, Sikkim"
 },
 {
 day: 4,
-title: "Pelling → NJP Drop",
+title: "Pelling → NJP Drop/Bagdogra",
 activities: [
 "Breakfast",
 "Hotel checkout",
-"Drive back to NJP (6–7 hrs)",
-"Drop at NJP Railway Station"
-]
+"Drive back to NJP/Bagdogra (6–7 hrs)",
+"Drop at NJP Railway Station/Bagdogra Airport"
+],
+photos: [
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186960/labunhanglimboo-mountains-6363277_iotews.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186877/625217848_17993382479879016_6840516278822782057_n_ffio24.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1783020802/Bagdogra-Airport-Entrance_0_1200.jpg_jfl7nb.webp"
+],
+origin: "Pelling, Sikkim",
+destination: "NJP Railway Station, Siliguri"
 }
 ],
 
@@ -563,6 +665,7 @@ amenities: [
     4: 22000,
     5: 24000,
     6: 26000,
+    7: 28000,
   },
 
 
@@ -660,7 +763,14 @@ reviews: []
         "Check-in at hotel",
         "Evening visit to MG Marg",
         "Overnight stay at Gangtok"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1783107269/car_image_q4wi5l.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186960/labunhanglimboo-mountains-6363277_iotews.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186455/652491543_18060569984416803_2282662252883816845_n_pa876b.jpg"
+      ],
+      origin: "NJP / Bagdogra Airport",
+      destination: "Gangtok, Sikkim"
     },
     {
       day: 2,
@@ -672,7 +782,14 @@ reviews: []
         "Optional visit to Nathula Pass (closed Monday)",
         "Visit Hangu Lake (if permitted)",
         "Overnight stay at Gangtok"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776184324/651258223_17985500441960466_939933064043572943_n_uhtp6g.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1783020548/Babaji_kruhuu.png",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776184327/652552505_3882241121912256_2051934602556132284_n_xmyyur.jpg"
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "Tsomgo Lake, Sikkim"
     },
     {
       day: 3,
@@ -685,7 +802,14 @@ reviews: []
         "Visit Dro-Dul Chorten Monastery",
         "Drive to Darjeeling",
         "Check-in and overnight stay at Darjeeling"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1780412057/orchid_eqojwg.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776522125/photo-1671711847762-b8308b444a42_vaj7l8.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776965912/tejashvi-verma-PgiOz4ohOsI-unsplash_zjncwc.jpg"
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "Darjeeling, West Bengal"
     },
     {
       day: 4,
@@ -696,7 +820,14 @@ reviews: []
         "Visit Ghoom Monastery",
         "Visit Japanese Temple & Peace Pagoda",
         "Drop to NJP / Bagdogra Airport"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776965964/photo-1768922078544-516fc51c7812_mevlrm.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776971552/669228232_122170804382942268_2878135778882550660_n_qxs7qk.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187001/sagar-dwivedi-qhQg07YHjvU-unsplash_btdkcj.jpg"
+      ],
+      origin: "Darjeeling, West Bengal",
+      destination: "NJP / Bagdogra Airport"
     }
   ],
 
@@ -714,6 +845,7 @@ reviews: []
     4: 23000,
     5: 25000,
     6: 27000,
+    7: 29000,
   },
 
    images: [
@@ -810,7 +942,14 @@ reviews: []
         "Visit Chungthang Confluence",
         "Check-in at hotel in Lachen",
         "Overnight stay at Lachen"
-      ]
+      ],
+      photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/c_fit,w_1200/v1783018137/WhatsApp_Image_2026-07-03_at_00.04.09_aziljv.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1783018741/m_Lachen_3_l_633_1000_umplfy.avif",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1783018835/lachen_12658_600x400_vz1w0h.webp",
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "Lachen, Sikkim"
     },
     {
       day: 2,
@@ -822,7 +961,15 @@ reviews: []
         "Return to Lachen",
         "Hotel check-in at Lachen",
         "Overnight stay at Lachen"
-      ]
+      ],
+      photos: [
+        
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186680/rohitmondal31-sikkim-7254301_lnshuv.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186640/prakriti-prakash-gd0eaaBbD5w-unsplash_qtlxkx.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186638/huzaifa-ginwala-rDUV-NZWDKw-unsplash_xhl5ri.jpg"
+      ],
+      origin: "Lachen, Sikkim",
+      destination: "Gurudongmar Lake, Sikkim"
     },
     {
       day: 3,
@@ -832,7 +979,15 @@ reviews: []
         "Drive back to Gangtok",
         "Drop at hotel / NJP transfer (optional)",
         "Tour ends"
-      ]
+      ],
+      photos: [
+        
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186455/652491543_18060569984416803_2282662252883816845_n_pa876b.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186452/588550355_18090614675297675_7412424156012602620_n_tjbyfc.jpg",
+"https://res.cloudinary.com/djsguxriw/image/upload/v1776186490/north-bengal-tourism-E6rnGEJnvYo-unsplash_vgslfi.jpg"
+      ],
+      origin: "Lachen, Sikkim",
+      destination: "Gangtok, Sikkim"
     }
   ],
 
@@ -850,6 +1005,7 @@ reviews: []
     4: 12000,
     5: 15000,
     6: 18000,
+    7: 20000,
   },
 
 
@@ -906,7 +1062,7 @@ reviews: []
 }
 ,
 {
-  id: 7,
+  id: 10,
   title: "Lachung & Yumthang Valley Tour Shared budget – 2 Days",
   image: "https://res.cloudinary.com/djsguxriw/image/upload/v1776187074/645249339_26311019021865526_3002698391402773651_n_gmxsaw.jpg",
 
@@ -945,7 +1101,14 @@ reviews: []
         "Visit Chungthang Confluence",
         "Check-in at hotel in Lachung",
         "Overnight stay at Lachung"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187176/bhaskar-agarwal-2LxJQfP40-o-unsplash_wyvp9u.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187050/539316907_24204919412510340_6747624356021774511_n_givtk4.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187053/591321081_25067403662928573_1861231766933343155_n_xwgzea.jpg"
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "Lachung, Sikkim"
     },
     {
       day: 2,
@@ -956,7 +1119,14 @@ reviews: []
         "Return to Lachung",
         "Drive back to Gangtok",
         "Drop at hotel / tour ends"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187044/538499020_24204917805843834_7715157953633841283_n_bjbbck.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187074/645249339_26311019021865526_3002698391402773651_n_gmxsaw.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186455/652491543_18060569984416803_2282662252883816845_n_pa876b.jpg"
+      ],
+      origin: "Lachung, Sikkim",
+      destination: "Gangtok, Sikkim"
     }
   ],
 
@@ -974,7 +1144,17 @@ reviews: []
     4: 19000,
     5: 21000,
     6: 23000,
+    7: 25000,
   },
+
+  images: [
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187176/bhaskar-agarwal-2LxJQfP40-o-unsplash_wyvp9u.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187050/539316907_24204919412510340_6747624356021774511_n_givtk4.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187053/591321081_25067403662928573_1861231766933343155_n_xwgzea.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187044/538499020_24204917805843834_7715157953633841283_n_bjbbck.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187074/645249339_26311019021865526_3002698391402773651_n_gmxsaw.jpg",
+  "https://res.cloudinary.com/djsguxriw/image/upload/v1776187058/640891547_4269681156619410_5654302855926105980_n_ia9ql9.jpg"
+],
 
   inclusions: [
     "Accommodation in Lachung",
@@ -1021,7 +1201,7 @@ reviews: []
 
 
 {
-  id: 8,
+  id: 11,
   title: "Nathula Pass & Tsomgo Lake Tour – 1 Day",
   image: "https://res.cloudinary.com/djsguxriw/image/upload/q_auto/f_auto/v1776184327/652552505_3882241121912256_2051934602556132284_n_xmyyur.jpg",
 
@@ -1058,7 +1238,15 @@ reviews: []
         "Visit Baba Harbhajan Singh Mandir",
         "Reach Nathula Pass (Indo-China border) and enjoy Himalayan views",
         "Evening Return (4:00–5:00 PM): Drive back to Gangtok"
-      ]
+      ],
+      photos: [
+
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776184324/632221946_2435054576937720_5039479940306470582_n_nswud3.jpg",
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187269/dhruvin-pandya-5iWp6MpDqM8-unsplash_uqblnr.jpg",
+            "https://res.cloudinary.com/djsguxriw/image/upload/v1783020548/Babaji_kruhuu.png",
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "Nathula Pass, Sikkim"
     }
   ],
 
@@ -1075,6 +1263,7 @@ reviews: []
     4: 4000,
     5: 5000,
     6: 6000,
+    7: 7000,
   },
 
   inclusions: [
@@ -1159,7 +1348,16 @@ reviews: []
         "Visit Chungthang Confluence",
         "Check-in at hotel in Lachen",
         "Overnight stay at Lachen"
-      ]
+      ],
+      photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1783020802/Bagdogra-Airport-Entrance_0_1200.jpg_jfl7nb.webp",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1783018741/m_Lachen_3_l_633_1000_umplfy.avif",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1783019527/5266-1528267640_o9nyih.webp",
+      ],
+      origin: "NJP / Bagdogra Airport",
+      destination: "Lachen, Sikkim"
     },
     {
       day: 2,
@@ -1171,7 +1369,16 @@ reviews: []
         "Drive to Lachung",
         "Check-in at hotel in Lachung",
         "Overnight stay at Lachung"
-      ]
+      ],
+            photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186680/rohitmondal31-sikkim-7254301_lnshuv.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186629/gaurav-bagdi--umeutkfZew-unsplash_rdkfaj.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186592/482248875_963115149347035_5738395448830286959_n_xlhzed.jpg",
+      ],
+      origin: "Lachen, Sikkim",
+      destination: "Lachung, Sikkim"
     },
     {
       day: 3,
@@ -1182,7 +1389,16 @@ reviews: []
         "Drive back to Gangtok",
         "Check-in at hotel in Gangtok",
         "Overnight stay at Gangtok"
-      ]
+      ],
+       photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187173/amit-singh-YhpjRERnEJc-unsplash_wz9ycw.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187088/amit-merchant-WyIh-3ct_Lc-unsplash_k1isyj.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187175/ninan-john-FYOuCf8urVw-unsplash_skas4e.jpg",
+      ],
+      origin: "Lachung, Sikkim",
+      destination: "Gangtok, Sikkim"
     },
     {
       day: 4,
@@ -1194,7 +1410,16 @@ reviews: []
         "Visit Flower Exhibition Centre",
         "Drive to NJP Railway Station / Bagdogra Airport",
         "Drop and tour ends"
-      ]
+      ],
+       photos: [
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1780412060/Rumtek_wcpz6k.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776186509/yash-kumar-HfDnKiQGOio-unsplash_v60seh.jpg",
+        
+        "https://res.cloudinary.com/djsguxriw/image/upload/v1776187175/ninan-john-FYOuCf8urVw-unsplash_skas4e.jpg",
+      ],
+      origin: "Gangtok, Sikkim",
+      destination: "NJP / Bagdogra Airport"
     }
   ],
 
@@ -1212,7 +1437,8 @@ reviews: []
     3: 21000,
     4: 23000,
     5: 25000,
-    6: 20000,
+    6: 27000,
+    7: 29000,
   },
 
   inclusions: [

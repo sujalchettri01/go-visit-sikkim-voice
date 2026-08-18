@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
 import bikesData from "../../data/bikes";
 
+const PICKUP_LOCATIONS = ["Gangtok", "Majhitar", "Singtam", "Namchi"];
+
 declare global {
   interface Window { Razorpay: any; }
 }
@@ -259,11 +261,16 @@ export default function BikeBookingPage() {
                 className="w-full mt-2 p-3 border rounded-lg" />
             </div>
 
-            <div>
+           <div>
               <label className="font-semibold text-sm">Pickup Location *</label>
-              <input name="pickupLocation" placeholder="Enter pickup location"
+              <select name="pickupLocation"
                 value={formData.pickupLocation} onChange={handleChange}
-                className="w-full mt-2 p-3 border rounded-lg" />
+                className="w-full mt-2 p-3 border rounded-lg bg-white">
+                <option value="">Select a pickup location</option>
+                {PICKUP_LOCATIONS.map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
             </div>
 
             <div>
@@ -283,8 +290,8 @@ export default function BikeBookingPage() {
           </div>
 
           {/* Bike specs info box */}
-          <div className="mt-5 bg-gray-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-sm mb-2 text-gray-700">Rental Info</h4>
+       {/*   <div className="mt-5 bg-gray-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-sm mb-2 text-gray-700">Rental Info:</h4>
             <ul className="space-y-1 text-sm text-gray-600">
               <li>• Engine: {bike.engineCC}cc · {bike.transmission}</li>
               <li>• Fuel type: {bike.fuelType}</li>
@@ -292,7 +299,7 @@ export default function BikeBookingPage() {
               <li>• Extra km charge: ₹{bike.extraKmCharge}/km</li>
               {bike.helmetIncluded && <li>• Helmet included at no extra cost</li>}
             </ul>
-          </div>
+          </div>    */}
 
           <div className="mt-5">
             <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey}

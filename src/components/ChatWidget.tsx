@@ -1,359 +1,96 @@
 import { useState, useRef, useEffect } from "react";
-import HotelCards, {type Hotel } from "./HotelCards";
-import accommodationsData from "../data/hotel";
-import BikeCards, { type Bike } from "./Bikecards";
-import bikesData from "../data/bikes";
-import PackageCards, { type Package } from "./Packagecards";
-import packagesData from "../data/package";
-import ActivityCards, { type Activity } from "./Activitycards";
-import activitiesData from "../data/activity";
-import CabCards, { type Cab } from "./CabCards";
-import cabsData, { ROUTE_PRICES } from "../data/cabs";
-
-if (!document.getElementById("chat-styles")) {
-  const s = document.createElement("style");
-  s.id = "chat-styles";
-  s.textContent = `
-    @keyframes chatDotWave {
-      0%,60%,100% { transform: translateY(0); }
-      30% { transform: translateY(-7px); }
-    }
-    .chat-dot {
-      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-      background: #7c3aed; animation: chatDotWave 1.2s infinite ease-in-out;
-    }
-    .chat-dot:nth-child(1) { animation-delay: 0s; }
-    .chat-dot:nth-child(2) { animation-delay: 0.15s; }
-    .chat-dot:nth-child(3) { animation-delay: 0.3s; }
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-20px); opacity: 0; }
-    }
-    @keyframes fadeInOutDot {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-    @keyframes ripple {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(2.2); opacity: 0; }
-    }
-    @keyframes pandaThink {
-      0%,100% { transform: translateY(0px) rotate(-3deg); }
-      50% { transform: translateY(-5px) rotate(3deg); }
-    }
-    .panda-think { display: inline-block; animation: pandaThink 1.5s ease-in-out infinite; }
-
-    @keyframes pandaWave {
-      0%   { transform: rotate(0deg); }
-      6%   { transform: rotate(-10deg); }
-      12%  { transform: rotate(10deg); }
-      18%  { transform: rotate(-7deg); }
-      24%  { transform: rotate(7deg); }
-      30%  { transform: rotate(-4deg); }
-      36%, 100% { transform: rotate(0deg); }
-    }
-    .panda-fab {
-      animation: pandaWave 6.5s ease-in-out infinite;
-      transform-origin: bottom center;
-      cursor: pointer;
-      filter: drop-shadow(0 3px 8px rgba(109,40,217,0.35));
-    }
-    .panda-fab:hover { animation: none; transform: scale(1.08); }
-
-    @keyframes fabBounce {
-      0%, 100% { transform: translateY(0px) rotate(-2deg); }
-      50% { transform: translateY(-8px) rotate(2deg); }
-    }
-    @keyframes fabGlow {
-      0%, 100% { box-shadow: 0 4px 16px rgba(109,40,217,0.4); }
-      50% { box-shadow: 0 8px 24px rgba(109,40,217,0.7); }
-    }
-
-    @keyframes msgSlideIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .msg-animate { animation: msgSlideIn 0.25s ease-out forwards; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .online-dot { animation: pulse 2s ease-in-out infinite; }
-
-    @keyframes panelIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .chat-panel-in { animation: panelIn 0.25s ease-out forwards; }
-
-    .chat-fab, .chat-fab:hover, .chat-fab:focus, .chat-fab:active, .chat-fab:focus-visible {
-      background: none !important; border: none !important; outline: none !important;
-      box-shadow: none !important; -webkit-appearance: none !important;
-    }
-    .chat-input:focus { border-color: #7C3AED !important; background: #fff !important; }
-    .quick-chip:hover { background: #6d28d9 !important; color: #fff !important; }
-    .send-btn:hover { transform: scale(1.08); }
-    .send-btn:active { transform: scale(0.96); }
-  `;
-  document.head.appendChild(s);
-}
-
-interface Message {
-  role: "user" | "assistant";
-  text: string;
-  hotels?: Hotel[];
-  bikes?: Bike[];
-  packages?: Package[];
-  activities?: Activity[];
-  cabs?: Cab[];
-  cabFrom?: string;
-  cabTo?: string;
-  routePrices?: Record<string, number>;
-  city?: string;
-  time?: string;
-}
-
-// ✅ UPDATED CREDENTIALS
-const PROJECT_ID = "54f7475e-0966-494d-bfce-5a5ec8706c3b";
-const FLOW_ID    = "a4d54412-aef3-4d1c-a00c-a9b2820925d4";
-const API_URL    = "https://sujalsorganization852-sujalsproject863.lamatic.dev";
-const API_KEY    = import.meta.env.VITE_LAMATIC_API_KEY as string;
-
-const SIKKIM_CITIES = ["Gangtok","Pelling","Lachung","Namchi","Ravangla","Yuksom","Singtam","Mangan","Jorethang","Rangpo"];
-
-function getTime() {
-  return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-}
-
-function getHotelsForCity(city: string): any[] {
-  const key = city.toLowerCase();
-  const filtered = (accommodationsData as any[]).filter(h => h.location.toLowerCase().includes(key));
-  return filtered.length > 0 ? filtered : (accommodationsData as any[]).slice(0, 6);
-}
-
-function getBikesForCity(city: string): Bike[] {
-  const key = city.toLowerCase();
-  const filtered = (bikesData as any[]).filter(b =>
-    Array.isArray(b.city)
-      ? b.city.some((c: string) => c.toLowerCase().includes(key))
-      : typeof b.city === "string" && b.city.toLowerCase().includes(key)
-  );
-  const normalize = (b: any): Bike => ({
-    ...b,
-    city: Array.isArray(b.city) ? b.city[0] : b.city,
-  });
-  return (filtered.length > 0 ? filtered : (bikesData as any[])).map(normalize);
-}
-
-function extractCity(text: string): string {
-  for (const city of SIKKIM_CITIES) {
-    if (new RegExp(`\\b${city}\\b`, "i").test(text)) return city;
-  }
-  return "Gangtok";
-}
-
-function extractRoute(text: string): { from: string; to: string } {
-  const cabCities = ["Gangtok","Siliguri","Namchi","Ravangla","Jorethang","Singtam","Rangpo","Mangan"];
-  const found = cabCities.filter(c => new RegExp(`\\b${c}\\b`, "i").test(text));
-  return { from: found[0] ?? "Gangtok", to: found[1] ?? "" };
-}
-
-function mapHotel(h: any): Hotel {
-  return {
-    id: h.id,
-    name: h.name,
-    location: `${h.location}, Sikkim`,
-    rating: h.rating,
-    reviews: 0,
-    price: h.pricePerNight > 0 ? `₹${h.pricePerNight.toLocaleString()}` : "Price on request",
-    amenities: h.amenities.slice(0, 4),
-    nearby: h.nearbyAttractions?.[0] ?? "",
-    url: `/accommodations/${h.id}`,
-    image: h.image,
-  };
-}
-
-function isShortReply(text: string): boolean {
-  const short = /^(yes|no|ok|okay|sure|tell me more|more|please|go on|continue|thanks|thank you|great|cool|nice|awesome|sounds good|i see|got it|hmm|hm|what else|anything else|more details|yep|nope|yup|show me|go ahead|and\??|then\??)[\s!?.]*$/i;
-  return short.test(text.trim()) || text.trim().split(/\s+/).length <= 2;
-}
-
-function isHotelQuery(text: string): boolean {
-  if (isShortReply(text)) return false;
-  return /\b(hotels?|accommodation|stay|lodge|resort|hostel|where to stay|place to stay|rooms? in|guesthouses?)\b/i.test(text);
-}
-
-function isBikeQuery(text: string): boolean {
-  if (isShortReply(text)) return false;
-  return /\b(bikes?|motorcycle|rent.*bikes?|bikes?.*rent|two.?wheel|scooter|royal enfield|RE himalayan|bike rental)\b/i.test(text);
-}
-
-function isActivityQuery(text: string): boolean {
-  if (isShortReply(text)) return false;
-  return /\b(activit|trekkings?|trekings?|trek|hiking|hike|adventure|rafting|paragliding|camping|things to do|what to do|sightseeing|opt for|outdoor)\b/i.test(text);
-}
-
-function isPackageQuery(text: string): boolean {
-  if (isShortReply(text)) return false;
-  return /\b(packages?|tour packages?|travel packages?|holiday packages?|sikkim packages?|show.*packages?|want.*packages?|itinerary|trip plan)\b/i.test(text);
-}
-
-function isCabQuery(text: string): boolean {
-  if (isShortReply(text)) return false;
-  return /\b(cabs?|taxi|car hire|book.*cabs?|transport|from\s+\w+\s+to\s+\w+|cab booking)\b/i.test(text);
-}
-
-function cleanText(text: string): string {
-  return text
-    .replace(/###\s*(?:\d+\.)?\s*/g, "")
-    .replace(/\*\*(.+?)\*\*/g, "$1")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/^[-•]\s+/gm, "• ")
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{1F100}-\u{1F1FF}\u{1F200}-\u{1F2FF}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F3}\u{24C2}\u{23E9}-\u{23F3}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{00A9}\u{00AE}]/gu, "")
-    .trim();
-}
-
-function extractIntro(raw: string): string {
-  const introEnd = raw.search(/\n(?:###\s*)?(?:\d+\.|\•)\s+[A-Z]/);
-  const intro = introEnd > 0 ? raw.substring(0, introEnd).trim() : raw.trim();
-  return cleanText(intro);
-}
-
-const EXECUTE_QUERY = `
-  query ExecuteWorkflow($workflowId: String!, $payload: JSON!) {
-    executeWorkflow(workflowId: $workflowId, payload: $payload) {
-      status
-      result
-    }
-  }
-`;
-
-async function callAPI(message: string): Promise<string> {
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${API_KEY}`,
-      "x-project-id": PROJECT_ID,
-    },
-    body: JSON.stringify({
-      query: EXECUTE_QUERY,
-      variables: {
-        workflowId: FLOW_ID,
-        payload: { chatMessage: message },
-      },
-    }),
-  });
-  if (!res.ok) throw new Error(`API error ${res.status}`);
-  const data = await res.json();
-  const result = data?.data?.executeWorkflow?.result;
-  return result?.content ?? result?.message ?? result?.text ?? result?.output ?? result?.response ?? "";
-}
-
-async function handleMessage(userMessage: string, history: Message[]): Promise<Omit<Message, "role">> {
-  if (isShortReply(userMessage)) {
-    const ctx = history.slice(-4).map(m => `${m.role === "user" ? "User" : "Guide"}: ${m.text.substring(0, 150)}`).join("\n");
-    const raw = await callAPI(`Context:\n${ctx}\n\nUser: ${userMessage}`);
-    return { text: cleanText(raw) || "Could you tell me more?", time: getTime() };
-  }
-
-  if (isHotelQuery(userMessage) && !isBikeQuery(userMessage)) {
-    const city = extractCity(userMessage);
-    const hotels = getHotelsForCity(city).map(mapHotel);
-    let text = `Here are some great hotels in ${city}! Click any card to view details.`;
-    try {
-      const raw = await callAPI(userMessage);
-      const intro = extractIntro(raw);
-      if (intro && intro.length > 10) text = intro;
-    } catch { /* use default */ }
-    return { text, hotels, city, time: getTime() };
-  }
-
-  if (isBikeQuery(userMessage)) {
-    const city = extractCity(userMessage);
-    const bikes = getBikesForCity(city);
-    let text = `Here are bikes available in ${city}! Click to book.`;
-    try {
-      const raw = await callAPI(userMessage);
-      const intro = extractIntro(raw);
-      if (intro && intro.length > 10) text = intro;
-    } catch { /* use default */ }
-    return { text, bikes, city, time: getTime() };
-  }
-
-  if (isActivityQuery(userMessage)) {
-    let text = "Here are some exciting activities in Sikkim!";
-    try {
-      const raw = await callAPI(userMessage);
-      const intro = extractIntro(raw);
-      if (intro && intro.length > 10) text = intro;
-    } catch { /* use default */ }
-    return { text, activities: activitiesData.slice(0, 6) as Activity[], time: getTime() };
-  }
-
-  if (isPackageQuery(userMessage)) {
-    let text = "Here are some amazing tour packages for Sikkim!";
-    try {
-      const raw = await callAPI(userMessage);
-      const intro = extractIntro(raw);
-      if (intro && intro.length > 10) text = intro;
-    } catch { /* use default */ }
-    return { text, packages: (packagesData as any[]).slice(0, 6) as Package[], time: getTime() };
-  }
-
-  if (isCabQuery(userMessage)) {
-    const { from, to } = extractRoute(userMessage);
-    const routePrices = ROUTE_PRICES[from] ?? {};
-    let text = to ? `Here are cabs from ${from} to ${to}!` : `Here are cabs from ${from}!`;
-    try {
-      const raw = await callAPI(userMessage);
-      const intro = extractIntro(raw);
-      if (intro && intro.length > 10) text = intro;
-    } catch { /* use default */ }
-    return { text, cabs: cabsData as Cab[], cabFrom: from, cabTo: to, routePrices, time: getTime() };
-  }
-
-  const raw = await callAPI(userMessage);
-  return { text: cleanText(raw) || "I'm here to help! Ask me about hotels, activities, packages, bikes or cabs in Sikkim.", time: getTime() };
-}
+import { Link } from "react-router-dom";
+import { Mic, AudioLines, Download } from "lucide-react";
+import HotelCards from "./HotelCards";
+import BikeCards from "./Bikecards";
+import PackageCards from "./Packagecards";
+import ActivityCards from "./Activitycards";
+import CabCards from "./CabCards";
+import PackageShowcase from "./PackageShowcase";
+import { S } from "./chatStyles";
+import {
+  type Message,
+  getTime,
+  handleMessage,
+  splitIntoDayBlocks,
+  downloadItineraryPDF,
+  useVoice,
+  GOOGLE_MAPS_API_KEY,
+  PLANNER_TYPES,
+  PLANNER_MONTHS,
+  PLANNER_NATIONALITIES,
+} from "./chatLogic";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const [isWide, setIsWide] = useState(typeof window !== "undefined" ? window.innerWidth >= 1024 : true);
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", text: "Namaste! I'm Guide AI, your Sikkim travel expert! Ask me anything — hotels, treks, permits, food, cabs, or the best places to visit!", time: getTime() },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [freeMessagesUsed, setFreeMessagesUsed] = useState(0);
+  const [plannerMonth, setPlannerMonth] = useState("");
+  const [plannerNationality, setPlannerNationality] = useState("");
+  const [plannerDays, setPlannerDays] = useState("");
+  const [plannerType, setPlannerType] = useState("");
+  const [plannerPeople, setPlannerPeople] = useState("");
+  const [showPlannerMobile, setShowPlannerMobile] = useState(false);
+  const [voiceModeOpen, setVoiceModeOpen] = useState(false);
+
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const voice = useVoice();
+
+  useEffect(() => {
+    const onResize = () => setIsWide(window.innerWidth >= 1024);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     if (loading) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (messages.length > 1) {
-      const lastMsg = document.querySelectorAll('.msg-animate');
+      const lastMsg = document.querySelectorAll(".msg-animate");
       const last = lastMsg[lastMsg.length - 1] as HTMLElement;
       last?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [messages, loading]);
 
   useEffect(() => {
+    if (!voiceModeOpen) return;
+    if (voice.isSpeaking || voice.isListening || loading) return;
+    const t = setTimeout(() => voice.startListening(transcript => send(transcript, true)), 500);
+    return () => clearTimeout(t);
+  }, [voiceModeOpen, voice.isSpeaking, voice.isListening, loading]);
+
+  const exitVoiceMode = () => {
+    voice.cleanup();
+    setVoiceModeOpen(false);
+  };
+
+  useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 300);
+    if (!open) { voice.cleanup(); setVoiceModeOpen(false); }
   }, [open]);
 
-  const send = async (text?: string) => {
+  const send = async (text?: string, viaVoice = false) => {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
     setMessages(prev => [...prev, { role: "user", text: msg, time: getTime() }]);
+    setFreeMessagesUsed(prev => prev + 1);
     setInput("");
     setLoading(true);
     try {
       const reply = await handleMessage(msg, messages);
       setMessages(prev => [...prev, { role: "assistant", ...reply }]);
+      if (viaVoice && reply.text) voice.speakText(reply.text);
     } catch (err) {
-      setMessages(prev => [...prev, { role: "assistant", text: `Sorry, I had trouble connecting. Please try again!`, time: getTime() }]);
+      const failText = "Sorry, I had trouble connecting. Please try again!";
+      setMessages(prev => [...prev, { role: "assistant", text: failText, time: getTime() }]);
+      if (viaVoice) voice.speakText(failText);
     } finally {
       setLoading(false);
     }
@@ -363,9 +100,97 @@ export default function ChatWidget() {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
   };
 
+  const handleGenerateItinerary = () => {
+    if (!plannerDays.trim() || !plannerPeople.trim() || !plannerType || loading) return;
+    let msg = `Customize a package for Sikkim: ${plannerDays.trim()} days`;
+    if (plannerMonth) msg += `, traveling in ${plannerMonth}`;
+    if (plannerType) msg += `, ${plannerType.toLowerCase()} style`;
+    if (plannerPeople.trim()) msg += `, for ${plannerPeople.trim()} ${parseInt(plannerPeople.trim(), 10) === 1 ? "person" : "people"}`;
+    msg += ".";
+    if (plannerNationality) {
+      msg += ` I'm a ${plannerNationality === "Indian" ? "domestic Indian" : "foreign"} traveler`;
+      msg += plannerNationality === "Indian"
+        ? " — let me know which permits (like Inner Line Permit) I'll need."
+        : " — let me know which areas need a Protected Area Permit and which are off-limits to foreign nationals (e.g. Nathula Pass).";
+    }
+    msg += " Include hotel, transport and day-wise plan in the package.";
+    setShowPlannerMobile(false);
+    send(msg);
+  };
+
+  const plannerFormNode = (
+    <div style={S.plannerCard}>
+      <p style={S.plannerTitle}>Customize Your Package</p>
+      <p style={S.plannerSubtitle}>
+        Tell us your travel month, nationality, trip length and style — we'll customize a Sikkim package for you.
+      </p>
+
+      <label style={S.plannerLabel}>Travel Month</label>
+      <select
+        style={S.plannerInput}
+        value={plannerMonth}
+        onChange={e => setPlannerMonth(e.target.value)}
+      >
+        <option value="">Select a month</option>
+        {PLANNER_MONTHS.map(m => (
+          <option key={m} value={m}>{m}</option>
+        ))}
+      </select>
+
+      <label style={S.plannerLabel}>Nationality</label>
+      <select
+        style={S.plannerInput}
+        value={plannerNationality}
+        onChange={e => setPlannerNationality(e.target.value)}
+      >
+        <option value="">Select nationality</option>
+        {PLANNER_NATIONALITIES.map(n => (
+          <option key={n} value={n}>{n}</option>
+        ))}
+      </select>
+
+      <label style={S.plannerLabel}>Days</label>
+      <input
+        style={S.plannerInput}
+        placeholder="e.g. 5"
+        inputMode="numeric"
+        value={plannerDays}
+        onChange={e => setPlannerDays(e.target.value.replace(/[^0-9]/g, ""))}
+      />
+
+      <label style={S.plannerLabel}>Number of Travelers</label>
+      <input
+        style={S.plannerInput}
+        placeholder="e.g. 2"
+        inputMode="numeric"
+        value={plannerPeople}
+        onChange={e => setPlannerPeople(e.target.value.replace(/[^0-9]/g, ""))}
+      />
+
+      <label style={S.plannerLabel}>Destination Type</label>
+      <select
+        style={S.plannerInput}
+        value={plannerType}
+        onChange={e => setPlannerType(e.target.value)}
+      >
+        <option value="">Select a type</option>
+        {PLANNER_TYPES.map(t => (
+          <option key={t} value={t}>{t}</option>
+        ))}
+      </select>
+
+      <button
+        style={{ ...S.plannerBtn, opacity: plannerDays.trim() && plannerPeople.trim() && plannerType && !loading ? 1 : 0.6 }}
+        onClick={handleGenerateItinerary}
+        disabled={!plannerDays.trim() || !plannerPeople.trim() || !plannerType || loading}
+      >
+        Customize My Package
+      </button>
+    </div>
+  );
+
   return (
     <>
-      {/* FAB — fixed bottom right, never moves */}
       {!open && (
         <div style={S.fabWrapper}>
           <button style={S.fabLabel} onClick={() => setOpen(true)}>
@@ -382,271 +207,357 @@ export default function ChatWidget() {
       )}
 
       {open && (
-        <button onClick={() => setOpen(false)} style={S.closeFloat} className="send-btn">✕</button>
-      )}
-
-      {/* Chat Panel */}
-      {open && (
         <div style={S.panel} className="chat-panel-in">
 
-          {/* Header */}
-          <div style={S.header}>
-            <div style={S.headerAvatar}>
-              <img src="/red-panda.png" alt="Guide AI" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-            </div>
-            <div style={S.headerCenter}>
-              <div style={S.headerName}>Guide AI</div>
-              <div style={S.headerSub}>
-                <span className="online-dot" style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: "#4ade80", marginRight: 5 }} />
-                Your Sikkim's AI Guide Bot
-              </div>
-            </div>
-            <button style={S.headerCloseBtn} onClick={() => setOpen(false)}>✕</button>
-          </div>
+          <button style={S.floatingCloseBtn} onClick={() => setOpen(false)} aria-label="Close chat">
+            <span style={{ fontSize: "22px", lineHeight: 1, fontWeight: 400 }} aria-hidden="true">×</span>
+          </button>
 
-          {/* Messages */}
-          <div style={S.messages}>
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className="msg-animate"
-                style={{ display: "flex", flexDirection: "column", alignItems: msg.role === "user" ? "flex-end" : "flex-start" }}
-              >
-                {msg.role === "assistant" && (
-                  <div style={S.aiLabel}>Guide AI ✦</div>
-                )}
-                <div style={msg.role === "user" ? S.userBubble : S.aiBubble}>
-                  {msg.text.split("\n").map((line, j, arr) => (
-                    <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
-                  ))}
+          <div style={S.body}>
+
+            {isWide && (
+              <aside style={S.sidebar}>
+                <div style={S.sidebarLogo}>
+                  <span style={S.sidebarWordmark}></span>
                 </div>
-                {msg.time && (
-                  <div style={{ fontSize: "10px", color: "#c4b5fd", marginTop: "3px", marginLeft: msg.role === "assistant" ? "4px" : "0", marginRight: msg.role === "user" ? "4px" : "0" }}>
-                    {msg.time}
-                  </div>
-                )}
 
-                {msg.role === "assistant" && msg.hotels && msg.hotels.length > 0 && (
-                  <HotelCards hotels={msg.hotels} city={msg.city} onClose={() => setOpen(false)} />
-                )}
-                {msg.role === "assistant" && msg.bikes && msg.bikes.length > 0 && (
-                  <BikeCards bikes={msg.bikes} city={msg.city} />
-                )}
-                {msg.role === "assistant" && msg.packages && msg.packages.length > 0 && (
-                  <PackageCards packages={msg.packages} onClose={() => setOpen(false)} />
-                )}
-                {msg.role === "assistant" && msg.activities && msg.activities.length > 0 && (
-                  <ActivityCards activities={msg.activities} onClose={() => setOpen(false)} />
-                )}
-                {msg.role === "assistant" && msg.cabs && msg.cabs.length > 0 && (
-                  <CabCards cabs={msg.cabs} from={msg.cabFrom} to={msg.cabTo} routePrices={msg.routePrices} onClose={() => setOpen(false)} />
-                )}
-              </div>
-            ))}
-
-            {/* Typing indicator */}
-            {loading && (
-              <div className="msg-animate" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                <div style={S.aiLabel}>Guide AI ✦</div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", padding: "4px 8px" }}>
-                  <div style={{ background: "linear-gradient(135deg, #ede9fe, #ddd6fe)", borderRadius: "16px 16px 16px 4px", padding: "8px 14px", border: "1px solid #c4b5fd", display: "flex", gap: "5px", alignItems: "center" }}>
-                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#7c3aed" }} />
-                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#a78bfa" }} />
-                    <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#c4b5fd" }} />
-                  </div>
-                  <img src="/head.png" alt="Guide AI" className="panda-think" style={{ width: "72px", height: "72px", objectFit: "contain" }} />
-                </div>
-              </div>
+                {plannerFormNode}
+              </aside>
             )}
 
-            <div ref={bottomRef} />
+            <div style={S.centerCol}>
+              <div style={{ ...S.topBar, paddingRight: isWide ? "24px" : "56px" }}>
+                <div style={S.centerLogo}>
+                  <img src="/red-panda.png" alt="" style={{ ...S.centerLogoImg, ...(isWide ? {} : S.centerLogoImgMobile) }} />
+                  <span style={S.centerLogoText}>Guide AI</span>
+                </div>
+                {!isWide && (
+                  <button
+                    style={S.mobilePlannerBtn}
+                    onClick={() => setShowPlannerMobile(true)}
+                    aria-label="Customize your package"
+                  >
+                    <i className="ti ti-suitcase" style={{ fontSize: "13px" }} aria-hidden="true" />
+                    Customize
+                  </button>
+                )}
+              </div>
+
+              <div style={S.messages} className="chat-scroll">
+                <div style={S.messagesInner}>
+                  {messages.map((msg, i) => {
+                    const dayParsed = msg.role === "assistant" ? splitIntoDayBlocks(msg.text) : null;
+                    const isBeingSpoken = voice.isSpeaking && msg.role === "assistant" && i === messages.length - 1;
+                    return (
+                      <div
+                        key={i}
+                        className="msg-animate"
+                        style={{ display: "flex", flexDirection: "column", alignItems: msg.role === "user" ? "flex-end" : "flex-start" }}
+                      >
+                        {msg.role === "assistant" && (
+                          <div style={S.aiLabel}>
+                            Guide AI ✦
+                            {isBeingSpoken && (
+                              <span style={S.speakingBadge}>
+                                <span className="speaking-dot" style={S.speakingDot} />
+                                <span className="speaking-dot" style={S.speakingDot} />
+                                <span className="speaking-dot" style={S.speakingDot} />
+                                Speaking
+                              </span>
+                            )}
+                          </div>
+                        )}
+                        <div style={msg.role === "user" ? S.userBubble : S.aiBubble}>
+                          {dayParsed ? (
+                            <>
+                              {dayParsed.intro.map((line, j) => (
+                                <p key={j} style={S.introLine}>{line}</p>
+                              ))}
+                              {dayParsed.days.map((d, di) => {
+                                const mapSrc = d.mapQuery
+                                  ? (GOOGLE_MAPS_API_KEY
+                                      ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodeURIComponent(d.mapQuery)}`
+                                      : `https://www.google.com/maps?q=${encodeURIComponent(d.mapQuery)}&output=embed`)
+                                  : null;
+                                return (
+                                  <div key={di} style={S.dayBlock}>
+                                    <p style={S.dayBlockHeader}>{d.header}</p>
+                                    {d.lines.map((line, li) => (
+                                      <p key={li} style={S.dayBlockLine}>{line}</p>
+                                    ))}
+                                    {d.images.length > 0 && (
+                                      <div style={S.dayBlockPhotoGrid}>
+                                        {d.images.map((src, ii) => (
+                                          <img
+                                            key={ii}
+                                            src={src}
+                                            alt=""
+                                            style={S.dayBlockPhoto}
+                                            onClick={() => window.open(src, "_blank", "noopener,noreferrer")}
+                                          />
+                                        ))}
+                                      </div>
+                                    )}
+                                    {mapSrc && (
+                                      <div style={S.dayBlockMapWrap}>
+                                        <iframe
+                                          title={`Map — ${d.header}`}
+                                          style={S.dayBlockMapFrame}
+                                          loading="lazy"
+                                          src={mapSrc}
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </>
+                          ) : (
+                            msg.text.split("\n").map((line, j, arr) => (
+                              <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+                            ))
+                          )}
+                        </div>
+                        {msg.time && (
+                          <div style={{ fontSize: "10px", color: "#a394d8", marginTop: "4px", marginLeft: msg.role === "assistant" ? "4px" : "0", marginRight: msg.role === "user" ? "4px" : "0" }}>
+                            {msg.time}
+                          </div>
+                        )}
+
+                        {msg.role === "assistant" && dayParsed && (
+                          <button
+                            onClick={() => downloadItineraryPDF(msg)}
+                            aria-label="Download itinerary as PDF"
+                            title="Download itinerary as PDF"
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              marginTop: "8px",
+                              marginLeft: "4px",
+                              padding: "6px 14px",
+                              borderRadius: "999px",
+                              border: "1px solid #c4b5fd",
+                              background: "#fff",
+                              color: "#6d28d9",
+                              fontSize: "12px",
+                              fontWeight: 600,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <Download size={13} aria-hidden="true" /> Download PDF
+                          </button>
+                        )}
+
+                        {msg.role === "assistant" && msg.hotels && msg.hotels.length > 0 && (
+                          <div style={S.cardsWrapper}>
+                            <HotelCards hotels={msg.hotels} city={msg.city} onClose={() => setOpen(false)} />
+                          </div>
+                        )}
+                        {msg.role === "assistant" && msg.bikes && msg.bikes.length > 0 && (
+                          <div style={S.cardsWrapper}>
+                            <BikeCards bikes={msg.bikes} city={msg.city} />
+                          </div>
+                        )}
+                        {msg.role === "assistant" && msg.packages && msg.packages.length > 0 && (
+                          <div style={S.cardsWrapper}>
+                            <PackageCards packages={msg.packages} onClose={() => setOpen(false)} />
+                          </div>
+                        )}
+                        {msg.role === "assistant" && msg.activities && msg.activities.length > 0 && (
+                          <div style={S.cardsWrapper}>
+                            <ActivityCards activities={msg.activities} onClose={() => setOpen(false)} />
+                          </div>
+                        )}
+                        {msg.role === "assistant" && msg.cabs && msg.cabs.length > 0 && (
+                          <div style={S.cardsWrapper}>
+                            <CabCards cabs={msg.cabs} from={msg.cabFrom} to={msg.cabTo} routePrices={msg.routePrices} onClose={() => setOpen(false)} />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  {loading && (
+                    <div className="msg-animate" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                      <div style={S.aiLabel}>Guide AI ✦</div>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2px", padding: "4px 8px" }}>
+                        <div style={{ background: "linear-gradient(135deg, #ede9fe, #ddd6fe)", borderRadius: "16px 16px 16px 4px", padding: "8px 14px", border: "1px solid #c4b5fd", display: "flex", gap: "5px", alignItems: "center" }}>
+                          <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#7c3aed" }} />
+                          <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#a78bfa" }} />
+                          <span className="chat-dot" style={{ width: "8px", height: "8px", background: "#c4b5fd" }} />
+                        </div>
+                        <img src="/head.png" alt="Guide AI" className="panda-think" style={{ width: "72px", height: "72px", objectFit: "contain" }} />
+                      </div>
+                    </div>
+                  )}
+
+                  <div ref={bottomRef} />
+                </div>
+              </div>
+
+              <div style={S.inputRow}>
+                {voice.voiceError && (
+                  <p style={S.voiceErrorText}>
+                    <i className="ti ti-alert-circle" style={{ fontSize: "13px" }} aria-hidden="true" /> {voice.voiceError}
+                  </p>
+                )}
+                <div style={S.inputInner}>
+                  {voice.availableVoices.length > 0 && (
+                    <select
+                      style={S.voiceSelect}
+                      value={voice.selectedVoiceURI}
+                      onChange={e => voice.setSelectedVoiceURI(e.target.value)}
+                      title="Voice used for spoken replies"
+                      aria-label="Voice used for spoken replies"
+                    >
+                      {voice.availableVoices.map(v => (
+                        <option key={v.voiceURI} value={v.voiceURI}>
+                          {v.name} ({v.lang})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {voice.recognitionSupported && (
+                    <button
+                      style={{
+                        ...S.micBtn,
+                        ...(voice.isListening ? S.micBtnActive : {}),
+                      }}
+                      className={voice.isListening ? "mic-pulse" : ""}
+                      onClick={() => voice.startListening(transcript => send(transcript, true))}
+                      disabled={loading || voice.isListening}
+                      aria-label={voice.isListening ? "Listening..." : "Speak your question"}
+                      title={voice.isListening ? "Listening..." : "Speak your question"}
+                    >
+                      <Mic size={17} aria-hidden="true" />
+                    </button>
+                  )}
+                  {voice.recognitionSupported && (
+                    <button
+                      style={S.voiceModeBtn}
+                      onClick={() => setVoiceModeOpen(true)}
+                      disabled={loading}
+                      aria-label="Open Voice Mode — hands-free conversation"
+                      title="Voice Mode"
+                    >
+                      <AudioLines size={18} aria-hidden="true" />
+                    </button>
+                  )}
+                  <input
+                    ref={inputRef}
+                    style={S.input}
+                    className="chat-input"
+                    placeholder={voice.isListening ? "Listening..." : "Ask me anything"}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyDown={handleKey}
+                    disabled={loading}
+                    maxLength={500}
+                  />
+                  {voice.isSpeaking && (
+                    <button
+                      style={S.stopSpeakingBtn}
+                      onClick={voice.stopSpeaking}
+                      aria-label="Stop speaking"
+                      title="Stop speaking"
+                    >
+                      <i className="ti ti-player-stop-filled" style={{ fontSize: "13px" }} aria-hidden="true" />
+                    </button>
+                  )}
+                  <button
+                    style={{ ...S.askBtn, opacity: input.trim() && !loading ? 1 : 0.6 }}
+                    className="send-btn"
+                    onClick={() => send()}
+                    disabled={loading || !input.trim()}
+                  >
+                    {loading ? (
+                      <div style={{ width: 14, height: 14, border: "2px solid rgba(255,255,255,0.4)", borderTop: "2px solid white", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+                    ) : (
+                      "Search"
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div style={{ textAlign: "center", fontSize: "10px", color: "#a78bfa", padding: "4px 0 8px", background: "#fff", flexShrink: 0 }}>
+                <span style={{ color: "#6d28d9", fontWeight: 800 }}>Made in Sikkim</span>
+              </div>
+            </div>
+
+            {isWide && <PackageShowcase onClose={() => setOpen(false)} />}
           </div>
 
-          {/* Input row */}
-          <div style={S.inputRow}>
-            <input
-              ref={inputRef}
-              style={S.input}
-              className="chat-input"
-              placeholder="Ask about Sikkim..."
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              disabled={loading}
-              maxLength={500}
-            />
-            <button
-              style={{ ...S.sendBtn, opacity: input.trim() && !loading ? 1 : 0.5 }}
-              className="send-btn"
-              onClick={() => send()}
-              disabled={loading || !input.trim()}
+          {!isWide && showPlannerMobile && (
+            <div
+              style={S.sheetOverlay}
+              className="sheet-fade-in"
+              onClick={() => setShowPlannerMobile(false)}
             >
-              {loading ? (
-                <div style={{ width: 16, height: 16, border: "2px solid rgba(255,255,255,0.4)", borderTop: "2px solid white", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
-              ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M22 2L11 13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              )}
-            </button>
-          </div>
+              <div
+                style={S.sheet}
+                className="sheet-slide-up"
+                onClick={e => e.stopPropagation()}
+              >
+                <div style={S.sheetHandle} />
+                <button
+                  style={S.sheetCloseBtn}
+                  onClick={() => setShowPlannerMobile(false)}
+                  aria-label="Close"
+                >
+                  <span style={{ fontSize: "18px", lineHeight: 1 }} aria-hidden="true">×</span>
+                </button>
+                {plannerFormNode}
+              </div>
+            </div>
+          )}
 
-          {/* Footer */}
-          <div style={{ textAlign: "center", fontSize: "10px", color: "#a78bfa", padding: "4px 0 8px", background: "#faf8ff" }}>
-            <span style={{ color: "#6d28d9", fontWeight: 800 }}>Made in Sikkim</span>
-          </div>
+          {voiceModeOpen && (
+            <div style={S.voiceModeOverlay} className="sheet-fade-in">
+              <button
+                style={S.voiceModeCloseBtn}
+                onClick={exitVoiceMode}
+                aria-label="Exit Voice Mode"
+              >
+                <span style={{ fontSize: "20px", lineHeight: 1 }} aria-hidden="true">×</span>
+              </button>
+
+              <div
+                style={S.voiceOrb}
+                className={
+                  voice.isSpeaking ? "voice-orb-speaking"
+                    : voice.isListening ? "voice-orb-listening"
+                    : loading ? "voice-orb-thinking"
+                    : "voice-orb-idle"
+                }
+              />
+
+              <p style={S.voiceModeStatus}>
+                {voice.isSpeaking ? "Speaking..." : voice.isListening ? "Listening..." : loading ? "Thinking..." : "Tap the mic to talk"}
+              </p>
+
+              {voice.isListening && voice.interimTranscript && (
+                <p style={S.voiceModeCaption}>{voice.interimTranscript}</p>
+              )}
+              {voice.isSpeaking && messages[messages.length - 1]?.role === "assistant" && (
+                <p style={S.voiceModeCaption}>{messages[messages.length - 1].text}</p>
+              )}
+
+              {voice.voiceError && <p style={S.voiceErrorText}>{voice.voiceError}</p>}
+
+              {!voice.isListening && !voice.isSpeaking && !loading && (
+                <button
+                  style={S.voiceModeMicBtn}
+                  onClick={() => voice.startListening(transcript => send(transcript, true))}
+                  aria-label="Speak"
+                >
+                  <Mic size={26} aria-hidden="true" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </>
   );
 }
-
-const S: Record<string, React.CSSProperties> = {
-  fabWrapper: {
-    position: "fixed",
-    bottom: "16px",
-    right: "16px",
-    zIndex: 9999,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    background: "none",
-    pointerEvents: "none",
-  },
-  fabImg: {
-    width: "100px",
-    height: "100px",
-    objectFit: "contain",
-    cursor: "pointer",
-    pointerEvents: "auto",
-    display: "block",
-    background: "transparent",
-  },
-  fabLabel: {
-    background: "linear-gradient(135deg, #4c1d95, #6d28d9)",
-    border: "none",
-    borderRadius: "20px",
-    padding: "8px 16px",
-    fontSize: "13px",
-    fontWeight: 800,
-    color: "#fff",
-    cursor: "pointer",
-    pointerEvents: "auto" as const,
-    whiteSpace: "nowrap" as const,
-    marginBottom: "6px",
-    marginRight: "8px",
-    letterSpacing: "0.3px",
-    fontFamily: "'Inter', sans-serif",
-    animation: "fabBounce 1.4s ease-in-out infinite, fabGlow 1.4s ease-in-out infinite",
-    display: "inline-block",
-  },
-  closeFloat: {
-    position: "fixed",
-    bottom: "24px",
-    right: "20px",
-    zIndex: 9999,
-    width: "44px",
-    height: "44px",
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, #4c1d95, #6d28d9)",
-    color: "#fff",
-    border: "none",
-    cursor: "pointer",
-    fontSize: "16px",
-    fontWeight: 700,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 4px 16px rgba(109,40,217,0.4)",
-    transition: "transform 0.15s ease",
-  },
-  panel: {
-    position: "fixed",
-    bottom: "16px",
-    right: "12px",
-    zIndex: 9998,
-    width: "calc(100vw - 24px)",
-    maxWidth: "370px",
-    height: "600px",
-    background: "#faf8ff",
-    borderRadius: "24px",
-    boxShadow: "0 24px 64px rgba(109,40,217,0.15)",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden",
-    border: "1px solid #ddd6fe",
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-  },
-  header: {
-    display: "flex", alignItems: "center", gap: "10px", padding: "10px 16px",
-    background: "linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #4338ca 100%)", color: "#fff",
-    flexShrink: 0, minHeight: "64px",
-  },
-  headerAvatar: { width: "52px", height: "52px", flexShrink: 0, background: "transparent" },
-  headerCenter: { flex: 1 },
-  headerName: { fontWeight: 700, fontSize: "15px" },
-  headerSub: { fontSize: "11px", opacity: 0.9, marginTop: "2px", display: "flex", alignItems: "center" },
-  headerCloseBtn: {
-    background: "rgba(255,255,255,0.15)", border: "none", borderRadius: "50%",
-    width: "30px", height: "30px", color: "#fff", fontSize: "14px",
-    cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-    flexShrink: 0, transition: "background 0.15s",
-  },
-  chips: {
-    display: "flex", gap: "6px", padding: "10px 12px",
-    overflowX: "auto", scrollbarWidth: "none",
-    borderBottom: "1px solid #ede9fe", background: "#f5f3ff", flexShrink: 0,
-  },
-  chip: {
-    flexShrink: 0, padding: "6px 12px", borderRadius: "20px",
-    border: "1.5px solid #ddd6fe", background: "#ede9fe",
-    color: "#6d28d9", fontSize: "11px", fontWeight: 600,
-    cursor: "pointer", whiteSpace: "nowrap" as const,
-    transition: "all 0.15s ease",
-  },
-  messages: {
-    flex: 1, overflowY: "auto", padding: "14px 12px",
-    display: "flex", flexDirection: "column", gap: "10px",
-    background: "#f5f3ff",
-  },
-  aiLabel: {
-    fontSize: "11px", fontWeight: 700, color: "#7c3aed",
-    marginBottom: "3px", letterSpacing: "0.3px",
-  },
-  userBubble: {
-    background: "linear-gradient(135deg, #6d28d9, #4338ca)", color: "#fff",
-    padding: "10px 15px", borderRadius: "20px 20px 4px 20px",
-    maxWidth: "82%", fontSize: "14px", lineHeight: "1.6",
-    boxShadow: "0 2px 8px rgba(109,40,217,0.25)", fontWeight: 400,
-    wordBreak: "break-word" as const,
-  },
-  aiBubble: {
-    background: "#fff", color: "#1e1b4b", padding: "12px 15px",
-    borderRadius: "4px 20px 20px 20px", maxWidth: "90%",
-    fontSize: "14px", lineHeight: "1.75",
-    boxShadow: "0 2px 10px rgba(109,40,217,0.08)",
-    border: "1px solid #ddd6fe", fontWeight: 400,
-    wordBreak: "break-word" as const,
-  },
-  inputRow: {
-    display: "flex", gap: "8px", padding: "10px 12px",
-    borderTop: "1px solid #ede9fe", background: "#fff", alignItems: "center",
-    flexShrink: 0,
-  },
-  input: {
-    flex: 1, padding: "10px 16px", borderRadius: "24px",
-    border: "1.5px solid #ddd6fe", fontSize: "14px",
-    outline: "none", fontFamily: "'Inter', sans-serif",
-    background: "#faf8ff", color: "#1e1b4b",
-    transition: "border-color 0.2s, background 0.2s",
-  },
-  sendBtn: {
-    width: "40px", height: "40px", borderRadius: "50%",
-    background: "linear-gradient(135deg, #6d28d9, #4338ca)",
-    color: "#fff", border: "none", cursor: "pointer",
-    display: "flex", alignItems: "center", justifyContent: "center",
-    flexShrink: 0, boxShadow: "0 2px 8px rgba(109,40,217,0.4)",
-    transition: "transform 0.15s ease, opacity 0.2s",
-  },
-};

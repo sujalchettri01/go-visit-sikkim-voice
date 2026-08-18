@@ -60,7 +60,9 @@ const HomeHero = () => {
   };
 
   return (
-    <section className="relative min-h-[calc(100vh-80px)] w-full flex items-center justify-center overflow-hidden py-10">
+
+<section className="relative min-h-[calc(100vh-80px)] w-full flex items-center justify-center overflow-hidden py-10 -mt-[72px] pt-[92px]">
+
 
       {/* Background image */}
       <div

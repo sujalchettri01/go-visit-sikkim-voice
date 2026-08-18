@@ -1,46 +1,30 @@
 const accommodations = [
 {
   id: 1,
-  name: "Mayfair Spa Resort & Casino",
+  name: "Royal Gangtok",
   type: "Luxury Resort",
   location: "Gangtok",
   shortDescription: "A charming boutique property nestled in the mountains, offering personalized service and authentic experiences.",
-  longDescription: "Immerse in Art & History with cultural experiences as well as exquisite artefacts, paintings and statues adorning the hallways. All Mayfair stays boast of in-house speciality restaurants run by professional chefs offering regional & international cuisines",
+  longDescription: "Immerse in Art & History with cultural experiences as well as exquisite artefacts, paintings and statues adorning the hallways. All Hif stays boast of in-house speciality restaurants run by professional chefs offering regional & international cuisines",
 
-  image: "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/caption_cdhajk.jpg",
+  image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
 
   galleryImages: [
-    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/mayfair-gangtok_xbvyna.jpg",
-    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476167/0aef8f82_nxjffu.jpg",
-    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476168/672565686_ypagyt.jpg",
-    "https://res.cloudinary.com/djsguxriw/image/upload/v1777476166/mayfair-spa-resort-casino_i24ap9.jpg",
+    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+
   ],
 
   roomGallery: {
     "Deluxe Room": [
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482496/ab04b6b06b22d525d6ca8cf559cdd965-1692157551847-Mayfair_20Spa_20Resort_20and_20Casino_20Gangtok_20Deluxe_20Room_ectrzy.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482494/672589402_kpmrnm.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482493/mayfair-spa-resort-casino_h9zl3m.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777476171/aa990a02_wttriz.jpg",
+      
     ],
     "Premium Suite": [
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482691/premium-room-unwind-in_kzj5ws.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777476167/0aef8f82_nxjffu.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482692/52c14204_kq8u4k.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482693/3c859475_ncxb86.jpg",
+    
     ],
     "Royal Suite": [
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482796/6867ce89_ozi53z.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482800/939ddd60_qhqsrx.jpg" ,  
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482796/mayfair-spa-resort-casino_qettci.jpg",
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482798/T50BS5mv-Untitled-design-5_fgurbl.jpg"
 
     ],
     "Presidential Suite": [
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482963/Thi_E1_BA_BFt-k_E1_BA_BF-ch_C6_B0a-c_C3_B3-t_C3_AAn17-700x490_oullid.png",   
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482962/presidential-suite2_kogst2.jpg",    
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482959/54b2c3c6_wy32yx.jpg",    
-      "https://res.cloudinary.com/djsguxriw/image/upload/v1777482958/spa_kyhp0e.jpg",
     ],
   },
 
@@ -53,7 +37,7 @@ const accommodations = [
   policies: ["Valid ID proof required", "Advance payment required", "Cancellation free up to 48 hours before check-in"],
   nearbyAttractions: ["MG Road - 2 km", "Rumtek Monastery - 24 km", "Tsomgo Lake - 40 km"],
   roomTypes: ["Deluxe Room", "Premium Suite", "Royal Suite", "Presidential Suite"],
-},
+}, 
   {
     id: 2,
     name: "Orange Village Resort",
@@ -74,7 +58,7 @@ const accommodations = [
   },
   {
     id: 3,
-    name: "Norbu Ghang Resort",
+    name: "Green Valley Resort",
     type: "Heritage Property",
     location: "Pelling",
     shortDescription: "Traditional Sikkimese architecture meets modern comfort with panoramic views of Kanchenjunga.",
@@ -92,7 +76,7 @@ const accommodations = [
   },
   {
     id: 4,
-    name: "The Elgin Mount Pandim",
+    name: "Hotel Pandim",
     type: "Heritage Hotel",
     location: "Pelling",
     shortDescription: "Colonial-era charm with modern amenities, set amidst lush forests with spectacular mountain vistas.",
@@ -110,7 +94,7 @@ const accommodations = [
   },
   {
     id: 5,
-    name: "Village Homestay Experience",
+    name: "Villager's stay ",
     type: "Homestay",
     location: "Yuksom",
     shortDescription: "Immerse yourself in local culture with warm hospitality, home-cooked meals, and authentic village life.",
@@ -128,7 +112,7 @@ const accommodations = [
   },
   {
     id: 6,
-    name: "Summit Newa Regency",
+    name: "Summit  Regency",
     type: "Business Hotel",
     location: "Gangtok",
     shortDescription: "Modern business hotel in the heart of Gangtok with excellent connectivity and professional services.",
@@ -164,7 +148,7 @@ const accommodations = [
   },
   {
     id: 8,
-    name: "The Royal Plaza",
+    name: "The Royal Hotel",
     type: "Luxury Hotel",
     location: "Gangtok",
     shortDescription: "Premium accommodation with state-of-the-art facilities, rooftop dining, and personalized concierge services.",

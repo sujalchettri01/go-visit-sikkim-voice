@@ -18,9 +18,9 @@ const Destinations = () => {
             🏔️ TOP DESTINATIONS
           </span>
           <h2 className="text-[clamp(2rem,5vw,3rem)] font-extrabold text-gray-800 mb-4 leading-tight">
-            Majestic <span style={{ color: '#7451A8' }}>Mountains</span>
+            Your local <span style={{ color: '#7451A8' }}>AI</span>
             <br />
-            Await Your Discovery
+            for your Guidance
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             Explore breathtaking destinations that showcase the natural beauty
@@ -29,8 +29,8 @@ const Destinations = () => {
         </div>
 
         {/* Destinations Grid — show only 2 on home */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          {packages.slice(0, 2).map((destination: any) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          {packages.slice(0, 3).map((destination: any) => (
             <div 
               key={destination.id} 
               className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-200 border border-gray-200 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]"

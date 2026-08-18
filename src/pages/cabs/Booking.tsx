@@ -18,16 +18,13 @@ declare global {
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:4000";
 
-type TripType = "ONE_WAY" | "TWO_WAY";
+type TripType = "ONE_WAY";
 
 interface FormData {
   pickUpLocation: string;
   dropLocation: string;
   pickUpDate: string;
   pickUpTime: string;
-  returnDate: string;
-  returnTime: string;
-  tripType: TripType;
   name: string;
   email: string;
   primaryPhone: string;
@@ -55,20 +52,17 @@ export default function CabBookingPage() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const [formData, setFormData] = useState<FormData>({
-    pickUpLocation: from,
-    dropLocation: to,
-    pickUpDate: date,
-    pickUpTime: time,
-    returnDate: "",
-    returnTime: "",
-    tripType: "ONE_WAY",
-    name: "",
-    email: "",
-    primaryPhone: "",
-    secondaryPhone: "",
-    numberOfPeople: 1,
-    specialRequests: "",
-  });
+  pickUpLocation: from,
+  dropLocation: to,
+  pickUpDate: date,
+  pickUpTime: time,
+  name: "",
+  email: "",
+  primaryPhone: "",
+  secondaryPhone: "",
+  numberOfPeople: 1,
+  specialRequests: "",
+});
 
   if (!cab) {
     return (
@@ -132,19 +126,8 @@ export default function CabBookingPage() {
               bookingType: "vehicle",
               bookingData: {
                 cab_name: cab.cab_name,
-                tripType: formData.tripType,
-                pickUpLocation: formData.pickUpLocation,
-                dropLocation: formData.dropLocation,
-                pickUpDate: formData.pickUpDate,
-                pickUpTime: formData.pickUpTime,
-                returnDate:
-                  formData.tripType === "TWO_WAY"
-                    ? formData.returnDate
-                    : null,
-                returnTime:
-                  formData.tripType === "TWO_WAY"
-                    ? formData.returnTime
-                    : null,
+                tripType: "ONE_WAY",
+                
                 name: formData.name,
                 email: formData.email,
                 primaryPhone: formData.primaryPhone,
@@ -206,17 +189,7 @@ export default function CabBookingPage() {
       return;
     }
 
-    // 3. TWO_WAY requires return date/time
-    if (formData.tripType === "TWO_WAY") {
-      if (!formData.returnDate || !formData.returnTime) {
-        toast.error("Please provide return date and time for a two-way trip.");
-        return;
-      }
-      if (new Date(formData.returnDate) < new Date(formData.pickUpDate)) {
-        toast.error("Return date must be after pickup date.");
-        return;
-      }
-    }
+ 
 
     setIsSubmitting(true);
 
@@ -268,30 +241,7 @@ export default function CabBookingPage() {
               Complete the form below to confirm your cab booking
             </p>
 
-            {/* Trip Type */}
-            <div className="mb-5">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
-                Trip Type
-              </label>
-              <div className="flex gap-3">
-                {(["ONE_WAY", "TWO_WAY"] as TripType[]).map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() =>
-                      setFormData((prev) => ({ ...prev, tripType: type }))
-                    }
-                    className={`flex-1 py-2.5 rounded-lg border-2 font-semibold text-sm transition-all ${
-                      formData.tripType === type
-                        ? "border-blue-600 bg-blue-50 text-blue-700"
-                        : "border-slate-200 text-slate-500 hover:border-slate-300"
-                    }`}
-                  >
-                    {type === "ONE_WAY" ? "One Way" : "Two Way"}
-                  </button>
-                ))}
-              </div>
-            </div>
+          
 
             {/* Personal Details */}
             <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
@@ -350,35 +300,35 @@ export default function CabBookingPage() {
             </div>
 
             {/* Trip Details */}
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-              Trip Details
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-              <div>
-                <label className="block text-sm text-slate-600 mb-1">
-                  Pickup Location <span className="text-red-500">*</span>
-                </label>
-                <input
-                  name="pickUpLocation"
-                  placeholder="Hotel / Area name"
-                  value={formData.pickUpLocation}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-slate-600 mb-1">
-                  Drop Location <span className="text-red-500">*</span>
-                </label>
-                <input
-                  name="dropLocation"
-                  placeholder="Destination"
-                  value={formData.dropLocation}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
+           <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
+  Trip Details
+</p>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+  <div>
+    <label className="block text-sm text-slate-600 mb-1">
+     Exact  Pickup Location <span className="text-red-500">*</span>
+    </label>
+    <input
+      name="pickUpLocation"
+      placeholder="Eg: NJP / Bagdogra"
+      value={formData.pickUpLocation}
+      onChange={handleChange}
+      className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+  <div>
+    <label className="block text-sm text-slate-600 mb-1">
+     Exact Drop Location <span className="text-red-500">*</span>
+    </label>
+    <input
+      name="dropLocation"
+      placeholder="Eg: NJP / Bagdogra"
+      value={formData.dropLocation}
+      onChange={handleChange}
+      className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+  <div>
                 <label className="block text-sm text-slate-600 mb-1">
                   Pickup Date <span className="text-red-500">*</span>
                 </label>
@@ -404,36 +354,7 @@ export default function CabBookingPage() {
                 />
               </div>
 
-              {/* Return fields — only for TWO_WAY */}
-              {formData.tripType === "TWO_WAY" && (
-                <>
-                  <div>
-                    <label className="block text-sm text-slate-600 mb-1">
-                      Return Date <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="returnDate"
-                      type="date"
-                      min={formData.pickUpDate || new Date().toISOString().split("T")[0]}
-                      value={formData.returnDate}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-slate-600 mb-1">
-                      Return Time <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="returnTime"
-                      type="time"
-                      value={formData.returnTime}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </>
-              )}
+           
 
               <div>
                 <label className="block text-sm text-slate-600 mb-1">
@@ -495,12 +416,7 @@ export default function CabBookingPage() {
                 <span className="font-semibold">{cab.cab_name}</span>
               </div>
 
-              <div className="flex justify-between">
-                <span className="text-slate-500">Trip Type</span>
-                <span className="font-semibold">
-                  {formData.tripType === "ONE_WAY" ? "One Way" : "Two Way"}
-                </span>
-              </div>
+             
 
               {formData.pickUpLocation && formData.dropLocation && (
                 <div className="flex justify-between gap-2">
@@ -518,12 +434,7 @@ export default function CabBookingPage() {
                 </div>
               )}
 
-              {formData.tripType === "TWO_WAY" && formData.returnDate && (
-                <div className="flex justify-between">
-                  <span className="text-slate-500">Return</span>
-                  <span className="font-semibold">{formData.returnDate}</span>
-                </div>
-              )}
+              
 
               <div className="flex justify-between">
                 <span className="text-slate-500">People</span>

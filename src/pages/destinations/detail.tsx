@@ -13,6 +13,7 @@ const TourDetailPage: React.FC = () => {
   const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
   const [numPeople, setNumPeople] = useState(7);
   const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
+  const [dayLightbox, setDayLightbox] = useState<{ photos: string[]; index: number } | null>(null);
 
   useEffect(() => {
     if (!tourId) return;
@@ -56,6 +57,8 @@ const TourDetailPage: React.FC = () => {
     const prices = Object.values(tour.pricingByPeople || {}) as number[];
     return prices.length ? Math.min(...prices) : Number(tour.price || 0);
   })();
+
+  const mapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   const handleBooking = () => {
     navigate(`/destinations/book/${tour.id}`);
@@ -233,37 +236,149 @@ const TourDetailPage: React.FC = () => {
                 </h2>
 
                 <div className="space-y-8">
-                  {tour.itinerary.map((item: any) => (
-                    <div
-                      key={item.day}
-                      className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg"
-                    >
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold">
-                          Day {item.day}
+                  {tour.itinerary.map((item: any) => {
+                    const dayPhotos: string[] = item.photos ?? [];
+                    const hasRoute = item.origin && item.destination;
+
+                    return (
+                      <div
+                        key={item.day}
+                        className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg"
+                      >
+                        <div className="flex items-center gap-4 mb-6">
+                          <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-xl font-bold">
+                            Day {item.day}
+                          </div>
+
+                          <h3 className="text-2xl font-bold text-slate-800">
+                            {item.title}
+                          </h3>
                         </div>
 
-                        <h3 className="text-2xl font-bold text-slate-800">
-                          {item.title}
-                        </h3>
-                      </div>
-
-                      <ul className="space-y-3 ml-20">
-                        {item.activities.map(
-                          (activity: string, idx: number) => (
-                            <li key={idx} className="flex items-start">
-                              <span className="text-blue-600 mr-3 mt-1">
-                                ●
-                              </span>
-                              <span className="text-slate-700">
-                                {activity}
-                              </span>
-                            </li>
-                          )
+                        {/* Photo strip */}
+                        {dayPhotos.length > 0 && (
+                          <div className="grid grid-cols-3 gap-2 mb-6 ml-0 md:ml-20">
+                            <div
+                              className="col-span-2 h-80 rounded-xl overflow-hidden cursor-pointer group relative"
+                              onClick={() => setDayLightbox({ photos: dayPhotos, index: 0 })}
+                            >
+                              <img
+                                src={dayPhotos[0]}
+                                alt={`${item.title} - photo 1`}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              {dayPhotos[1] && (
+                                <div
+                                  className="flex-1 rounded-xl overflow-hidden cursor-pointer group relative"
+                                  onClick={() => setDayLightbox({ photos: dayPhotos, index: 1 })}
+                                >
+                                  <img
+                                    src={dayPhotos[1]}
+                                    alt={`${item.title} - photo 2`}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  />
+                                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </div>
+                              )}
+                              {dayPhotos[2] && (
+                                <div
+                                  className="relative flex-1 rounded-xl overflow-hidden cursor-pointer group"
+                                  onClick={() => setDayLightbox({ photos: dayPhotos, index: 2 })}
+                                >
+                                  <img
+                                    src={dayPhotos[2]}
+                                    alt={`${item.title} - photo 3`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  {dayPhotos.length > 3 ? (
+                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <span className="text-white font-semibold">
+                                        +{dayPhotos.length - 3} photos
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         )}
-                      </ul>
-                    </div>
-                  ))}
+
+                        <ul className="space-y-3 ml-0 md:ml-20 mb-6">
+                          {item.activities.map(
+                            (activity: string, idx: number) => (
+                              <li key={idx} className="flex items-start">
+                                <span className="text-blue-600 mr-3 mt-1">
+                                  ●
+                                </span>
+                                <span className="text-slate-700">
+                                  {activity}
+                                </span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+
+                        {/* Route map */}
+                        {hasRoute && (
+                          <div className="ml-0 md:ml-20">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm font-medium text-slate-500">
+                                Route for today
+                              </span>
+                              <a
+                                href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+                                  item.origin
+                                )}&destination=${encodeURIComponent(
+                                  item.destination
+                                )}&travelmode=driving`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                              >
+                                Open in Google Maps ↗
+                              </a>
+                            </div>
+
+                            {mapsApiKey ? (
+                              <div className="rounded-xl overflow-hidden border border-slate-200">
+                                <iframe
+                                  title={`Route from ${item.origin} to ${item.destination}`}
+                                  width="100%"
+                                  height="220"
+                                  style={{ border: 0 }}
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer-when-downgrade"
+                                  src={`https://www.google.com/maps/embed/v1/directions?key=${mapsApiKey}&origin=${encodeURIComponent(
+                                    item.origin
+                                  )}&destination=${encodeURIComponent(
+                                    item.destination
+                                  )}&mode=driving`}
+                                />
+                              </div>
+                            ) : (
+                              <a
+                                href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+                                  item.origin
+                                )}&destination=${encodeURIComponent(
+                                  item.destination
+                                )}&travelmode=driving`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center h-[140px] rounded-xl border border-dashed border-slate-300 bg-white text-slate-500 text-sm hover:bg-slate-50 transition-colors"
+                              >
+                                {item.origin} → {item.destination} (tap to view route)
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -465,12 +580,12 @@ const TourDetailPage: React.FC = () => {
                 </p>
 
                 <p className="text-sm text-slate-600">
-                  📞 <span className="font-semibold">+91 1234567890</span>
+                  📞 <span className="font-semibold">+91 7001103688</span>
                 </p>
 
                 <p className="text-sm text-slate-600">
                   ✉️{" "}
-                  <span className="font-semibold">info@sikkimtours.com</span>
+                  <span className="font-semibold">govisitsikkim@gmail.com</span>
                 </p>
               </div>
             </div>
@@ -617,6 +732,78 @@ const TourDetailPage: React.FC = () => {
           <div className="absolute bottom-4 text-white text-sm">
             {galleryIndex + 1} / {images.length}
           </div>
+        </div>
+      )}
+
+      {/* Day itinerary photo lightbox — separate from main gallery since each day has its own photo set */}
+      {dayLightbox && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4"
+          onClick={() => setDayLightbox(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white text-4xl font-bold"
+            onClick={() => setDayLightbox(null)}
+          >
+            ×
+          </button>
+
+          {dayLightbox.photos.length > 1 && (
+            <button
+              className="absolute left-4 text-white text-5xl font-bold px-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                setDayLightbox((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        index:
+                          prev.index > 0
+                            ? prev.index - 1
+                            : prev.photos.length - 1,
+                      }
+                    : prev
+                );
+              }}
+            >
+              ‹
+            </button>
+          )}
+
+          <img
+            src={dayLightbox.photos[dayLightbox.index]}
+            alt="Itinerary day photo full view"
+            className="max-h-[85vh] max-w-[90vw] rounded-xl object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {dayLightbox.photos.length > 1 && (
+            <button
+              className="absolute right-4 text-white text-5xl font-bold px-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                setDayLightbox((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        index:
+                          prev.index < prev.photos.length - 1
+                            ? prev.index + 1
+                            : 0,
+                      }
+                    : prev
+                );
+              }}
+            >
+              ›
+            </button>
+          )}
+
+          {dayLightbox.photos.length > 1 && (
+            <div className="absolute bottom-4 text-white text-sm">
+              {dayLightbox.index + 1} / {dayLightbox.photos.length}
+            </div>
+          )}
         </div>
       )}
 

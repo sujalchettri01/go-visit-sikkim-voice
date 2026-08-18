@@ -156,7 +156,7 @@ export default function BikesListingPage() {
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {bike.features.map((f) => (
+                    {(bike.features ?? []).map((f) => (
                       <span key={f} className="text-xs px-2 py-1 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">{f}</span>
                     ))}
                   </div>

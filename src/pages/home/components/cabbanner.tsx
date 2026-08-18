@@ -9,7 +9,7 @@ export default function CabBanner() {
       <section
         className="relative h-96 md:h-[550px] bg-cover bg-center flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "url(https://images.pexels.com/photos/5835325/pexels-photo-5835325.jpeg)",
+          backgroundImage: "url(https://res.cloudinary.com/djsguxriw/image/upload/v1782572269/rohitmondal31-sikkim-7254301_ux3u1j.jpg)",
         }}
       >
         <div className="absolute inset-0 bg-black/60" />

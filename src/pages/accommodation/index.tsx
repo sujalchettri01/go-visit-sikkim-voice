@@ -46,6 +46,7 @@ function getStars(type: string) {
 
 const AccommodationsPage = () => {
   const [locationFilter, setLocationFilter] = useState("All");
+  const [locationDraft, setLocationDraft] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Recommended");
   const [maxPrice, setMaxPrice] = useState(20000);
@@ -171,8 +172,9 @@ const AccommodationsPage = () => {
             <div style={{ border: "1px solid #e5e7eb", borderRadius: 10, padding: "10px 14px", marginBottom: 8 }}>
               <div style={{ fontSize: 9, color: "#7C3AED", fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", marginBottom: 3 }}>City, Area or Property</div>
               <input list="location-options"
-                value={locationFilter === "All" ? "" : locationFilter}
-                onChange={(e) => { const value = e.target.value.replace(", Sikkim", ""); setLocationFilter(value.trim() === "" ? "All" : value); }}
+                value={locationDraft === "All" ? "" : locationDraft}
+                onChange={(e) => { const value = e.target.value.replace(", Sikkim", ""); setLocationDraft(value.trim() === "" ? "All" : value); }}
+                onKeyDown={(e) => { if (e.key === "Enter") setLocationFilter(locationDraft); }}
                 placeholder="Where do you want to stay?"
                 style={{ width: "100%", border: "none", outline: "none", background: "transparent", fontSize: 14, fontWeight: 700, color: "#1a1a2e", padding: 0 }} />
               <datalist id="location-options">
@@ -200,7 +202,8 @@ const AccommodationsPage = () => {
                   <option>3 Rooms, 6 Adults</option>
                 </select>
               </div>
-              <button style={{ background: "linear-gradient(135deg, #fff 0%, #f0eaff 100%)", color: "#6d28d9", border: "none", borderRadius: 10, padding: "0 24px", fontSize: 14, fontWeight: 800, cursor: "pointer", flexShrink: 0, minWidth: 90, boxShadow: "0 4px 14px rgba(124,58,237,0.3)" }}>
+              <button onClick={() => setLocationFilter(locationDraft)}
+                style={{ background: "linear-gradient(135deg, #2563eb 0%, #9333ea 100%)", color: "#fff", border: "none", borderRadius: 10, padding: "0 24px", fontSize: 14, fontWeight: 800, cursor: "pointer", flexShrink: 0, minWidth: 90, boxShadow: "0 4px 14px rgba(124,58,237,0.35)" }}>
                 SEARCH
               </button>
             </div>
@@ -251,7 +254,7 @@ const AccommodationsPage = () => {
           </div>
           <div style={{ width: 1, height: 16, background: "#e5e7eb", flexShrink: 0 }} />
           {LOCATIONS.slice(1).map((loc) => (
-            <button key={loc} onClick={() => setLocationFilter(locationFilter === loc ? "All" : loc)}
+            <button key={loc} onClick={() => { const next = locationFilter === loc ? "All" : loc; setLocationFilter(next); setLocationDraft(next); }}
               style={{ padding: "5px 12px", borderRadius: 999, fontSize: 12, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0, background: locationFilter === loc ? "#1d4ed8" : "#fafafa", color: locationFilter === loc ? "white" : "#374151", border: locationFilter === loc ? "1.5px solid #1d4ed8" : "1px solid #d1d5db", transition: "all 0.15s" }}>
               {loc}
             </button>
@@ -341,7 +344,7 @@ const AccommodationsPage = () => {
           <div style={{ textAlign: "center", padding: "60px 20px", background: "white", borderRadius: 12 }}>
             <div style={{ fontSize: 40, marginBottom: 12 }}></div>
             <p style={{ fontSize: 16, color: "#6b7280", marginBottom: 16 }}>No accommodations match your filters.</p>
-            <button onClick={() => { setLocationFilter("All"); setTypeFilter("All"); setMaxPrice(20000); setMinRating(0); setSelectedAmenities([]); setPriceLabel("Any Price"); }}
+            <button onClick={() => { setLocationFilter("All"); setLocationDraft("All"); setTypeFilter("All"); setMaxPrice(20000); setMinRating(0); setSelectedAmenities([]); setPriceLabel("Any Price"); }}
               style={{ background: "#1d4ed8", color: "white", border: "none", borderRadius: 8, padding: "10px 24px", fontWeight: 600, cursor: "pointer" }}>
               Clear All Filters
             </button>

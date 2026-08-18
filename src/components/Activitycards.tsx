@@ -169,7 +169,12 @@ export default function ActivityCards({ activities, onClose}: ActivityCardsProps
 const styles: Record<string, React.CSSProperties> = {
   wrapper: {
     background: "#fff", borderRadius: "20px", padding: "14px 14px 10px",
-    boxShadow: "0 4px 24px rgba(0,0,0,0.12)", maxWidth: "300px",
+    boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+    // Was `maxWidth: "300px"` — same fix as HotelCards.tsx, CabCards.tsx and
+    // BikeCards.tsx: fills whatever width its parent container (ChatWidget.tsx's
+    // S.cardsWrapper) gives it, instead of capping at a fixed pixel value.
+    width: "100%",
+    boxSizing: "border-box",
     fontFamily: "'Segoe UI', sans-serif", marginTop: "10px", overflow: "hidden",
   },
   header: {

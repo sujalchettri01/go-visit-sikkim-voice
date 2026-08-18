@@ -27,8 +27,8 @@ const Activities = () => {
         </div>
 
         {/* Activities Grid — show only 2 on home */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {activities.slice(0, 2).map((activity, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {activities.slice(0, 3).map((activity, index) => (
             <div 
               key={activity.id} 
               className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 border border-gray-200 hover:-translate-y-2 hover:shadow-2xl group animate-[fadeInUp_0.6s_ease-out]"

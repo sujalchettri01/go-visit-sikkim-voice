@@ -21,13 +21,84 @@ const activities = [
       { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776970552/656047876_1455509972787698_8585251362274667838_n_jbysrg.jpg" },
     ],
     itinerary: [
-      { day: 1, title: "NJP / Bagdogra → Yuksom", details: "Start from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Yuksom, the base village in West Sikkim. Distance: ~150 km | Time: 6–7 hrs. Dinner at 7–8 PM. Overnight stay in Yuksom." },
-      { day: 2, title: "Yuksom → Tshoka", details: "Distance: ~15 km | Time: 6–7 hrs. Route: Yuksom → Sachen → Bakhim → Tshoka. Quick lunch break at Bakhim. Dinner at Tshoka campsite around 7 PM." },
-      { day: 3, title: "Tshoka → Dzongri", details: "Distance: ~9 km | Time: 5–6 hrs. Trek through dense rhododendron forests to Dzongri. Short lunch break on trail. Early dinner and rest due to high altitude." },
-      { day: 4, title: "Dzongri → Thansing", details: "Morning sunrise hike to Dzongri Top for panoramic views of Mount Kanchenjunga. Then trek down to Thansing. Distance: ~10 km | Time: 5 hrs. Quick lunch stop near Kokchurong. Dinner at Thansing camp." },
-      { day: 5, title: "Thansing → Lamuney", details: "Distance: ~4–5 km | Time: 3 hrs. Pass the stunning turquoise Samiti Lake. Camp at Lamuney. Very early dinner as summit day starts at night." },
-      { day: 6, title: "Lamuney → Goecha La → Kokchurong", details: "Start at 2–3 AM. Reach Goecha La Viewpoint 1 (~4,600 m) for sunrise over Mount Kanchenjunga — one of the most breathtaking sights in the Himalayas. Return to Kokchurong for camp. Total trek time: 8–9 hrs. Early dinner and rest." },
-      { day: 7, title: "Kokchurong → Yuksom → NJP / Bagdogra", details: "Descend to Yuksom. Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!" },
+      {
+        day: 1,
+        title: "NJP / Bagdogra → Yuksom",
+        details: "Start from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Yuksom, the base village in West Sikkim. Distance: ~150 km | Time: 6–7 hrs. Dinner at 7–8 PM. Overnight stay in Yuksom.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1783107269/car_image_q4wi5l.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1780412066/Yuksom_Tourism_yeacmi.avif"
+        ],
+        origin: "NJP / Bagdogra Airport",
+        destination: "Yuksom, Sikkim"
+      },
+      {
+        day: 2,
+        title: "Yuksom → Tshoka",
+        details: "Distance: ~15 km | Time: 6–7 hrs. Route: Yuksom → Sachen → Bakhim → Tshoka. Quick lunch break at Bakhim. Dinner at Tshoka campsite around 7 PM.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1780410917/Dzongu_suqnjd.webp",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776971569/669807942_122170804598942268_4766562590035494733_n_yhpppo.jpg"
+        ],
+        origin: "Yuksom, Sikkim",
+        destination: "Tshoka, Sikkim"
+      },
+      {
+        day: 3,
+        title: "Tshoka → Dzongri",
+        details: "Distance: ~9 km | Time: 5–6 hrs. Trek through dense rhododendron forests to Dzongri. Short lunch break on trail. Early dinner and rest due to high altitude.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186979/rajat-sarki--lI3tIigXGY-unsplash_bic6w1.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg"
+        ],
+        origin: "Tshoka, Sikkim",
+        destination: "Dzongri, Sikkim"
+      },
+      {
+        day: 4,
+        title: "Dzongri → Thansing",
+        details: "Morning sunrise hike to Dzongri Top for panoramic views of Mount Kanchenjunga. Then trek down to Thansing. Distance: ~10 km | Time: 5 hrs. Quick lunch stop near Kokchurong. Dinner at Thansing camp.",
+        photos: [
+          
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776971580/669228232_122170804382942268_2878135778882550660_n_cgpa8m.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg"
+        ],
+        origin: "Dzongri, Sikkim",
+        destination: "Thansing, Sikkim"
+      },
+      {
+        day: 5,
+        title: "Thansing → Lamuney",
+        details: "Distance: ~4–5 km | Time: 3 hrs. Pass the stunning turquoise Samiti Lake. Camp at Lamuney. Very early dinner as summit day starts at night.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970545/656208338_1455510026121026_8238093014868288662_n_h8cfjv.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970552/656047876_1455509972787698_8585251362274667838_n_jbysrg.jpg"
+        ],
+        origin: "Thansing, Sikkim",
+        destination: "Lamuney, Sikkim"
+      },
+      {
+        day: 6,
+        title: "Lamuney → Goecha La → Kokchurong",
+        details: "Start at 2–3 AM. Reach Goecha La Viewpoint 1 (~4,600 m) for sunrise over Mount Kanchenjunga — one of the most breathtaking sights in the Himalayas. Return to Kokchurong for camp. Total trek time: 8–9 hrs. Early dinner and rest.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776971562/668315358_122170804460942268_3318142164273089893_n_uyra4u.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970472/667376110_1498478098574305_6134632917954005120_n_hsm1ys.jpg"
+        ],
+        origin: "Lamuney, Sikkim",
+        destination: "Kokchurong, Sikkim"
+      },
+      {
+        day: 7,
+        title: "Kokchurong → Yuksom → NJP / Bagdogra",
+        details: "Descend to Yuksom. Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970484/101982841_2662631877396548_4942226658577874944_n_kmc9xq.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970472/667376110_1498478098574305_6134632917954005120_n_hsm1ys.jpg"
+        ],
+        origin: "Kokchurong, Sikkim",
+        destination: "NJP / Bagdogra Airport"
+      },
     ],
     whatToBring: ["Trekking backpack", "Warm jacket", "Trekking shoes", "Water bottle"],
     documentsRequired: ["Government ID", "Passport-size photos"],
@@ -57,11 +128,61 @@ const activities = [
       { src: "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg" },
     ],
     itinerary: [
-      { day: 1, title: "NJP / Bagdogra → Yuksom", details: "Start from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Yuksom. Distance: ~150 km | Time: 6–7 hrs. Overnight stay in Yuksom." },
-      { day: 2, title: "Yuksom → Tshoka", details: "Route: Yuksom → Sachen → Bakhim → Tshoka. Distance: ~15 km | Time: 6–7 hrs. Highlights include beautiful forest trails and suspension bridges over the Prek Chu River. Camp at Tshoka." },
-      { day: 3, title: "Tshoka → Dzongri", details: "Trek through dense rhododendron forests to reach Dzongri at ~4,020 m altitude. Distance: ~9 km | Time: 5–6 hrs. Camp at Dzongri." },
-      { day: 4, title: "Dzongri Top → Tshoka", details: "Early morning hike to Dzongri Top for panoramic views of Mount Kanchenjunga, Mount Pandim, and Kabru North — one of the best sunrise viewpoints in Sikkim. Then descend to Tshoka." },
-      { day: 5, title: "Tshoka → Yuksom → NJP / Bagdogra", details: "Trek down to Yuksom. Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!" },
+      {
+        day: 1,
+        title: "NJP / Bagdogra → Yuksom",
+        details: "Start from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Yuksom. Distance: ~150 km | Time: 6–7 hrs. Overnight stay in Yuksom.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1783107269/car_image_q4wi5l.jpg",
+             "https://res.cloudinary.com/djsguxriw/image/upload/v1780412066/Yuksom_Tourism_yeacmi.avif",
+        ],
+        origin: "NJP / Bagdogra Airport",
+        destination: "Yuksom, Sikkim"
+      },
+      {
+        day: 2,
+        title: "Yuksom → Tshoka",
+        details: "Route: Yuksom → Sachen → Bakhim → Tshoka. Distance: ~15 km | Time: 6–7 hrs. Highlights include beautiful forest trails and suspension bridges over the Prek Chu River. Camp at Tshoka.",
+        photos: [
+                  "https://res.cloudinary.com/djsguxriw/image/upload/v1780410917/Dzongu_suqnjd.webp",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776971569/669807942_122170804598942268_4766562590035494733_n_yhpppo.jpg"
+        ],
+        origin: "Yuksom, Sikkim",
+        destination: "Tshoka, Sikkim"
+      },
+      {
+        day: 3,
+        title: "Tshoka → Dzongri",
+        details: "Trek through dense rhododendron forests to reach Dzongri at ~4,020 m altitude. Distance: ~9 km | Time: 5–6 hrs. Camp at Dzongri.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186979/rajat-sarki--lI3tIigXGY-unsplash_bic6w1.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg"
+        ],
+        origin: "Tshoka, Sikkim",
+        destination: "Dzongri, Sikkim"
+      },
+      {
+        day: 4,
+        title: "Dzongri Top → Tshoka",
+        details: "Early morning hike to Dzongri Top for panoramic views of Mount Kanchenjunga, Mount Pandim, and Kabru North — one of the best sunrise viewpoints in Sikkim. Then descend to Tshoka.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776187001/sagar-dwivedi-qhQg07YHjvU-unsplash_btdkcj.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776443464/486484352_3721995761425135_1953547989762996290_n_fp4uqx.jpg"
+        ],
+        origin: "Dzongri, Sikkim",
+        destination: "Tshoka, Sikkim"
+      },
+      {
+        day: 5,
+        title: "Tshoka → Yuksom → NJP / Bagdogra",
+        details: "Trek down to Yuksom. Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186977/labunhanglimboo-sikkim-7189438_kswttf.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186975/rajat-sarki-983mvuvw8wE-unsplash_rpjltv.jpg"
+        ],
+        origin: "Tshoka, Sikkim",
+        destination: "NJP / Bagdogra Airport"
+      },
     ],
     whatToBring: ["Trekking backpack", "Warm jacket", "Trekking shoes"],
     documentsRequired: ["Government ID", "Passport-size photos"],
@@ -89,18 +210,128 @@ const activities = [
     features: ["Certified Guides", "Kitchen Support", "Meals Included", "Porter Services", "Permits & Park Fees"],
     galleryImages: [],
     itinerary: [
-      { day: 1, title: "NJP / Bagdogra → Uttarey", details: "Travel from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Uttarey, the trek starting point. Time: 7–8 hrs. Overnight stay in Uttarey." },
-      { day: 2, title: "Uttarey → Chiwa Bhanjyang", details: "Distance: ~10 km | Time: 5–6 hrs. Trek through dense forests along the Singalila Ridge. Camp at Chiwa Bhanjyang." },
-      { day: 3, title: "Chiwa Bhanjyang → Dhor", details: "Distance: ~9 km | Time: 5 hrs. Beautiful ridge walk with stunning views of Mount Kanchenjunga throughout the day. Camp at Dhor." },
-      { day: 4, title: "Dhor → Thulo Dhap", details: "Distance: ~7 km | Time: 4–5 hrs. Trek through open alpine meadows and yak grazing areas. Camp at Thulo Dhap." },
-      { day: 5, title: "Thulo Dhap → Dzongri", details: "Distance: ~10 km | Time: 6 hrs. Join the main Goechala trail near Dzongri. Camp at Dzongri." },
-      { day: 6, title: "Dzongri — Acclimatization Day", details: "Morning hike to Dzongri Top for panoramic views of Mount Kanchenjunga, Mount Pandim and surrounding peaks. Rest day to allow the body to acclimatize to the high altitude (~4,020 m)." },
-      { day: 7, title: "Dzongri → Thansing", details: "Descend into the valley near the Prek Chu River. Camp at Thansing." },
-      { day: 8, title: "Thansing → Lamuney", details: "Short trek to Lamuney. Pass the stunning turquoise Samiti Lake along the way. Camp at Lamuney." },
-      { day: 9, title: "Lamuney → Goecha La Viewpoint → Thansing", details: "Start very early morning for Goecha La Viewpoint 1 (~4,600 m). Witness the dramatic sunrise over Mount Kanchenjunga. Return to Thansing for camp." },
-      { day: 10, title: "Thansing → Tshoka", details: "Descend via Kokchurong to Tshoka. Enjoy the changing landscape as altitude drops." },
-      { day: 11, title: "Tshoka → Yuksom", details: "Trek down to Yuksom, the historic first capital of Sikkim. Celebrate the completion of this extraordinary 12-day expedition." },
-      { day: 12, title: "Yuksom → NJP / Bagdogra", details: "Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!" },
+      {
+        day: 1,
+        title: "NJP / Bagdogra → Uttarey",
+        details: "Travel from New Jalpaiguri Railway Station or Bagdogra Airport. Drive to Uttarey, the trek starting point. Time: 7–8 hrs. Overnight stay in Uttarey.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1783107269/car_image_q4wi5l.jpg",
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1783107279/gettyimages-180364642-612x612_qfjhhj.jpg"
+
+        ],
+        origin: "NJP / Bagdogra Airport",
+        destination: "Uttarey, Sikkim"
+      },
+      {
+        day: 2,
+        title: "Uttarey → Chiwa Bhanjyang",
+        details: "Distance: ~10 km | Time: 5–6 hrs. Trek through dense forests along the Singalila Ridge. Camp at Chiwa Bhanjyang.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186975/rajat-sarki-983mvuvw8wE-unsplash_rpjltv.jpg"
+        ],
+        origin: "Uttarey, Sikkim",
+        destination: "Chiwa Bhanjyang, Sikkim"
+      },
+      {
+        day: 3,
+        title: "Chiwa Bhanjyang → Dhor",
+        details: "Distance: ~9 km | Time: 5 hrs. Beautiful ridge walk with stunning views of Mount Kanchenjunga throughout the day. Camp at Dhor.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186968/IMG_3885_e3zz31.jpg"
+        ],
+        origin: "Chiwa Bhanjyang, Sikkim",
+        destination: "Dhor, Sikkim"
+      },
+      {
+        day: 4,
+        title: "Dhor → Thulo Dhap",
+        details: "Distance: ~7 km | Time: 4–5 hrs. Trek through open alpine meadows and yak grazing areas. Camp at Thulo Dhap.",
+        photos: [
+         " https://res.cloudinary.com/djsguxriw/image/upload/v1776186945/hadwt-sQVsbAX7q7U-unsplash_asvdsb.jpg"
+        ],
+        origin: "Dhor, Sikkim",
+        destination: "Thulo Dhap, Sikkim"
+      },
+      {
+        day: 5,
+        title: "Thulo Dhap → Dzongri",
+        details: "Distance: ~10 km | Time: 6 hrs. Join the main Goechala trail near Dzongri. Camp at Dzongri.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg"
+        ],
+        origin: "Thulo Dhap, Sikkim",
+        destination: "Dzongri, Sikkim"
+      },
+      {
+        day: 6,
+        title: "Dzongri — Acclimatization Day",
+        details: "Morning hike to Dzongri Top for panoramic views of Mount Kanchenjunga, Mount Pandim and surrounding peaks. Rest day to allow the body to acclimatize to the high altitude (~4,020 m).",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186977/labunhanglimboo-sikkim-7189438_kswttf.jpg"
+        ],
+        origin: "Dzongri, Sikkim",
+        destination: "Dzongri, Sikkim"
+      },
+      {
+        day: 7,
+        title: "Dzongri → Thansing",
+        details: "Descend into the valley near the Prek Chu River. Camp at Thansing.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186949/kaushik-nag--jzk4wVcX6E-unsplash_uwdjbn.jpg"
+        ],
+        origin: "Dzongri, Sikkim",
+        destination: "Thansing, Sikkim"
+      },
+      {
+        day: 8,
+        title: "Thansing → Lamuney",
+        details: "Short trek to Lamuney. Pass the stunning turquoise Samiti Lake along the way. Camp at Lamuney.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776444213/666865169_1357945173035135_4941638179043577882_n_szqbhe.jpg"
+        ],
+        origin: "Thansing, Sikkim",
+        destination: "Lamuney, Sikkim"
+      },
+      {
+        day: 9,
+        title: "Lamuney → Goecha La Viewpoint → Thansing",
+        details: "Start very early morning for Goecha La Viewpoint 1 (~4,600 m). Witness the dramatic sunrise over Mount Kanchenjunga. Return to Thansing for camp.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186930/458742441_396239873506420_1422171091647083114_n_efqyr9.jpg"
+        ],
+        origin: "Lamuney, Sikkim",
+        destination: "Thansing, Sikkim"
+      },
+      {
+        day: 10,
+        title: "Thansing → Tshoka",
+        details: "Descend via Kokchurong to Tshoka. Enjoy the changing landscape as altitude drops.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776186978/neeraj-pramanik-aDrB5S1m-vc-unsplash_t3z0ab.jpg"
+        ],
+        origin: "Thansing, Sikkim",
+        destination: "Tshoka, Sikkim"
+      },
+      {
+        day: 11,
+        title: "Tshoka → Yuksom",
+        details: "Trek down to Yuksom, the historic first capital of Sikkim. Celebrate the completion of this extraordinary 12-day expedition.",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776970545/656208338_1455510026121026_8238093014868288662_n_h8cfjv.jpg"
+        ],
+        origin: "Tshoka, Sikkim",
+        destination: "Yuksom, Sikkim"
+      },
+      {
+        day: 12,
+        title: "Yuksom → NJP / Bagdogra",
+        details: "Drive back to New Jalpaiguri Railway Station or Bagdogra Airport. Trek complete!",
+        photos: [
+          "https://res.cloudinary.com/djsguxriw/image/upload/v1776971562/668315358_122170804460942268_3318142164273089893_n_uyra4u.jpg"
+        ],
+        origin: "Yuksom, Sikkim",
+        destination: "NJP / Bagdogra Airport"
+      },
     ],
     whatToBring: ["Trekking backpack 50-60L", "Down jacket", "Thermal wear", "Waterproof jacket"],
     documentsRequired: ["Government ID", "Passport-size photos", "Forest permits"],
@@ -130,10 +361,10 @@ const activities = [
     features: ["No swimming skills required", "Beginner friendly", "Life Jackets & Helmets", "Professional Guide", "Multiple route options"],
     galleryImages: [],
     itinerary: [
-      { day: 1, title: "Short Trip — Bhalukhola to Labarbotay", details: "4 km stretch, 15–20 minutes. Capacity: 1–5 people per boat." },
-      { day: 1, title: "Long Trip — 7th Mile to Labarbotay", details: "7 km stretch, 20–30 minutes. Capacity: 1–5 people per boat." },
-      { day: 1, title: "Alternative — Melli to 29th Mile", details: "5 km stretch, approximately 1.5 hours." },
-      { day: 1, title: "Alternative — Melli to Kalijhora", details: "7 km stretch, approximately 3 hours." },
+      {  title: "Short Trip — Bhalukhola to Labarbotay", details: "4 km stretch, 15–20 minutes. Capacity: 1–5 people per boat." },
+      {  title: "Long Trip — 7th Mile to Labarbotay", details: "7 km stretch, 20–30 minutes. Capacity: 1–5 people per boat." },
+      { title: "Alternative — Melli to 29th Mile", details: "5 km stretch, approximately 1.5 hours." },
+      { title: "Alternative — Melli to Kalijhora", details: "7 km stretch, approximately 3 hours." },
     ],
     whatToBring: ["Quick-dry clothes", "Sunscreen", "Water bottle", "Change of clothes", "Valid ID proof (mandatory)"],
     documentsRequired: ["Government ID (mandatory for booking and participation)"],
@@ -161,7 +392,7 @@ const activities = [
     features: ["New & Exclusive Destination", "Teesta River Rafting", "Lepcha Cultural Experience", "Local Community Run", "Scenic North Sikkim"],
     galleryImages: [],
     itinerary: [
-      { day: 1, title: "Rafting at Namprikdang", details: "Experience rafting on the Teesta River at Namprikdang, Dzongu — North Sikkim's first dedicated rafting spot, operated by local Lepcha group Rongyong Adventure Dzongu (RAD)." },
+      {title: "Rafting at Namprikdang", details: "Experience rafting on the Teesta River at Namprikdang, Dzongu — North Sikkim's first dedicated rafting spot, operated by local Lepcha group Rongyong Adventure Dzongu (RAD)." },
     ],
     whatToBring: ["Quick-dry clothes", "Sunscreen", "Water bottle", "Change of clothes", "Valid ID proof"],
     documentsRequired: ["Government ID", "Inner Line Permit for Dzongu (arranged on request)"],
@@ -183,8 +414,8 @@ const activities = [
     bestSeason: "March to June, Sept to Dec",
     category: "Cycling",
     actionLabel: "Book Cycling",
-    price: 2500,
-    minGroupSize: 2,
+    price: 1200,
+    minGroupSize: 1,
     maxGroupSize: 15,
     minAge: 14,
     includes: "Bicycle with basic setup (helmet, lock, pump, repair kit), Preferred places to visit list",
@@ -214,8 +445,8 @@ const activities = [
     bestSeason: "March to June, Sept to Dec",
     category: "Cycling",
     actionLabel: "Book Cycling",
-    price: 1500,
-    minGroupSize: 2,
+    price: 1200,
+    minGroupSize: 1,
     maxGroupSize: 20,
     minAge: 14,
     includes: "Bicycle with basic setup (helmet, lock, pump, repair kit), Preferred places to visit list",
@@ -312,7 +543,7 @@ const activities = [
     bestSeason: "March",
     category: "Sports Events",
     actionLabel: "Register Now",
-    price: 1500,
+    price: 500,
     minGroupSize: 1,
     maxGroupSize: 2000,
     minAge: 18,
@@ -342,7 +573,7 @@ const activities = [
     bestSeason: "April to May",
     category: "Sports Events",
     actionLabel: "Watch Now",
-    price: 0,
+    price: 200,
     minGroupSize: 1,
     maxGroupSize: 5000,
     minAge: 0,

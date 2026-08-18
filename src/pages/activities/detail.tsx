@@ -7,6 +7,8 @@ const ActivityDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const [activity, setActivity] = useState<any | null>(null);
 
+  const mapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
   const handleBooking = () => navigate(`/activities/book/${id}`);
 
   const handleWhatsAppContact = () => {
@@ -34,6 +36,8 @@ const ActivityDetailPage: React.FC = () => {
       </div>
     );
   }
+
+  const isTrek = activity.category === 'Trekking';
 
   const getDifficultyColor = (difficulty: string | undefined | null) => {
     if (!difficulty) return 'bg-gray-100 text-gray-700 border-gray-300';
@@ -147,14 +151,113 @@ const ActivityDetailPage: React.FC = () => {
               <div className="bg-white rounded-2xl shadow-lg p-8">
                 <h2 className="text-3xl font-bold text-slate-800 mb-6">{labels.itinerary}</h2>
                 <div className="space-y-5">
-                  {activity.itinerary.map((item: any, idx: number) => (
-                    <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-slate-50">
-                      <h3 className="text-xl font-bold text-slate-800 mb-2">
-                        {item.day > 0 ? `Day ${item.day}: ` : ''}{item.title}
-                      </h3>
-                      <p className="text-slate-600 leading-relaxed">{item.details}</p>
-                    </div>
-                  ))}
+                  {activity.itinerary.map((item: any, idx: number) => {
+                    const dayPhotos: string[] = isTrek ? (item.photos ?? []) : [];
+                    const hasRoute = isTrek && item.origin && item.destination;
+
+                    return (
+                      <div key={idx} className="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                        <h3 className="text-xl font-bold text-slate-800 mb-2">
+                          {item.day > 0 ? `Day ${item.day}: ` : ''}{item.title}
+                        </h3>
+                        <p className="text-slate-600 leading-relaxed mb-4">{item.details}</p>
+
+                        {/* Photo strip — trekking only */}
+                        {dayPhotos.length > 0 && (
+                          <div className="grid grid-cols-3 gap-2 mb-4">
+                            <div className="col-span-2 h-40 rounded-lg overflow-hidden">
+                              <img
+                                src={dayPhotos[0]}
+                                alt={`${item.title} - photo 1`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              {dayPhotos[1] && (
+                                <div className="flex-1 rounded-lg overflow-hidden">
+                                  <img
+                                    src={dayPhotos[1]}
+                                    alt={`${item.title} - photo 2`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              )}
+                              {dayPhotos[2] && (
+                                <div className="relative flex-1 rounded-lg overflow-hidden cursor-pointer group">
+                                  <img
+                                    src={dayPhotos[2]}
+                                    alt={`${item.title} - photo 3`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  {dayPhotos.length > 3 && (
+                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <span className="text-white text-sm font-semibold">
+                                        +{dayPhotos.length - 3} photos
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Route map — trekking only */}
+                        {hasRoute && (
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">
+                                Route for today
+                              </span>
+                              <a
+                                href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+                                  item.origin
+                                )}&destination=${encodeURIComponent(
+                                  item.destination
+                                )}&travelmode=walking`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-medium text-blue-600 hover:text-blue-700"
+                              >
+                                Open in Google Maps ↗
+                              </a>
+                            </div>
+
+                            {mapsApiKey ? (
+                              <div className="rounded-lg overflow-hidden border border-slate-200">
+                                <iframe
+                                  title={`Route from ${item.origin} to ${item.destination}`}
+                                  width="100%"
+                                  height="200"
+                                  style={{ border: 0 }}
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer-when-downgrade"
+                                  src={`https://www.google.com/maps/embed/v1/directions?key=${mapsApiKey}&origin=${encodeURIComponent(
+                                    item.origin
+                                  )}&destination=${encodeURIComponent(
+                                    item.destination
+                                  )}&mode=walking`}
+                                />
+                              </div>
+                            ) : (
+                              <a
+                                href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+                                  item.origin
+                                )}&destination=${encodeURIComponent(
+                                  item.destination
+                                )}&travelmode=walking`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center h-[120px] rounded-lg border border-dashed border-slate-300 bg-white text-slate-500 text-sm hover:bg-slate-100 transition-colors"
+                              >
+                                {item.origin} → {item.destination} (tap to view route)
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

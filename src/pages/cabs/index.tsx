@@ -94,7 +94,7 @@ function CheckItem({ label, count, checked, onChange }: { label: string; count: 
 }
 
 function CabCard({ cab, onBook, appliedFrom, appliedTo }: { cab: (typeof cabsData)[0]; onBook: () => void; appliedFrom: string; appliedTo: string; }) {
-  const routePrice = appliedTo ? getRoutePrice(appliedFrom, appliedTo, String(cab.priceOffset)) : null;
+  const routePrice = appliedTo ? getRoutePrice(appliedFrom, appliedTo, cab.category, cab.priceOffset) : null;
   const displayPrice = routePrice ?? getStartingPrice(cab, appliedFrom);
   const isExactRoute = routePrice !== null;
 
@@ -179,12 +179,10 @@ export default function CabsListingPage() {
 
   const handleFromChange = (val: string) => {
     setFrom(val);
-    setAppliedFrom(val);
   };
 
   const handleToChange = (val: string) => {
     setTo(val);
-    setAppliedTo(val);
   };
 
   const clearAll = () => {
@@ -204,13 +202,13 @@ export default function CabsListingPage() {
   };
 
   const effectivePrice = (cab: (typeof cabsData)[0]): number => {
-    if (appliedTo) return getRoutePrice(appliedFrom, appliedTo, String(cab.priceOffset)) ?? Infinity;
+    if (appliedTo) return getRoutePrice(appliedFrom, appliedTo, cab.category, cab.priceOffset) ?? Infinity;
     return getStartingPrice(cab, appliedFrom);
   };
 
   const filtered = useMemo(() => {
     const list = cabsData.filter((cab) => {
-      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, String(cab.priceOffset)) === null) return false;
+      if (appliedTo && getRoutePrice(appliedFrom, appliedTo, cab.category, cab.priceOffset) === null) return false;
       const price = effectivePrice(cab);
       if (maxPrice !== Infinity && price > maxPrice) return false;
       if (selectedCapacity.length && !selectedCapacity.includes(getCapacityLabel(cab.capacity))) return false;
@@ -238,7 +236,7 @@ export default function CabsListingPage() {
 
   const goToBooking = (cab: (typeof cabsData)[0]) => {
     const price = appliedTo
-      ? getRoutePrice(appliedFrom, appliedTo, String(cab.priceOffset)) ?? getStartingPrice(cab, appliedFrom)
+      ? getRoutePrice(appliedFrom, appliedTo, cab.category, cab.priceOffset) ?? getStartingPrice(cab, appliedFrom)
       : getStartingPrice(cab, appliedFrom);
     navigate(`/cabs/book/${cab.id}?from=${encodeURIComponent(appliedFrom)}&to=${encodeURIComponent(appliedTo)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&price=${price}`);
   };

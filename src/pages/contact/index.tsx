@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { toast } from 'react-toastify';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Phone, MessageCircle, Mail, Youtube } from 'lucide-react';
 
 interface ContactFormData {
   name: string;
@@ -103,28 +104,28 @@ const ContactPage = () => {
 
   const contactInfo = [
     {
-      icon: "📞",
+      icon: Phone,
       title: "Phone",
-      value: "+91 98765 43210",
-      link: "tel:+919876543210"
+      value: "+91 7001103688",
+      link: "tel:+91 7001103688"
     },
     {
-      icon: "💬",
+      icon: MessageCircle,
       title: "WhatsApp",
-      value: "+91 98765 43210",
-      link: "https://wa.me/919876543210"
+      value: "+91 7001103688",
+      link: "https://wa.me/+91 7001103688"
     },
     {
-      icon: "✉️",
+      icon: Mail,
       title: "Email",
-      value: "info@sikkimtourism.com",
-      link: "mailto:info@sikkimtourism.com"
+      value: "govisitsikkim@gmail.com",
+      link: "mailto:govisitsikkim@gmail.com"
     },
     {
-      icon: "📍",
-      title: "Address",
-      value: "Tourism Office, Gangtok, Sikkim 737101",
-      link: null
+      icon: Youtube,
+      title: "Youtube",
+      value: "GoVisit Sikkim",
+      link: "https://www.youtube.com/@GoVisitSikkim"
     }
   ];
 
@@ -151,17 +152,17 @@ const ContactPage = () => {
             {/* Travel Image */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[400px] group">
               <img 
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
+                src="https://res.cloudinary.com/djsguxriw/image/upload/v1776970463/502729675_4099808260231283_7029866914746028641_n_z8chlf.jpg"
                 alt="Sikkim Mountain Landscape"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-8">
                 <div>
                   <h3 className="text-white text-3xl font-bold mb-2">
-                    Your Journey Begins Here
+                    Lets visit Sikkim
                   </h3>
                   <p className="text-white/90 text-lg">
-                    Let us guide you through the Himalayas
+                     And Let us guide you through the Nature
                   </p>
                 </div>
               </div>
@@ -169,31 +170,36 @@ const ContactPage = () => {
 
             {/* Contact Information Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {contactInfo.map((info, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="text-4xl mb-3">{info.icon}</div>
-                  <h4 className="text-sm font-semibold text-gray-500 mb-1">
-                    {info.title}
-                  </h4>
-                  {info.link ? (
-                    <a
-                      href={info.link}
-                      target={info.link.startsWith('http') ? '_blank' : undefined}
-                      rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-gray-900 font-semibold hover:text-purple-600 transition-colors break-all"
-                    >
-                      {info.value}
-                    </a>
-                  ) : (
-                    <p className="text-gray-900 font-semibold">
-                      {info.value}
-                    </p>
-                  )}
-                </div>
-              ))}
+              {contactInfo.map((info, index) => {
+                const Icon = info.icon;
+                return (
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center mb-3">
+                      <Icon className="w-5 h-5 text-purple-600" strokeWidth={2} />
+                    </div>
+                    <h4 className="text-sm font-semibold text-gray-500 mb-1">
+                      {info.title}
+                    </h4>
+                    {info.link ? (
+                      <a
+                        href={info.link}
+                        target={info.link.startsWith('http') ? '_blank' : undefined}
+                        rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="text-gray-900 font-semibold hover:text-purple-600 transition-colors break-all"
+                      >
+                        {info.value}
+                      </a>
+                    ) : (
+                      <p className="text-gray-900 font-semibold">
+                        {info.value}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Quick Connect Buttons */}
@@ -201,23 +207,23 @@ const ContactPage = () => {
             style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}>
               <h3 className="text-2xl font-bold mb-4">Quick Connect</h3>
               <p className="mb-6 text-white/90">
-                Reach out instantly through your preferred channel
+                Reach out instantly through these contacts
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/+91-7001103688"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
                 >
-                  <span className="text-xl">💬</span>
+                  <MessageCircle className="w-5 h-5" />
                   WhatsApp
                 </a>
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+91-7001103688"
                   className="flex items-center gap-2 bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
                 >
-                  <span className="text-xl">📞</span>
+                  <Phone className="w-5 h-5" />
                   Call Now
                 </a>
               </div>

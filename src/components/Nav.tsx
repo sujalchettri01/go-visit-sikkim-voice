@@ -193,7 +193,7 @@ const Navigation = () => {
       )}
 
       {/* Spacer matches navbar height */}
-      <div className="h-[72px]" />
+  
     </>
   );
 };

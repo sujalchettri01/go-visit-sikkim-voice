@@ -19,7 +19,7 @@ const Footer = () => {
             <div className="flex gap-4 mt-4">
               {/* Facebook */}
               <a
-                href="https://www.facebook.com/sujal.chettri.921230"
+                href="https://www.facebook.com/govisitsikkim"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
@@ -33,7 +33,7 @@ const Footer = () => {
 
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/the_sujalchettri_01"
+                href="https://www.instagram.com/govisit_sikkim"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
@@ -108,7 +108,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-white/10 gap-4 flex-wrap">
           <p className="text-white/60 text-sm text-center sm:text-left">
-            © 2024 GoVisit Sikkim. All rights reserved. | Crafted with ❤️ by Engineers for the Land of Nature
+            © 2024 GoVisit Sikkim. All rights reserved. | Crafted with ❤️ by Founders 
           </p>
           <p className="px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold text-white/90 border border-white/20">
             ⭐ Rated #1 Himalayan Destination
