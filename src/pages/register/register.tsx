@@ -1,28 +1,48 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useSignup } from "../../hooks/useSignup";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const { mutate: signup, isPending, error } = useSignup();
-
+  const [emailSent, setEmailSent] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     signup(form, {
       onSuccess: () => {
-        toast.success(
-          `📧 A confirmation email has been sent to ${form.email}. Please check your inbox!`,
-          { autoClose: 5000 }
-        );
+        setEmailSent(true);
       },
     });
   };
+  if (emailSent) {
+  return (
+    <section className="min-h-screen flex items-center justify-center bg-slate-900">
+      <div className="max-w-md p-8 text-center bg-white rounded-2xl shadow-xl">
+        <h2 className="text-2xl font-bold mb-4">
+          Check your email 📧
+        </h2>
 
+        <p className="text-gray-600 mb-6">
+          We've sent a verification link to
+          <strong> {form.email}</strong>.
+          Please open the email and verify your account before logging in.
+        </p>
+
+        <button
+          onClick={() => navigate("/login")}
+          className="px-6 py-3 rounded-xl bg-blue-600 text-white"
+        >
+          Go to Login
+        </button>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 

@@ -295,9 +295,9 @@ export default function BikeBookingPage() {
             <ul className="space-y-1 text-sm text-gray-600">
               <li>• Engine: {bike.engineCC}cc · {bike.transmission}</li>
               <li>• Fuel type: {bike.fuelType}</li>
-              <li>• Daily limit: {bike.kmLimit} km/day</li>
+              {/* <li>• Daily limit: {bike.kmLimit} km/day</li>
               <li>• Extra km charge: ₹{bike.extraKmCharge}/km</li>
-              {bike.helmetIncluded && <li>• Helmet included at no extra cost</li>}
+              {bike.helmetIncluded && <li>• Helmet included at no extra cost</li>} */}
             </ul>
           </div>    */}
 

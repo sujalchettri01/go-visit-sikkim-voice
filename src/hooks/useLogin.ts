@@ -22,9 +22,13 @@ export function useLogin() {
 
   return useMutation<LoginResponse, Error, LoginInput>({
     mutationFn: async (credentials) => {
-      // withCredentials in axios config means browser stores the httpOnly cookie
-      const { data } = await api.post<LoginResponse>("/auth/login", credentials);
-      return data;
+      try {
+        const { data } = await api.post<LoginResponse>("/auth/login", credentials);
+        return data;
+      } catch (err: any) {
+        const message = err?.response?.data?.message ?? "Login failed.";
+        throw new Error(message);
+      }
     },
     onSuccess: () => {
       navigate("/user/dashboard", { replace: true });

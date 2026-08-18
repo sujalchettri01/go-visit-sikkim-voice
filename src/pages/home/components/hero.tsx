@@ -54,7 +54,7 @@ const BG_IMAGE = "https://res.cloudinary.com/djsguxriw/image/upload/v1776186749/
 
 const HomeHero = () => {
   const handleSearch = () => {
-    const input = document.getElementById("hero-search");
+    const input = document.getElementById("hero-search") as HTMLInputElement | null;
     const val = input?.value.trim();
     if (val) window.location.href = `/destinations?q=${encodeURIComponent(val)}`;
   };
