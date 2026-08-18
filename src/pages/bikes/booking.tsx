@@ -289,17 +289,7 @@ export default function BikeBookingPage() {
               className="w-full mt-2 p-3 border rounded-lg" />
           </div>
 
-          {/* Bike specs info box */}
-       {/*   <div className="mt-5 bg-gray-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-sm mb-2 text-gray-700">Rental Info:</h4>
-            <ul className="space-y-1 text-sm text-gray-600">
-              <li>• Engine: {bike.engineCC}cc · {bike.transmission}</li>
-              <li>• Fuel type: {bike.fuelType}</li>
-              {/* <li>• Daily limit: {bike.kmLimit} km/day</li>
-              <li>• Extra km charge: ₹{bike.extraKmCharge}/km</li>
-              {bike.helmetIncluded && <li>• Helmet included at no extra cost</li>} */}
-            </ul>
-          </div>    */}
+                {/* Bike specs info box (disabled) */}
 
           <div className="mt-5">
             <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey}
