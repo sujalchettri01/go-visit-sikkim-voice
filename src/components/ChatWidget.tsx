@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Mic, AudioLines, Download } from "lucide-react";
 import HotelCards from "./HotelCards";
 import BikeCards from "./Bikecards";
@@ -29,7 +28,6 @@ export default function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [freeMessagesUsed, setFreeMessagesUsed] = useState(0);
   const [plannerMonth, setPlannerMonth] = useState("");
   const [plannerNationality, setPlannerNationality] = useState("");
   const [plannerDays, setPlannerDays] = useState("");

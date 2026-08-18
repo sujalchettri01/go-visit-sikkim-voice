@@ -18,7 +18,7 @@ declare global {
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 const API_BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:4000";
 
-type TripType = "ONE_WAY";
+
 
 interface FormData {
   pickUpLocation: string;
