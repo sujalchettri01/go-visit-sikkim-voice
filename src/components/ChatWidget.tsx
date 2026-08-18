@@ -28,6 +28,7 @@ export default function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [, setFreeMessagesUsed] = useState(0);
   const [plannerMonth, setPlannerMonth] = useState("");
   const [plannerNationality, setPlannerNationality] = useState("");
   const [plannerDays, setPlannerDays] = useState("");
