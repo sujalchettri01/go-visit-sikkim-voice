@@ -75,7 +75,7 @@ export const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as s
 // calling Fish Audio directly from the browser. Fish Audio doesn't send
 // CORS headers, so a direct browser call is blocked — this proxy avoids
 // that and keeps the Fish Audio API key server-side only.
-export const TTS_API_URL = "http://localhost:3001/api/tts";
+export const TTS_API_URL = "/api/tts";
 
 // Not secret — just identifies which voice to use. The actual API key lives
 // only in the backend (api/tts.ts), read from FISH_AUDIO_API_KEY there.
