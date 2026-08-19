@@ -16,7 +16,7 @@ import cors from "cors";
 import "dotenv/config";
 // @ts-ignore — chatPrompt.cjs is plain CommonJS with no type declarations; fine, works at runtime.
 import { buildSystemPrompt } from "./chatPrompt.cjs";
-import { TOOLS, executeTool, detectPlaceInMessage } from "./aiTools";
+import { TOOLS, executeTool, detectPlaceInMessage } from "./aiTools.js";
 
 // NOTE: tsx (which runs this file) strips TypeScript types and runs the code
 // directly — it does NOT type-check. So even if VS Code shows red squiggly

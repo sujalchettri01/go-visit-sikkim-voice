@@ -13,7 +13,7 @@
 // @ts-ignore — chatPrompt.cjs is plain CommonJS with no type declarations;
 // this is fine, require()/import still works correctly at runtime.
 import { buildSystemPrompt } from "../chatPrompt.cjs";
-import { TOOLS, executeTool, detectPlaceInMessage } from "../aiTools";
+import { TOOLS, executeTool, detectPlaceInMessage } from "../aiTools.js";
 
 export const config = {
   runtime: "nodejs",

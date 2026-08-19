@@ -15,8 +15,8 @@
 // change when you do (except the searchFacts matching logic below, which
 // is worth understanding — see its comment).
 
-import { CAB_ROUTES, PACKAGES, HOTELS } from "./aidata1";
-import { FACTS } from "./aidata2";
+import { CAB_ROUTES, PACKAGES, HOTELS } from "./aidata1.js";
+import { FACTS } from "./aidata2.js";
 
 // ─── Tool definitions — sent to OpenAI so it knows what it can call ───────
 export const TOOLS = [
