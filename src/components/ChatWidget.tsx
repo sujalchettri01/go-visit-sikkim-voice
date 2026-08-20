@@ -402,21 +402,6 @@ export default function ChatWidget() {
                   </p>
                 )}
                 <div style={S.inputInner}>
-                  {voice.availableVoices.length > 0 && (
-                    <select
-                      style={S.voiceSelect}
-                      value={voice.selectedVoiceURI}
-                      onChange={e => voice.setSelectedVoiceURI(e.target.value)}
-                      title="Voice used for spoken replies"
-                      aria-label="Voice used for spoken replies"
-                    >
-                      {voice.availableVoices.map(v => (
-                        <option key={v.voiceURI} value={v.voiceURI}>
-                          {v.name} ({v.lang})
-                        </option>
-                      ))}
-                    </select>
-                  )}
                   {voice.recognitionSupported && (
                     <button
                       style={{

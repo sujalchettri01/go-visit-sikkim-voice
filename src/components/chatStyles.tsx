@@ -352,7 +352,9 @@ export const S: Record<string, CSSProperties> = {
   dayBlockMapWrap: { marginTop: "10px", borderRadius: "12px", overflow: "hidden", border: "1px solid #ede9fe" },
   dayBlockMapFrame: { width: "100%", height: "200px", border: "none", display: "block" },
 
-  inputRow: { padding: "16px 24px 20px", borderTop: "1px solid #ede9fe", background: "#fff", flexShrink: 0 },
+  // Input row — tightened padding/sizing so everything fits on narrow phone
+  // screens (was overflowing below ~360px wide before this pass).
+  inputRow: { padding: "12px 12px 16px", borderTop: "1px solid #ede9fe", background: "#fff", flexShrink: 0 },
   voiceErrorText: {
     maxWidth: "720px", width: "100%", margin: "0 auto 10px",
     display: "flex", alignItems: "center", gap: "6px",
@@ -362,19 +364,22 @@ export const S: Record<string, CSSProperties> = {
   },
   inputInner: {
     maxWidth: "720px", width: "100%", margin: "0 auto",
-    display: "flex", gap: "10px", alignItems: "center",
+    display: "flex", gap: "8px", alignItems: "center",
   },
   input: {
-    flex: 1, padding: "14px 20px", borderRadius: "24px",
+    // minWidth: 0 is the key fix — flex items refuse to shrink below their
+    // natural content width by default, which was silently pushing this
+    // input off the edge of the panel on narrow screens.
+    flex: 1, minWidth: 0, padding: "12px 14px", borderRadius: "24px",
     border: "0.5px solid #e7e5df", fontSize: "15px",
     outline: "none", fontFamily: "'Inter', sans-serif",
     background: "#fff", color: "#1e1b4b", transition: "border-color 0.2s",
   },
   askBtn: {
-    padding: "0 26px", height: "48px", borderRadius: "24px",
+    padding: "0 16px", height: "44px", borderRadius: "22px",
     background: "#6d28d9", color: "#fff", border: "none", cursor: "pointer",
     display: "flex", alignItems: "center", justifyContent: "center",
-    fontSize: "14px", fontWeight: 700, flexShrink: 0,
+    fontSize: "13px", fontWeight: 700, flexShrink: 0,
     boxShadow: "0 2px 10px rgba(109,40,217,0.3)",
     transition: "transform 0.15s ease, opacity 0.2s",
   },
@@ -386,7 +391,7 @@ export const S: Record<string, CSSProperties> = {
     cursor: "pointer", outline: "none",
   },
   micBtn: {
-    width: "44px", height: "44px", borderRadius: "50%", flexShrink: 0,
+    width: "40px", height: "40px", borderRadius: "50%", flexShrink: 0,
     background: "#f1ecfd", color: "#6d28d9", border: "0.5px solid #ddd6fe",
     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
     transition: "background 0.15s, color 0.15s",
@@ -400,7 +405,7 @@ export const S: Record<string, CSSProperties> = {
 
   // Voice Mode — full-screen, hands-free conversation
   voiceModeBtn: {
-    width: "44px", height: "44px", borderRadius: "50%", flexShrink: 0,
+    width: "40px", height: "40px", borderRadius: "50%", flexShrink: 0,
     background: "#1e1b4b", color: "#fff", border: "none",
     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
   },

@@ -3,14 +3,14 @@ import packages from "../../../data/package";
 
 const Destinations = () => {
   return (
-    <section 
-      className="py-16 px-8" 
-      id="destinations"
-      style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)' }}
-    >
+   <section 
+  className="py-8 px-6 md:py-16 md:px-8" 
+  id="destinations"
+  style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)' }}
+>
       <div className="max-w-[1280px] mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-[800px] mx-auto mb-16">
+        <div className="text-center max-w-[800px] mx-auto mb-8 md:mb-16">
           <span 
             className="inline-block px-6 py-1 text-white rounded-full text-sm font-semibold tracking-wide mb-6"
             style={{ background: 'linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)' }}

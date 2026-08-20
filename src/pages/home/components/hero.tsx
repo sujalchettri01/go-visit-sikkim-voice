@@ -60,8 +60,7 @@ const HomeHero = () => {
   };
 
   return (
-
-<section className="relative min-h-[calc(100vh-80px)] w-full flex items-center justify-center overflow-hidden py-10 -mt-[72px] pt-[92px]">
+<section className="relative min-h-[calc(100vh-80px)] w-full flex items-center justify-center overflow-hidden py-6 -mt-[72px] pt-[92px]">
 
 
       {/* Background image */}
@@ -78,25 +77,25 @@ const HomeHero = () => {
       <div className="relative z-10 w-full max-w-[680px] px-6 sm:px-10 animate-[fadeInUp_0.8s_ease-out]">
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 border border-white/30 text-white/80 text-[11px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm bg-white/10">
+        <div className="inline-flex items-center gap-2 border border-white/30 text-white/80 text-[11px] font-medium uppercase tracking-widest px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm bg-white/10">
           <span className="w-1.5 h-1.5 rounded-full bg-white" />
           Sikkim's trusted travel platform
         </div>
 
         {/* Title */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.08] tracking-tight text-white mb-5">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.08] tracking-tight text-white mb-3">
           AI based<br />
           <span style={{ color: "#C4B5FD" }}>Sikkim's,</span><br />
           Tourism Ecosystem
         </h1>
 
         {/* Subheading */}
-        <p className="text-[16px] text-white/75 font-normal leading-relaxed max-w-lg mb-8">
+        <p className="text-[16px] text-white/75 font-normal leading-relaxed max-w-lg mb-5">
           Explore breathtaking destinations, book hotels, rent bikes, hire cabs and plan treks — all in one place.
         </p>
 
         {/* Search bar */}
-        <div className="flex gap-2 max-w-[500px] mb-8">
+        <div className="flex gap-2 max-w-[500px] mb-5">
           <input
             id="hero-search"
             type="text"
@@ -116,7 +115,7 @@ const HomeHero = () => {
         </div>
 
         {/* Pills */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-2 mb-6">
           {PILLS.map((pill) => (
             <a
               key={pill.label}
@@ -130,14 +129,14 @@ const HomeHero = () => {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-white/15 mb-8" />
+        <div className="h-px bg-white/15 mb-5" />
 
         {/* Stats */}
         <div className="grid grid-cols-4 rounded-2xl overflow-hidden border border-white/15">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className={`bg-white/10 backdrop-blur-sm py-5 px-3 text-center ${i < STATS.length - 1 ? "border-r border-white/15" : ""}`}
+              className={`bg-white/10 backdrop-blur-sm py-3 px-3 text-center ${i < STATS.length - 1 ? "border-r border-white/15" : ""}`}
             >
               <div className="text-2xl font-extrabold mb-1 text-white">
                 {stat.value}

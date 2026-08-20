@@ -51,7 +51,7 @@ const Navigation = () => {
         }`}
         style={{ boxSizing: "border-box" }}
       >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
             to="/"
