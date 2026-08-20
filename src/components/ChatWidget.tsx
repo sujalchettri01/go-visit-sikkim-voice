@@ -58,12 +58,13 @@ export default function ChatWidget() {
     }
   }, [messages, loading]);
 
+
   useEffect(() => {
     if (!voiceModeOpen) return;
-    if (voice.isSpeaking || voice.isListening || loading) return;
+    if (voice.isSpeaking || voice.isSynthesizing || voice.isListening || loading) return;
     const t = setTimeout(() => voice.startListening(transcript => send(transcript, true)), 500);
     return () => clearTimeout(t);
-  }, [voiceModeOpen, voice.isSpeaking, voice.isListening, loading]);
+  }, [voiceModeOpen, voice.isSpeaking, voice.isSynthesizing, voice.isListening, loading]);
 
   const exitVoiceMode = () => {
     voice.cleanup();
@@ -516,8 +517,8 @@ export default function ChatWidget() {
                 }
               />
 
-              <p style={S.voiceModeStatus}>
-                {voice.isSpeaking ? "Speaking..." : voice.isListening ? "Listening..." : loading ? "Thinking..." : "Tap the mic to talk"}
+                            <p style={S.voiceModeStatus}>
+                {voice.isSpeaking ? "Speaking..." : voice.isSynthesizing ? "Preparing reply..." : voice.isListening ? "Listening..." : loading ? "Thinking..." : "Tap the mic to talk"}
               </p>
 
               {voice.isListening && voice.interimTranscript && (
@@ -529,7 +530,7 @@ export default function ChatWidget() {
 
               {voice.voiceError && <p style={S.voiceErrorText}>{voice.voiceError}</p>}
 
-              {!voice.isListening && !voice.isSpeaking && !loading && (
+                         {!voice.isListening && !voice.isSpeaking && !voice.isSynthesizing && !loading && (
                 <button
                   style={S.voiceModeMicBtn}
                   onClick={() => voice.startListening(transcript => send(transcript, true))}

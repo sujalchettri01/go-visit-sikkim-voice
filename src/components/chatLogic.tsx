@@ -809,8 +809,14 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
 // ═══════════════════════════════════════════════════════════════════════
 
 export function useVoice() {
-  const [isListening, setIsListening] = useState(false);
+   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  // Separate from isSpeaking — true only while waiting on the TTS network
+  // request/audio decode, before actual playback starts. Without this,
+  // isSpeaking (and the "Speaking..." label) fired the instant the request
+  // was sent, so the UI claimed to be speaking for 4-5s of silence while the
+  // TTS API call was still in flight.
+  const [isSynthesizing, setIsSynthesizing] = useState(false);
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedVoiceURI, setSelectedVoiceURI] = useState<string>("");
@@ -820,6 +826,13 @@ export function useVoice() {
   const recognitionRef = useRef<any>(null);
   const suppressVoiceSendRef = useRef(false);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  // Synchronous lock against double-starts — `isListening` is React state and
+  // updates asynchronously, so two near-simultaneous callers (e.g. the
+  // auto-restart effect + a manual mic tap right as Voice Mode opens) can both
+  // read isListening as false and both start a recognition session, causing
+  // the browser to abort one mid-speech. A ref updates instantly, so it closes
+  // that race window completely.
+  const isStartingRef = useRef(false);
 
   const recognitionSupported = typeof window !== "undefined" &&
     !!((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
@@ -845,13 +858,14 @@ export function useVoice() {
     return () => { window.speechSynthesis.onvoiceschanged = null; };
   }, []);
 
-  const stopSpeaking = () => {
+    const stopSpeaking = () => {
     if (typeof window !== "undefined") window.speechSynthesis?.cancel();
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
     }
     setIsSpeaking(false);
+    setIsSynthesizing(false);
   };
 
   const speakWithBrowserVoice = (spoken: string) => {
@@ -866,7 +880,6 @@ export function useVoice() {
     window.speechSynthesis.speak(utterance);
   };
 
-
   const speakText = async (text: string) => {
     // Speech synthesis reads punctuation literally ("bullet point") and
     // chokes on very long text — strip markdown leftovers and cap length.
@@ -874,12 +887,8 @@ export function useVoice() {
     if (!spoken) return;
     stopSpeaking();
 
-    setIsSpeaking(true); // optimistic — flips back off in the catch block if the request fails
+    setIsSynthesizing(true); // "generating the reply audio" — NOT speaking yet
     try {
-      // Calls our own /api/tts serverless function instead of Fish Audio
-      // directly. Fish Audio doesn't return CORS headers, so a direct
-      // browser call gets blocked — this backend proxy avoids that and
-      // keeps the Fish Audio API key out of client-side code entirely.
       const res = await fetch(TTS_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -894,21 +903,32 @@ export function useVoice() {
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       currentAudioRef.current = audio;
+      // Only flip to "Speaking" once playback truly begins.
+      audio.onplay = () => { setIsSynthesizing(false); setIsSpeaking(true); };
       audio.onended = () => { setIsSpeaking(false); URL.revokeObjectURL(url); };
-      audio.onerror = () => { setIsSpeaking(false); URL.revokeObjectURL(url); };
+      audio.onerror = () => { setIsSynthesizing(false); setIsSpeaking(false); URL.revokeObjectURL(url); };
       await audio.play();
     } catch (err) {
       console.error("TTS request failed, falling back to browser voice:", err);
+      setIsSynthesizing(false);
       speakWithBrowserVoice(spoken);
     }
   };
   const startListening = (onTranscript: (text: string) => void) => {
-    if (isListening) return;
+    if (isListening || isStartingRef.current) return;
+    isStartingRef.current = true;
     const SpeechRecognitionCtor =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognitionCtor) return;
+    if (!SpeechRecognitionCtor) { isStartingRef.current = false; return; }
 
-    stopSpeaking();
+      stopSpeaking();
+    // Kill any lingering previous session before starting a new one —
+    // starting a new recognition while an old one hasn't fully torn down
+    // is the #1 cause of start() throwing on the next auto-restart.
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch { /* already stopped */ }
+      recognitionRef.current = null;
+    }
     const recognition = new SpeechRecognitionCtor();
     recognition.lang = "en-IN"; // best available match for Hindi-English code-switched speech
     // `continuous = true` + our own silence timer, instead of the browser's
@@ -918,15 +938,14 @@ export function useVoice() {
 
     let finalTranscript = "";
     let silenceTimer: ReturnType<typeof setTimeout> | null = null;
-    const INITIAL_GRACE_MS = 6000; // covers mic warm-up + network round-trip before any speech is heard
-    const SILENCE_MS = 2200; // pause length that counts as "done talking" once speech has started
+      const INITIAL_GRACE_MS = 6000; // covers mic warm-up + network round-trip before any speech is heard
+    const SILENCE_MS = 3800; // pause length that counts as "done talking" once speech has started — long enough to survive normal mid-sentence pauses/breaths
 
     const setTimer = (ms: number) => {
       if (silenceTimer) clearTimeout(silenceTimer);
       silenceTimer = setTimeout(() => recognition.stop(), ms);
     };
-
-    recognition.onstart = () => { setVoiceError(null); setInterimTranscript(""); setTimer(INITIAL_GRACE_MS); };
+    recognition.onstart = () => { isStartingRef.current = false; setVoiceError(null); setInterimTranscript(""); setTimer(INITIAL_GRACE_MS); };
     recognition.onspeechstart = () => setTimer(SILENCE_MS);
     recognition.onresult = (event: any) => {
       let interim = "";
@@ -937,7 +956,8 @@ export function useVoice() {
       setInterimTranscript(interim);
       setTimer(SILENCE_MS);
     };
-    recognition.onerror = (event: any) => {
+       recognition.onerror = (event: any) => {
+      isStartingRef.current = false;
       setIsListening(false);
       setInterimTranscript("");
       if (silenceTimer) clearTimeout(silenceTimer);
@@ -963,26 +983,41 @@ export function useVoice() {
       suppressVoiceSendRef.current = false;
     };
 
-    recognitionRef.current = recognition;
+     recognitionRef.current = recognition;
     setIsListening(true);
-    recognition.start();
+    try {
+      recognition.start();
+      } catch (err) {
+      // start() can throw synchronously (stale session, no fresh user
+      // gesture, etc). Without this catch, isListening stays stuck at
+      // `true` forever since onstart/onend never fire — which is why
+      // Voice Mode looked like it "closed" after one exchange.
+      console.error("recognition.start() failed:", err);
+      isStartingRef.current = false;
+      if (silenceTimer) clearTimeout(silenceTimer);
+      setIsListening(false);
+      setInterimTranscript("");
+      setVoiceError("Couldn't restart the mic — tap it again.");
+    }
   };
 
   // Call when the chat panel closes — stops any active mic/speech instead of
   // letting it keep running in the background.
-  const cleanup = () => {
+    const cleanup = () => {
     suppressVoiceSendRef.current = true;
     recognitionRef.current?.stop();
     if (typeof window !== "undefined") window.speechSynthesis?.cancel();
     if (currentAudioRef.current) currentAudioRef.current.pause();
     setIsListening(false);
     setIsSpeaking(false);
+    setIsSynthesizing(false);
     setInterimTranscript("");
   };
 
-  return {
+   return {
     isListening,
     isSpeaking,
+    isSynthesizing,
     voiceError,
     availableVoices,
     selectedVoiceURI,
