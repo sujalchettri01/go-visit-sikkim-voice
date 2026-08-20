@@ -11,12 +11,12 @@ interface User {
 }
 
 export function useCurrentUser() {
-  return useQuery<User>({
+  return useQuery<User | null>({
     queryKey: ["currentUser"],
     queryFn: async () => {
-      const { data } = await api.get("/auth/me");
-      return data.user; // matches your backend: res.json({ user: result.data })
-    },
+  const { data } = await api.get("/auth/me");
+  return data.user ?? null; // never return undefined — React Query requires a defined value
+},
     retry: false,       // don't retry on 401
     staleTime: 1000 * 60 * 5,
   });
