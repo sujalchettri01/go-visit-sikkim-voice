@@ -807,6 +807,25 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
 // ElevenLabs). All voice state/logic lives in this one hook so ChatWidget
 // doesn't have to manage it directly.
 // ═══════════════════════════════════════════════════════════════════════
+// Converts currency/number formatting that reads badly aloud ("₹1,500",
+// "20%", "1500-2000") into natural speakable words before it reaches TTS.
+// Order matters: currency must be converted before the leftover dash-range
+// replacement, otherwise "₹1,500-₹2,500" would double-process badly.
+function normalizeForSpeech(text: string): string {
+  return text
+    // ₹1,500 or ₹1500.50 -> "1500 rupees" (strip thousands separators first)
+    .replace(/₹\s?([\d,]+(?:\.\d+)?)/g, (_m, num) => `${num.replace(/,/g, "")} rupees`)
+    // "Rs. 1,500" / "Rs 1500" -> "1500 rupees"
+    .replace(/\bRs\.?\s?([\d,]+(?:\.\d+)?)/gi, (_m, num) => `${num.replace(/,/g, "")} rupees`)
+    // Any remaining thousands separators in plain numbers, e.g. "3,000 meters"
+    .replace(/(\d),(\d{3})/g, "$1$2")
+    // "20%" -> "20 percent"
+    .replace(/(\d+)\s?%/g, "$1 percent")
+    // "1500-2000" / "1500 - 2000" -> "1500 to 2000" (ranges, after currency
+    // conversion above already turned currency ranges into "X rupees-Y rupees")
+    .replace(/(\d)\s*-\s*(\d)/g, "$1 to $2")
+    .replace(/rupees-(\d)/g, "rupees to $1");
+}
 
 export function useVoice() {
    const [isListening, setIsListening] = useState(false);
@@ -887,7 +906,7 @@ export function useVoice() {
     // cut off mid-sentence at 600 chars. Fish Audio handles long text fine;
     // if you hit an actual API length limit later, chunk-and-concatenate
     // rather than truncate.
-    const spoken = text.replace(/[•#*_]/g, "").replace(/\s+/g, " ").trim();
+        const spoken = normalizeForSpeech(text).replace(/[•#*_]/g, "").replace(/\s+/g, " ").trim();
     if (!spoken) return;
     stopSpeaking();
 
