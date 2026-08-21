@@ -410,7 +410,7 @@ export default function ChatWidget() {
                         ...(voice.isListening ? S.micBtnActive : {}),
                       }}
                       className={voice.isListening ? "mic-pulse" : ""}
-                      onClick={() => voice.startListening(transcript => send(transcript, true))}
+                      onClick={() => voice.startListening(transcript => send(transcript, false))}
                       disabled={loading || voice.isListening}
                       aria-label={voice.isListening ? "Listening..." : "Speak your question"}
                       title={voice.isListening ? "Listening..." : "Speak your question"}
