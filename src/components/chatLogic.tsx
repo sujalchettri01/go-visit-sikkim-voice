@@ -813,7 +813,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
 // replacement, otherwise "₹1,500-₹2,500" would double-process badly.
 function normalizeForSpeech(text: string): string {
   return text
-    // ₹1,500 or ₹1500.50 -> "1500 rupees" (strip thousands separators first)
+    // ₹1,500 or ₹1500.50 -> "1500 rupees"
     .replace(/₹\s?([\d,]+(?:\.\d+)?)/g, (_m, num) => `${num.replace(/,/g, "")} rupees`)
     // "Rs. 1,500" / "Rs 1500" -> "1500 rupees"
     .replace(/\bRs\.?\s?([\d,]+(?:\.\d+)?)/gi, (_m, num) => `${num.replace(/,/g, "")} rupees`)
@@ -821,10 +821,26 @@ function normalizeForSpeech(text: string): string {
     .replace(/(\d),(\d{3})/g, "$1$2")
     // "20%" -> "20 percent"
     .replace(/(\d+)\s?%/g, "$1 percent")
-    // "1500-2000" / "1500 - 2000" -> "1500 to 2000" (ranges, after currency
-    // conversion above already turned currency ranges into "X rupees-Y rupees")
+    // "3 Days / 2 Nights" -> "3 days and 2 nights" (before dash-range rule below)
+    .replace(/\s*\/\s*/g, " and ")
+    // "1500-2000" -> "1500 to 2000"
     .replace(/(\d)\s*-\s*(\d)/g, "$1 to $2")
-    .replace(/rupees-(\d)/g, "rupees to $1");
+    .replace(/rupees-(\d)/g, "rupees to $1")
+
+    // ─── Structure -> natural pauses (fixes the "sounds robotic" issue) ───
+    // "Day 1: Arrival in Gangtok" -> "On day 1, Arrival in Gangtok."
+    .replace(/^\s*day\s*(\d+)\s*[:\-]\s*/gim, "On day $1, ")
+    // Strip bullet markers — the line break after each bullet (below) is
+    // what creates the pause; the symbol itself would just be read aloud oddly.
+    .replace(/^\s*[•\-]\s*/gm, "")
+    // Every line break becomes a sentence-ending pause instead of being
+    // silently squashed into one long unbroken sentence.
+    .replace(/\n+/g, ". ")
+    // Clean up any doubled punctuation the steps above may have created.
+    .replace(/\.\s*\.+/g, ".")
+    .replace(/,\s*\./g, ".")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function useVoice() {
