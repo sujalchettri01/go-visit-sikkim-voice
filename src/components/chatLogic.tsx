@@ -986,12 +986,21 @@ export function useVoice() {
     };
     recognition.onstart = () => { isStartingRef.current = false; setVoiceError(null); setInterimTranscript(""); setTimer(INITIAL_GRACE_MS); };
     recognition.onspeechstart = () => setTimer(SILENCE_MS);
-    recognition.onresult = (event: any) => {
+       recognition.onresult = (event: any) => {
+      // Rebuild the full final transcript from scratch on every event instead
+      // of appending with `+=`. Android Chrome frequently re-fires onresult
+      // with `event.resultIndex` reset to an earlier position, re-sending
+      // results already processed — appending those again is what caused the
+      // growing, repeating text ("how how like me how like me like...").
+      // Reconstructing from index 0 every time is idempotent: re-sent results
+      // just overwrite the same content instead of duplicating onto it.
+      let final = "";
       let interim = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript + " ";
+      for (let i = 0; i < event.results.length; i++) {
+        if (event.results[i].isFinal) final += event.results[i][0].transcript + " ";
         else interim += event.results[i][0].transcript;
       }
+      finalTranscript = final;
       setInterimTranscript(interim);
       setTimer(SILENCE_MS);
     };
