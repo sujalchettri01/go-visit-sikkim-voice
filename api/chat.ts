@@ -44,11 +44,11 @@ export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
-
-  const { message, history } = req.body ?? {};
+  const { message, history, mode } = req.body ?? {};
   if (!message || typeof message !== "string") {
     return res.status(400).json({ error: "Missing 'message' in request body" });
   }
+  const isVoice = mode === "voice";
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -57,11 +57,31 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const messages: any[] = [
+       const messages: any[] = [
       { role: "system", content: buildSystemPrompt() },
       ...(Array.isArray(history) ? history : []),
       { role: "user", content: message },
     ];
+
+    // Voice replies are spoken aloud by TTS right after this — markdown,
+    // headers, and bullet-point lists that read fine on screen sound stiff
+    // and robotic out loud. Injected as its own late system message (same
+    // pattern as the location reminder below) rather than editing
+    // buildSystemPrompt(), so text-mode responses are completely untouched.
+    if (isVoice) {
+      messages.push({
+        role: "system",
+        content:
+          "This reply will be read aloud by text-to-speech, not displayed as text. " +
+          "Respond the way a friendly, knowledgeable local guide would speak in a real " +
+          "conversation: short, natural sentences, warm and conversational tone. " +
+          "Do NOT use markdown, headers, bullet points, numbered lists, or emojis. " +
+          "Do NOT use 'Day 1:' / 'Day 2:' style labels — describe the plan as flowing " +
+          "spoken sentences instead (e.g. 'On the first day, you'll...'). " +
+          "Keep it concise — a few sentences, not an exhaustive itinerary dump — since " +
+          "long spoken monologues are harder to follow than reading text.",
+      });
+    }
 
     // Deterministic code-level backstop for the searchPackages location bug:
     // the system prompt rule alone proved unreliable (verified — the AI kept

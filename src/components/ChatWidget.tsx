@@ -84,7 +84,7 @@ export default function ChatWidget() {
     setInput("");
     setLoading(true);
     try {
-      const reply = await handleMessage(msg, messages);
+            const reply = await handleMessage(msg, messages, viaVoice);
       setMessages(prev => [...prev, { role: "assistant", ...reply }]);
       if (viaVoice && reply.text) voice.speakText(reply.text);
     } catch (err) {

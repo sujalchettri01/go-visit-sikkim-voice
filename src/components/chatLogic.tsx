@@ -594,7 +594,7 @@ export function buildExploreSlides(): { top: SuggestionSlide[]; bottom: Suggesti
 // full history isn't needed for the AI to stay coherent, just recent context.
 const MAX_HISTORY_MESSAGES = 12;
 
-async function callAPI(message: string, history: Message[] = []): Promise<string> {
+async function callAPI(message: string, history: Message[] = [], mode: "text" | "voice" = "text"): Promise<string> {
   const recentHistory = history
     .slice(-MAX_HISTORY_MESSAGES)
     .map(m => ({ role: m.role, content: m.text }));
@@ -602,7 +602,9 @@ async function callAPI(message: string, history: Message[] = []): Promise<string
   const res = await fetch(CHAT_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, history: recentHistory }),
+    // `mode` lets api/chat.ts pick a different system prompt — short,
+    // conversational sentences for voice; full detail/lists/markdown for text.
+    body: JSON.stringify({ message, history: recentHistory, mode }),
   });
   if (!res.ok) throw new Error(`API error ${res.status}`);
   const data = await res.json();
@@ -657,9 +659,10 @@ function findLocalAnswer(userMessage: string): string | null {
   return best?.answer ?? null;
 }
 
-export async function handleMessage(userMessage: string, history: Message[]): Promise<Omit<Message, "role">> {
+export async function handleMessage(userMessage: string, history: Message[], viaVoice = false): Promise<Omit<Message, "role">> {
+  const mode: "text" | "voice" = viaVoice ? "voice" : "text";
   if (isShortReply(userMessage)) {
-    const raw = await callAPI(userMessage, history);
+    const raw = await callAPI(userMessage, history, mode);
     return { text: cleanText(raw) || "Could you tell me more?", time: getTime() };
   }
 
@@ -672,7 +675,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
   // "package" and attach unrelated cards from packagesData regardless of
   // what the AI actually generated.
   if (isCustomizeFormRequest(userMessage) || isDetailedPackageRequest(userMessage)) {
-    const raw = await callAPI(userMessage, history);
+    const raw = await callAPI(userMessage, history,mode);
     const text = cleanText(raw) || "Here's your customized itinerary! If anything looks off, let me know and I can adjust it.";
     return { text, time: getTime() };
   }
@@ -684,7 +687,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
   if (isPackageQuery(userMessage)) {
     let text = "Here are some amazing tour packages for Sikkim!";
     try {
-      const raw = await callAPI(userMessage, history);
+      const raw = await callAPI(userMessage, history,mode);
       const intro = extractIntro(raw);
       if (intro && intro.length > 10) text = intro;
     } catch { /* use default */ }
@@ -737,7 +740,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
     const hotels = getHotelsForCity(city).map(mapHotel);
     let text = `Here are some great hotels in ${city}! Click any card to view details.`;
     try {
-      const raw = await callAPI(userMessage, history);
+      const raw = await callAPI(userMessage, history,mode);
       const intro = extractIntro(raw);
       if (intro && intro.length > 10) text = intro;
     } catch { /* use default */ }
@@ -749,7 +752,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
     const bikes = getBikesForCity(city);
     let text = `Here are bikes available in ${city}! Click to book.`;
     try {
-      const raw = await callAPI(userMessage, history);
+      const raw = await callAPI(userMessage, history,mode);
       const intro = extractIntro(raw);
       if (intro && intro.length > 10) text = intro;
     } catch { /* use default */ }
@@ -770,7 +773,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
       ? "Here are the upcoming events, festivals and sports events in Sikkim!"
       : "Here are some exciting activities in Sikkim!";
     try {
-      const raw = await callAPI(userMessage, history);
+      const raw = await callAPI(userMessage, history,mode);
       const intro = extractIntro(raw);
       if (intro && intro.length > 10) text = intro;
     } catch { /* use default */ }
@@ -783,7 +786,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
     const routePrices = ROUTE_PRICES[from] ?? {};
     let text = to ? `Here are cabs from ${from} to ${to}!` : `Here are cabs from ${from}!`;
     try {
-      const raw = await callAPI(userMessage, history);
+      const raw = await callAPI(userMessage, history,mode);
       const intro = extractIntro(raw);
       if (intro && intro.length > 10) text = intro;
     } catch { /* use default */ }
@@ -798,7 +801,7 @@ export async function handleMessage(userMessage: string, history: Message[]): Pr
     return { text: localAnswer, time: getTime() };
   }
 
-  const raw = await callAPI(userMessage, history);
+  const raw = await callAPI(userMessage, history,mode);
   return { text: cleanText(raw) || "I'm here to help! Ask me about hotels, activities, packages, bikes or cabs in Sikkim.", time: getTime() };
 }
 
