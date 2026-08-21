@@ -958,121 +958,95 @@ export function useVoice() {
   };   
 
 
-   //////////////////////////////////////////////////////////////////////////////////////////
 
-  // Persisted across auto-restarts within one logical "listening session" —
-  // needed because the browser can silently kill recognition and we start a
-  // fresh SpeechRecognition instance to continue, which otherwise loses
-  // everything heard so far.
-  const accumulatedTranscriptRef = useRef("");
-  // True only when WE deliberately stopped it (silence timer fired, or the
-  // caller/user stopped it). False means the browser cut it off on its own —
-  // the #1 cause of the "listens for 2-3s then closes" bug on mobile — in
-  // which case we auto-restart instead of treating it as the end of speech.
-  const intentionalStopRef = useRef(false);
 
-  const runRecognitionSession = (onTranscript: (text: string) => void) => {
+  const startListening = (onTranscript: (text: string) => void) => {
+    if (isListening || isStartingRef.current) return;
     isStartingRef.current = true;
     const SpeechRecognitionCtor =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionCtor) { isStartingRef.current = false; return; }
 
+      stopSpeaking();
+    // Kill any lingering previous session before starting a new one —
+    // starting a new recognition while an old one hasn't fully torn down
+    // is the #1 cause of start() throwing on the next auto-restart.
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch { /* already stopped */ }
+      recognitionRef.current = null;
+    }
     const recognition = new SpeechRecognitionCtor();
-    recognition.lang = "en-IN";
+    recognition.lang = "en-IN"; // best available match for Hindi-English code-switched speech
+    // `continuous = true` + our own silence timer, instead of the browser's
+    // default cutoff, which fires way too early (sometimes under a second).
     recognition.continuous = true;
     recognition.interimResults = true;
 
-    let sessionFinal = "";
+    let finalTranscript = "";
     let silenceTimer: ReturnType<typeof setTimeout> | null = null;
-    const INITIAL_GRACE_MS = 6000;
-    const SILENCE_MS = 3800;
+      const INITIAL_GRACE_MS = 6000; // covers mic warm-up + network round-trip before any speech is heard
+    const SILENCE_MS = 3800; // pause length that counts as "done talking" once speech has started — long enough to survive normal mid-sentence pauses/breaths
 
     const setTimer = (ms: number) => {
       if (silenceTimer) clearTimeout(silenceTimer);
-      silenceTimer = setTimeout(() => {
-        intentionalStopRef.current = true; // WE are ending it — real end of speech
-        recognition.stop();
-      }, ms);
+      silenceTimer = setTimeout(() => recognition.stop(), ms);
     };
-
-    recognition.onstart = () => {
-      isStartingRef.current = false;
-      setVoiceError(null);
-      setInterimTranscript("");
-      setTimer(INITIAL_GRACE_MS);
-    };
+    recognition.onstart = () => { isStartingRef.current = false; setVoiceError(null); setInterimTranscript(""); setTimer(INITIAL_GRACE_MS); };
     recognition.onspeechstart = () => setTimer(SILENCE_MS);
-    recognition.onresult = (event: any) => {
+       recognition.onresult = (event: any) => {
+      // Rebuild the full final transcript from scratch on every event instead
+      // of appending with `+=`. Android Chrome frequently re-fires onresult
+      // with `event.resultIndex` reset to an earlier position, re-sending
+      // results already processed — appending those again is what caused the
+      // growing, repeating text ("how how like me how like me like...").
+      // Reconstructing from index 0 every time is idempotent: re-sent results
+      // just overwrite the same content instead of duplicating onto it.
       let final = "";
       let interim = "";
       for (let i = 0; i < event.results.length; i++) {
         if (event.results[i].isFinal) final += event.results[i][0].transcript + " ";
         else interim += event.results[i][0].transcript;
       }
-      sessionFinal = final;
-      // Show the FULL transcript so far (previous sessions + this one) as captions.
-      setInterimTranscript((accumulatedTranscriptRef.current + " " + sessionFinal + interim).trim());
+      finalTranscript = final;
+      setInterimTranscript(interim);
       setTimer(SILENCE_MS);
     };
-    recognition.onerror = (event: any) => {
+       recognition.onerror = (event: any) => {
       isStartingRef.current = false;
+      setIsListening(false);
+      setInterimTranscript("");
       if (silenceTimer) clearTimeout(silenceTimer);
       const code = event?.error;
       console.error("Speech recognition error:", code);
-
-      // "no-speech" on mobile fires very aggressively even mid-sentence —
-      // treat it like a premature browser cutoff and auto-restart rather
-      // than killing the whole listening session over it.
-      if (code === "no-speech" && !intentionalStopRef.current && !suppressVoiceSendRef.current) {
-        accumulatedTranscriptRef.current = (accumulatedTranscriptRef.current + " " + sessionFinal).trim();
-        runRecognitionSession(onTranscript);
-        return;
-      }
-
-      setIsListening(false);
-      setInterimTranscript("");
       const FRIENDLY: Record<string, string> = {
         "not-allowed": "Microphone permission was denied — check your browser's site settings and allow the mic.",
         "permission-denied": "Microphone permission was denied — check your browser's site settings and allow the mic.",
         "no-speech": "No speech was detected — try speaking as soon as you tap the mic.",
         "audio-capture": "No microphone was found on this device.",
-        "network": "(Don't use in brave) Network error reaching the speech recognition service — check your internet connection.",
+        "network": "(Don't  use in brave) Network error reaching the speech recognition service — check your internet connection.",
         "aborted": "Recording was interrupted.",
         "service-not-allowed": "The browser blocked access to the speech recognition service.",
       };
       setVoiceError(FRIENDLY[code] ?? `Voice error: ${code ?? "unknown"}`);
     };
     recognition.onend = () => {
-      if (silenceTimer) clearTimeout(silenceTimer);
-
-      if (suppressVoiceSendRef.current) {
-        setIsListening(false);
-        setInterimTranscript("");
-        suppressVoiceSendRef.current = false;
-        return;
-      }
-
-      if (!intentionalStopRef.current) {
-        // The browser closed it on its own (mobile's aggressive auto-stop) —
-        // this is the bug. Carry forward what was heard and seamlessly
-        // start a new session instead of ending the turn.
-        accumulatedTranscriptRef.current = (accumulatedTranscriptRef.current + " " + sessionFinal).trim();
-        runRecognitionSession(onTranscript);
-        return;
-      }
-
-      // Real end of speech (our own silence timer fired).
-      const transcript = (accumulatedTranscriptRef.current + " " + sessionFinal).trim();
-      accumulatedTranscriptRef.current = "";
-      intentionalStopRef.current = false;
       setIsListening(false);
       setInterimTranscript("");
-      if (transcript) onTranscript(transcript);
+      if (silenceTimer) clearTimeout(silenceTimer);
+      const transcript = finalTranscript.trim();
+      if (transcript && !suppressVoiceSendRef.current) onTranscript(transcript);
+      suppressVoiceSendRef.current = false;
     };
 
-    recognitionRef.current = recognition;
+     recognitionRef.current = recognition;
+    setIsListening(true);
     try {
       recognition.start();
-    } catch (err) {
+      } catch (err) {
+      // start() can throw synchronously (stale session, no fresh user
+      // gesture, etc). Without this catch, isListening stays stuck at
+      // `true` forever since onstart/onend never fire — which is why
+      // Voice Mode looked like it "closed" after one exchange.
       console.error("recognition.start() failed:", err);
       isStartingRef.current = false;
       if (silenceTimer) clearTimeout(silenceTimer);
@@ -1080,24 +1054,6 @@ export function useVoice() {
       setInterimTranscript("");
       setVoiceError("Couldn't restart the mic — tap it again.");
     }
-  };
-
-  const startListening = (onTranscript: (text: string) => void) => {
-    if (isListening || isStartingRef.current) return;
-    const SpeechRecognitionCtor =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognitionCtor) return;
-
-    stopSpeaking();
-    if (recognitionRef.current) {
-      try { recognitionRef.current.abort(); } catch { /* already stopped */ }
-      recognitionRef.current = null;
-    }
-
-    accumulatedTranscriptRef.current = "";
-    intentionalStopRef.current = false;
-    setIsListening(true);
-    runRecognitionSession(onTranscript);
   };
 
   // Call when the chat panel closes — stops any active mic/speech instead of
