@@ -421,15 +421,27 @@ export const S: Record<string, CSSProperties> = {
     background: "#f6f5f2", border: "0.5px solid #e7e5df", color: "#57534e",
     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
   },
-  voiceOrb: {
+    voiceOrb: {
     width: "160px", height: "160px", borderRadius: "50%",
     background: "linear-gradient(160deg, #6d28d9, #3b6cf6 45%, #a78bfa 80%, #fff)",
     boxShadow: "0 8px 40px rgba(109,40,217,0.35)",
+    // Without these, a long spoken caption pushes total content taller than
+    // the viewport, and the parent flex column (voiceModeOverlay) shrinks the
+    // orb's height to compensate — but not its width, since flex-shrink only
+    // acts on the main axis. That squashed a 160px circle into an oval.
+    flexShrink: 0,
+    aspectRatio: "1 / 1",
   },
   voiceModeStatus: { fontSize: "15px", fontWeight: 600, color: "#1e1b4b", margin: 0 },
-  voiceModeCaption: {
+   voiceModeCaption: {
     maxWidth: "480px", textAlign: "center" as const,
     fontSize: "14px", color: "#57534e", lineHeight: 1.6, margin: 0,
+    // Long AI replies (packages/itineraries) could grow tall enough to force
+    // the whole overlay past the viewport, which is what squeezed the orb
+    // above. Capping height + letting the caption scroll on its own keeps
+    // total content height bounded no matter how long the reply is.
+    maxHeight: "30vh",
+    overflowY: "auto" as const,
   },
   voiceModeMicBtn: {
     width: "60px", height: "60px", borderRadius: "50%",

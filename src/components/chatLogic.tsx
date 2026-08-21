@@ -883,7 +883,11 @@ export function useVoice() {
   const speakText = async (text: string) => {
     // Speech synthesis reads punctuation literally ("bullet point") and
     // chokes on very long text — strip markdown leftovers and cap length.
-    const spoken = text.replace(/[•#*_]/g, "").replace(/\s+/g, " ").trim().slice(0, 600);
+        // No hard length cap — long replies (packages, itineraries) were getting
+    // cut off mid-sentence at 600 chars. Fish Audio handles long text fine;
+    // if you hit an actual API length limit later, chunk-and-concatenate
+    // rather than truncate.
+    const spoken = text.replace(/[•#*_]/g, "").replace(/\s+/g, " ").trim();
     if (!spoken) return;
     stopSpeaking();
 
